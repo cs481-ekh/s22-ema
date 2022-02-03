@@ -1,9 +1,11 @@
+import 'package:flutter/material.dart';
+/*
 import 'dart:async';
 import 'dart:convert';
-import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:flutter_datetime_picker/flutter_datetime_picker.dart';
+*/
 
 // local imports
 import 'actions/notification_actions.dart';
@@ -14,23 +16,25 @@ import 'screens/admin_screen.dart';
 
 // firebase plugins
 import 'package:firebase_core/firebase_core.dart';
-import 'package:firebase_analytics/firebase_analytics.dart';
-import 'package:firebase_analytics/observer.dart';
+//import 'package:firebase_analytics/firebase_analytics.dart';
+//import 'package:firebase_analytics/observer.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
+//import 'package:cloud_firestore/cloud_firestore.dart';
+import 'firebase_options.dart';
+/*
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
-
+*/
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
-  await Firebase.initializeApp();
-  FirebaseMessaging.onBackgroundMessage(firebaseMessagingBackgroundHandler);
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(App());
 }
 
@@ -40,11 +44,10 @@ class App extends StatefulWidget {
   @override
   _AppState createState() => _AppState();
 
-  static FirebaseAnalytics analytics = FirebaseAnalytics();
-  static FirebaseAnalyticsObserver observer =
-      FirebaseAnalyticsObserver(analytics: analytics);
-  static FirebaseFirestore firestore = FirebaseFirestore.instance;
-
+  //static FirebaseAnalytics analytics = FirebaseAnalytics();
+  //static FirebaseAnalyticsObserver observer =
+  //   FirebaseAnalyticsObserver(analytics: analytics);
+  //static FirebaseFirestore firestore = FirebaseFirestore.instance;
 }
 
 class _AppState extends State<App> {
@@ -61,10 +64,9 @@ class _AppState extends State<App> {
 
   // Define an async function to initialize FlutterFire
   void initializeFlutterFire() async {
-
     //I'm initializing this here because I'm not sure if there's a better spot for it
     //We can move it if needed but it appears to work here for now
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
+    // FirebaseMessaging messaging = FirebaseMessaging.instance;
 
     //On iOS, the user needs to give permission for cloud messaging
     //On Android it's authorized automatically
@@ -77,7 +79,6 @@ class _AppState extends State<App> {
     //   provisional: false,
     //   sound: true,
     // );
-
 
     // print('User granted permission: ${settings.authorizationStatus}');
     // if (settings.authorizationStatus.toString() ==
@@ -101,9 +102,9 @@ class _AppState extends State<App> {
 
   void checkSavedLogin() async {
     bool saved = await InternalUser.checkSavedLogin();
-    if(saved) {
+    if (saved) {
       String? error = await InternalUser.loginWithStoredInstance();
-      if(error == null) {
+      if (error == null) {
         setState(() {
           _savedLogin = true;
         });
@@ -116,7 +117,6 @@ class _AppState extends State<App> {
     setState(() {
       _loginInitialized = true;
     });
-
   }
 
   @override
@@ -141,18 +141,18 @@ class _AppState extends State<App> {
   Widget build(BuildContext context) {
     // scaffold is a layout for the major Material Components
 
-    if(_savedLogin && _loginInitialized) {
+    if (_savedLogin && _loginInitialized) {
       bool isAdmin = false;
       if (InternalUser.instance()?.isAdmin == true) {
         isAdmin = true;
       }
       return MaterialApp(
-        home: isAdmin
-            ? AdminPage(adminProjectIdController: adminProjectIdController)
-            : UserPage());
+          home: isAdmin
+              ? AdminPage(adminProjectIdController: adminProjectIdController)
+              : UserPage());
     }
 
-    if(_loginInitialized) {
+    if (_loginInitialized) {
       return MaterialApp(
         home: LoginPage(
             usernameController: usernameController,
@@ -162,13 +162,8 @@ class _AppState extends State<App> {
       );
     } else {
       return MaterialApp(
-
-        home: Scaffold(
-            body: Center(
-              child: Image.asset("assets/images/logo.png")
-            )
-        )
-      );
+          home: Scaffold(
+              body: Center(child: Image.asset("assets/images/logo.png"))));
     }
   }
 }
