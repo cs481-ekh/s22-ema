@@ -16,6 +16,7 @@ came into the meeting late because he thought the meeting was at 3 p.m. (oops)
 Minutes 2/5/22
 Scribe: Jeff
 Present: Alejandro, Andrew, Brandon, Jason, Jeff, Jon
+Absent: Daniel
 Items: Worked on finishing project plan. This included refining milestones, the schedule, and contingencies.
 Also incorporated sponsor meeting feedback into our project plan in terms of clarification, priorities and potential
 workarounds.
