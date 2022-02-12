@@ -15,3 +15,4 @@ Open Xcode and create a signing profile by selecting 'team' -> Add Account -> an
 <img width="792" alt="Screen Shot 2022-02-03 at 1 06 20 AM" src="https://user-images.githubusercontent.com/42556403/152304102-09d9c406-d687-47d9-8546-96c33163403f.png">
 
 $ 'flutter run' (iOS Simulator needs to be running prior to this)
+test
