@@ -46,6 +46,7 @@ dependencies:
   table_calendar: ^3.0.3
   flutter_datetime_picker: ^1.5.1
   flutter_secure_storage: ^5.0.2
+  mockito: ^5.1.0
 
 dev_dependencies:
   flutter_test:

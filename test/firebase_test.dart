@@ -7,26 +7,26 @@ import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:ema/main.dart';
 
 void main() {
+  testWidgets('User can signin with valid credentials',
+      (WidgetTester tester) async {
+    final user = MockUser(
+        isAnonymous: false,
+        uid: 'uid123',
+        email: 'UnitTest@gmail.com',
+        displayName: 'ThomasTester');
 
-//   testWidgets('User can signin with valid credentials', (WidgetTester tester) async {
-//
-//     final user = MockUser(
-//       isAnonymous: false,
-//       uid: 'uid123',
-//       email: 'test@gmail.com',
-//       displayName: 'ThomasTester'
-//     );
-//
-//     final auth = MockFirebaseAuth(mockUser: user);
-//
-//     // TODO: update for checking UI changes
-//     final result = await auth.signInWithEmailAndPassword(email: 'test@gmail.com', password: "abc123");
-//
-//     final t = result.user;
-//
-//     // Verify 'Send Notification' button exists
-//     expect(t?.displayName, 'ThomasTester');
-//   });
+    final auth = MockFirebaseAuth();
+
+    // TODO: update for checking UI changes
+    final result = await auth.signInWithEmailAndPassword(
+        email: 'test1@gmail.com', password: "abc123");
+
+    print(result.user.toString());
+    final t = result.user;
+
+    // Verify 'Send Notification' button exists
+    expect(t?.displayName, 'ThomasTester');
+  });
 //
 //   testWidgets('User can\'t signin with invalid credentials', (WidgetTester tester) async {
 //
@@ -47,5 +47,4 @@ void main() {
 //     // Verify 'Send Notification' button exists
 //     expect(t?.displayName, 'ThomasTester');
 //   });
-
 }
