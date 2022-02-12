@@ -3,12 +3,8 @@ name: web-console-build
 on:
   push:
     branches: [ main ]
-    paths:
-    - 'web-console/**'
   pull_request:
     branches: [ main ]
-    paths: 
-    - 'web-console/**'
 
 jobs:
   build:
@@ -27,9 +23,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install Dependencies
       run: |
-        cd web-console
         python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        pip install -r web-console/requirements.txt
     - name: Build Application
       run: |
         docker-compose up --build
