@@ -27,4 +27,5 @@ jobs:
         pip install -r web-console/requirements.txt
     - name: Build Application
       run: |
+        cd web-console
         docker-compose up --build
