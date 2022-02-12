@@ -3,14 +3,12 @@ name: web-console-test
 on:
   push:
     branches: [ main ]
-      rules:
-        changes:
-          - web-console/**/*
+    paths:
+    - 'web-console/**'
   pull_request:
     branches: [ main ]
-      rules:
-        changes:
-          - web-console/**/*
+    paths:
+    - 'web-console/**'
 
 jobs:
   build:
