@@ -1,0 +1,32 @@
+name: webconsole-test
+
+on:
+  push:
+    branches: [ webconsole ]
+  pull_request:
+    branches: [ webconsole ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        python-version: [3.9]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v2
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        cd web-console
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+    - name: Run Tests (tests.py)
+      run: |
+        cd web-console
+        python manage.py test
