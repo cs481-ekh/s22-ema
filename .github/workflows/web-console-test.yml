@@ -3,12 +3,8 @@ name: web-console-test
 on:
   push:
     branches: [ main ]
-    paths:
-    - 'web-console/**'
   pull_request:
     branches: [ main ]
-    paths:
-    - 'web-console/**'
 
 jobs:
   build:
@@ -32,13 +28,16 @@ jobs:
         pip install -r requirements.txt
     - name: Lint with flake8
       run: |
+        cd web-console
         pip install flake8
         flake8
     - name: Coverage report
       run: |
+        cd web-console
         pip install coverage
         coverage run manage.py test
         coverage report
     - name: Run Tests (tests.py)
       run: |
+        cd web-console
         python manage.py test
