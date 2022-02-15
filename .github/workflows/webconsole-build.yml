@@ -29,6 +29,6 @@ jobs:
     - name: Build Application
       run: |
         cd web-console
-        docker-compose up --build
+        docker build .
         echo "Build successful without errors"
         exit 0
