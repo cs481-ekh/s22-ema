@@ -5,6 +5,6 @@ Boise State CS 481
 
 <h3>Web Console Health </h3>
 
-[![webconsole-build](https://github.com/cs481-ekh/s22-ema/actions/workflows/webconsole-build.yml/badge.svg)](https://github.com/cs481-ekh/s22-ema/actions/workflows/webconsole-build.yml)
+[![web-build](https://github.com/cs481-ekh/s22-ema/actions/workflows/webconsole-build.yml/badge.svg)](https://github.com/cs481-ekh/s22-ema/actions/workflows/webconsole-build.yml)
 
 [![webconsole-test](https://github.com/cs481-ekh/s22-ema/actions/workflows/webconsole-test.yml/badge.svg)](https://github.com/cs481-ekh/s22-ema/actions/workflows/webconsole-test.yml)
