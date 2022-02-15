@@ -6,7 +6,6 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:ema/screens/login_screen.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -27,10 +26,6 @@ final tUser = MockUser(
 );
 
 final auth = MockFirebaseAuth(mockUser: tUser);
-final theError = FirebaseAuthException(
-  code: 'wrong-password:',
-  message: 'The password entered is incorrect',
-);
 
 Future<MockUserCredential> createUserWithEmailAndPassword(
     {@required String? email, required String password}) async {
