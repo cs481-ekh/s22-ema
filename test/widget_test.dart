@@ -61,9 +61,6 @@ void main() {
         navigatorObservers: [mockObserver]);
     await tester.pumpWidget(testWidget);
 
-    createUserWithEmailAndPassword(
-        email: "bob@builder.com", password: "T3STU1D");
-
     final test = await auth.signInWithEmailAndPassword(
         email: "bob@builder.com", password: "T3STU1D");
 
