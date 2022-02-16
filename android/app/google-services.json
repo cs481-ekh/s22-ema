@@ -1,6 +1,7 @@
 {
   "project_info": {
     "project_number": "655509160020",
+    "firebase_url": "https://ema-ramen-default-rtdb.firebaseio.com",
     "project_id": "ema-ramen",
     "storage_bucket": "ema-ramen.appspot.com"
   },
@@ -37,6 +38,13 @@
             {
               "client_id": "655509160020-3f6i5pb9ivi6bn4sdjgqegcjd1dqoups.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "655509160020-50gmr7itqca0t8g7d4l47f1cm46jjqhr.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.ramen.ema"
+              }
             }
           ]
         }

@@ -1,15 +1,11 @@
-name: ema-build
+name: iOS-build
 on: 
   push:
     branches:
       - "ios"
-    paths:
-      - ios/**
-      - android/**
-      - lib/**
   pull_request:
     branches:
-      - main
+      - "ios"
 jobs:
   build_with_signing:
     runs-on: macos-latest
