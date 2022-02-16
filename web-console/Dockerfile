@@ -14,5 +14,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 RUN python manage.py migrate
 
 # gunicorn
-CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
+# CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
+
+# This signifies that built was complete and that instead of running the server we will simply print "Project Built Successfully"
+CMD ["/bin/echo", "Project built successfully!"]
 
