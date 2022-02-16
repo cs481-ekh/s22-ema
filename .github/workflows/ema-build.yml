@@ -4,9 +4,9 @@ on:
     branches:
       - main
     paths:
-      - ios/**
-      - android/**
-      - lib/**
+      - ios/*
+      - android/*
+      - lib/*
   pull_request:
     branches:
       - main
