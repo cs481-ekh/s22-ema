@@ -30,8 +30,8 @@ class AdminHomePageState extends State<AdminHomePage> {
       body: Center(
         child: SingleChildScrollView(
             child: Column(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             Container(
               height: 96,
@@ -91,7 +91,12 @@ class AdminHomePageState extends State<AdminHomePage> {
               height: 48,
               child: TextButton(
                 onPressed: () {
-                  scheduleNotification(_time?.minute, _time?.hour, _selectedDay?.year, _selectedDay?.month, _selectedDay?.day);
+                  scheduleNotification(
+                      _time?.minute,
+                      _time?.hour,
+                      _selectedDay?.year,
+                      _selectedDay?.month,
+                      _selectedDay?.day);
                   print('Scheduled');
                 },
                 child: const Text('Schedule'),
