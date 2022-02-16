@@ -10,7 +10,7 @@ if [[ "$OSTYPE" =~ ^darwin ]]; then
 	fi
 	
 	echo "Creating iOS build..."
-	flutter build ios
+	flutter build ios --no-codesign
 	if [ "$?" -ne "0" ]; then
           echo "Error with flutter iOS build!"
           exit 1
