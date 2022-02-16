@@ -39,5 +39,4 @@ void main() {
     // Does not throw an exception.
     await user!.reload();
   });
-
 }
