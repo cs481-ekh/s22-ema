@@ -143,14 +143,7 @@ class _AppState extends State<App> {
     // scaffold is a layout for the major Material Components
 
     if (_savedLogin && _loginInitialized) {
-      bool isAdmin = false;
-      if (InternalUser.instance()?.isAdmin == true) {
-        isAdmin = true;
-      }
-      return MaterialApp(
-          home: isAdmin
-              ? AdminPage(adminProjectIdController: adminProjectIdController)
-              : UserPage());
+      return MaterialApp(home: UserPage());
     }
 
     if (_loginInitialized) {

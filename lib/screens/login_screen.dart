@@ -97,10 +97,7 @@ class LoginPage extends StatelessWidget {
                       onPressed: () async {
                         String userSigninCheck = await signinUser(
                             usernameController.text, passwordController.text);
-                        bool isAdmin = false;
-                        if (InternalUser.instance()?.isAdmin == true) {
-                          isAdmin = true;
-                        }
+
                         if (userSigninCheck == "") {
                           // navigate to appropriate user page
                           InternalUser.setStoredInstance(
@@ -108,11 +105,7 @@ class LoginPage extends StatelessWidget {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => isAdmin
-                                      ? AdminPage(
-                                          adminProjectIdController:
-                                              adminProjectIdController)
-                                      : UserPage()));
+                                  builder: (context) => UserPage()));
                         } else {
                           showDialog(
                               context: context,
