@@ -12,7 +12,6 @@ import 'actions/notification_actions.dart';
 import 'screens/login_screen.dart';
 import 'utils/data_classes.dart';
 import 'screens/user_screen.dart';
-import 'screens/admin_screen.dart';
 
 // firebase plugins
 import 'package:firebase_core/firebase_core.dart';
@@ -144,15 +143,16 @@ class _AppState extends State<App> {
 
     if (_savedLogin && _loginInitialized) {
       return MaterialApp(home: UserPage());
+
     }
 
     if (_loginInitialized) {
       return MaterialApp(
         home: LoginPage(
-            usernameController: usernameController,
-            passwordController: passwordController,
-            projectIdController: projectIdController,
-            adminProjectIdController: adminProjectIdController),
+          usernameController: usernameController,
+          passwordController: passwordController,
+          projectIdController: projectIdController,
+        ),
       );
     } else {
       return MaterialApp(
