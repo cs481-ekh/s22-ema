@@ -12,7 +12,6 @@ import 'actions/notification_actions.dart';
 import 'screens/login_screen.dart';
 import 'utils/data_classes.dart';
 import 'screens/user_screen.dart';
-import 'screens/admin_screen.dart';
 
 // firebase plugins
 import 'package:firebase_core/firebase_core.dart';
@@ -147,19 +146,16 @@ class _AppState extends State<App> {
       if (InternalUser.instance()?.isAdmin == true) {
         isAdmin = true;
       }
-      return MaterialApp(
-          home: isAdmin
-              ? AdminPage(adminProjectIdController: adminProjectIdController)
-              : UserPage());
+      return const MaterialApp(home: UserPage());
     }
 
     if (_loginInitialized) {
       return MaterialApp(
         home: LoginPage(
-            usernameController: usernameController,
-            passwordController: passwordController,
-            projectIdController: projectIdController,
-            adminProjectIdController: adminProjectIdController),
+          usernameController: usernameController,
+          passwordController: passwordController,
+          projectIdController: projectIdController,
+        ),
       );
     } else {
       return MaterialApp(
