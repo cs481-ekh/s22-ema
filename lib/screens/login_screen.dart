@@ -5,7 +5,6 @@ import 'package:ema/utils/global_funcs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../actions/login_actions.dart';
-import 'admin_screen.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController usernameController;
