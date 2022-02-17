@@ -1,25 +1,21 @@
 import 'package:ema/screens/user_project_id_screen.dart';
 import 'package:ema/screens/user_screen.dart';
 import 'package:ema/utils/data_classes.dart';
-import 'package:ema/utils/global_funcs.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../actions/login_actions.dart';
-import 'admin_screen.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController usernameController;
   final TextEditingController passwordController;
   final TextEditingController projectIdController;
-  final TextEditingController adminProjectIdController;
 
-  LoginPage(
-      {Key? key,
-      required this.usernameController,
-      required this.passwordController,
-      required this.projectIdController,
-      required this.adminProjectIdController})
-      : super(key: key);
+  LoginPage({
+    Key? key,
+    required this.usernameController,
+    required this.passwordController,
+    required this.projectIdController,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -97,10 +93,6 @@ class LoginPage extends StatelessWidget {
                       onPressed: () async {
                         String userSigninCheck = await signinUser(
                             usernameController.text, passwordController.text);
-                        bool isAdmin = false;
-                        if (InternalUser.instance()?.isAdmin == true) {
-                          isAdmin = true;
-                        }
                         if (userSigninCheck == "") {
                           // navigate to appropriate user page
                           InternalUser.setStoredInstance(
@@ -108,11 +100,7 @@ class LoginPage extends StatelessWidget {
                           Navigator.pushReplacement(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => isAdmin
-                                      ? AdminPage(
-                                          adminProjectIdController:
-                                              adminProjectIdController)
-                                      : UserPage()));
+                                  builder: (context) => const UserPage()));
                         } else {
                           showDialog(
                               context: context,

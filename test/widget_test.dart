@@ -56,8 +56,7 @@ void main() {
         home: new LoginPage(
             usernameController: TextEditingController(),
             passwordController: TextEditingController(),
-            projectIdController: TextEditingController(),
-            adminProjectIdController: TextEditingController()),
+            projectIdController: TextEditingController()),
         navigatorObservers: [mockObserver]);
     await tester.pumpWidget(testWidget);
 
