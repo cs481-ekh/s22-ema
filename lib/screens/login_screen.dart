@@ -93,6 +93,7 @@ class LoginPage extends StatelessWidget {
                       onPressed: () async {
                         String userSigninCheck = await signinUser(
                             usernameController.text, passwordController.text);
+
                         if (userSigninCheck == "") {
                           // navigate to appropriate user page
                           InternalUser.setStoredInstance(

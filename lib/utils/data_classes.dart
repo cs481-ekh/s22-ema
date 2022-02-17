@@ -9,23 +9,20 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class InternalUser {
   User? user;
   String? projectId;
-  bool isAdmin = false;
 
-  InternalUser({this.user, this.projectId, this.isAdmin = false});
+  InternalUser({this.user, this.projectId});
 
   //This actually works now, but the clearInstance method is not called properly in many cases
   static InternalUser? _instance;
 
-  static InternalUser? instance({user, projectId, isAdmin}) {
+  static InternalUser? instance({user, projectId}) {
     if (_instance == null) {
-      _instance =
-          InternalUser(user: user, projectId: projectId, isAdmin: isAdmin);
+      _instance = InternalUser(user: user, projectId: projectId);
       return _instance;
     }
     if (_instance!.user == null) {
       _instance!.user = user;
       _instance!.projectId = projectId;
-      _instance!.isAdmin = isAdmin;
     }
     return _instance;
   }
@@ -75,7 +72,6 @@ Future<void> clearInternalUser() async {
   if (internalUser != null) {
     internalUser.user = null;
     internalUser.projectId = null;
-    internalUser.isAdmin = false;
   }
 }
 
