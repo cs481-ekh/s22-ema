@@ -5,7 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 
 from django.test import TestCase
 from example import *
-
+##
 class testTeaseCase(TestCase):
 # Create your tests here.
     def test_testingpytest(self):
