@@ -22,8 +22,6 @@ def main():
     # Start the background thread
     stop_run_continuously = run_continuously()
 
-    schedule.every(1).seconds.do(background_job)
-
     execute_from_command_line(sys.argv)
 
 
