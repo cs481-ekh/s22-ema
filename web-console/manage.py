@@ -19,10 +19,12 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
 
-    # Start the background thread
-    stop_run_continuously = run_continuously()
+    # Starts the background deamon thread the runs the sceduling system
+    run_continuously()
 
     execute_from_command_line(sys.argv)
+
+    schedule.every().second.do(background_job)
 
 
 

@@ -3,7 +3,8 @@ import time
 import schedule
 
 
-def run_continuously(interval=1):
+#method to start background thread running the scueding system takes in a int in secends to sleep between checking to see if there are jobs to run defualt 10
+def run_continuously(interval=10):
     """Continuously run, while executing pending jobs at each
     elapsed time interval.
     @return cease_continuous_run: threading. Event which can
@@ -20,16 +21,19 @@ def run_continuously(interval=1):
         @classmethod
         def run(cls):
             while not cease_continuous_run.is_set():
+                #runs any pending jobs that came up between the last run and now
                 schedule.run_pending()
                 time.sleep(interval)
 
+    #creates thread
     continuous_thread = ScheduleThread()
+    #sets thread to deamon so it will die needs to be done before the start
     continuous_thread.daemon = True
     continuous_thread.start()
-    return cease_continuous_run
 
 
 def background_job():
     print('Hello from the background thread')
+
 
 
