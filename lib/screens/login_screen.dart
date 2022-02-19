@@ -4,6 +4,7 @@ import 'package:ema/utils/data_classes.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import '../actions/login_actions.dart';
+import 'forgot_password.dart';
 
 class LoginPage extends StatelessWidget {
   final TextEditingController usernameController;
@@ -231,6 +232,31 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ])),
+            Flexible(
+                flex: 3,
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Padding(
+                    padding: const EdgeInsets.all(20.0),
+                    child: TextButton(
+                      style: TextButton.styleFrom(
+                          padding: const EdgeInsets.only(
+                              top: 20.0, bottom: 20.0, left: 30.0, right: 30.0),
+                          primary: Colors.white,
+                          textStyle: const TextStyle(fontSize: 20),
+                          backgroundColor: Colors.blue),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          new MaterialPageRoute(
+                            builder: (context) => new ForgotPassword(),
+                          ),
+                        );
+                      },
+                      child: Text('Forgot Password'),
+                    ),
+                  ),
+                ]))
           ],
         ),
       ),
