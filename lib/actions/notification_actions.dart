@@ -6,9 +6,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../screens/user_screen.dart';
 
-
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-
   print("Handling a background message: ${message.messageId}");
 
   storeMessage(message);
@@ -36,7 +34,7 @@ Future<void> storeMessage(RemoteMessage message) async {
   notifs.insert(0, newNotif);
 
   //Limit list to 5 most recent notifications
-  if(notifs.length > 5) {
+  if (notifs.length > 5) {
     notifs.removeRange(4, notifs.length - 1);
   }
 
@@ -59,7 +57,7 @@ void handleForegroundMessage(RemoteMessage message) {
 
 Future<void> setupInteractedMessage() async {
   RemoteMessage? openingMessage =
-  await FirebaseMessaging.instance.getInitialMessage();
+      await FirebaseMessaging.instance.getInitialMessage();
 
   if (openingMessage != null) {
     _handleMessage(openingMessage);
@@ -67,8 +65,13 @@ Future<void> setupInteractedMessage() async {
 
   FirebaseMessaging.onMessageOpenedApp.listen(_handleMessage);
   print("Finished setting up notification tap handler");
+  var token = await FirebaseMessaging.instance.getToken();
+  if (token == null) {
+    print("Could not get token.");
+  } else {
+    print("Firebase messaging token: " + token);
+  }
 }
-
 
 void _handleMessage(RemoteMessage message) async {
   print("Handling notification press");
