@@ -8,6 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
+import firebase_admin
 
 
 @login_required(login_url="/login/")
@@ -42,3 +43,9 @@ def pages(request):
     except:
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render(context, request))
+
+
+# Connecting to firebase
+def connectFirebase():
+    # provide file path for firebase credentials
+    cred_obj = firebase_admin.credentials.Certificate('/Users/dnlrao/Desktop/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json')
