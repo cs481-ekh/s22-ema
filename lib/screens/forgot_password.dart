@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class ForgotPassword extends StatelessWidget {
   static String id = 'forgot-password';
+  String _email = "";
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +21,9 @@ class ForgotPassword extends StatelessWidget {
                 style: TextStyle(fontSize: 30, color: Colors.white),
               ),
               TextFormField(
+                onSaved: (newEmail) {
+                  _email = newEmail!;
+                },
                 style: const TextStyle(color: Colors.white),
                 decoration: const InputDecoration(
                   labelText: 'Email',
@@ -43,7 +48,10 @@ class ForgotPassword extends StatelessWidget {
               const SizedBox(height: 20),
               RaisedButton(
                 child: const Text('Send Email'),
-                onPressed: () {},
+                onPressed: () {
+                  passwordReset();
+                  print(_email);
+                },
               ),
               FlatButton(
                 child: const Text('Sign In'),
@@ -54,5 +62,15 @@ class ForgotPassword extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Future passwordReset() async {
+    String errorMessage = "";
+    try {
+      final _auth = FirebaseAuth.instance;
+      await _auth.sendPasswordResetEmail(email: _email);
+    } catch (error) {
+      errorMessage = error.toString();
+    }
   }
 }
