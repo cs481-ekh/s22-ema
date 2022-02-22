@@ -1,6 +1,18 @@
-
-  
 # Meeting Minutes: EMA
+
+## Web
+
+### 2/22/22
+
+*Scribe:* Andrew
+
+*Present:* Andrew, Alejandro, Daniel
+
+*Absent:* Brandon
+
+*Items:* We updated each other on current progress of sprint one, including deciding on a JSON format to send data to Django to schedule reminders. We also talked about new issues we have encountered over sprint one and concerns we have. We now have concerns about getting the tokens to send push notifications as well as it appears that there is two different ways to send the push notifications depending on if the receiving device is IOS or android.
+
+
 ## Mobile
 
 ### 2/16/22
