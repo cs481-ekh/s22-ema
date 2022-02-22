@@ -9,26 +9,20 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 class InternalUser {
   User? user;
   String? projectId;
-  bool isAdmin = false;
 
-  InternalUser({
-    this.user,
-    this.projectId,
-    this.isAdmin = false
-  });
+  InternalUser({this.user, this.projectId});
 
   //This actually works now, but the clearInstance method is not called properly in many cases
   static InternalUser? _instance;
 
-  static InternalUser? instance({user, projectId, isAdmin}){
-    if(_instance == null){
-      _instance = InternalUser(user: user, projectId: projectId, isAdmin: isAdmin);
+  static InternalUser? instance({user, projectId}) {
+    if (_instance == null) {
+      _instance = InternalUser(user: user, projectId: projectId);
       return _instance;
     }
-    if(_instance!.user == null) {
+    if (_instance!.user == null) {
       _instance!.user = user;
       _instance!.projectId = projectId;
-      _instance!.isAdmin = isAdmin;
     }
     return _instance;
   }
@@ -40,9 +34,9 @@ class InternalUser {
     String userName = allValues['user'] ?? '';
     String password = allValues['password'] ?? '';
 
-    if(userName != '') {
+    if (userName != '') {
       String errorMessage = await signinUser(userName, password);
-      if(errorMessage!= "") return errorMessage;
+      if (errorMessage != "") return errorMessage;
     }
   }
 
@@ -50,8 +44,10 @@ class InternalUser {
   static Future<bool> checkSavedLogin() async {
     final storage = new FlutterSecureStorage();
     String user = await storage.read(key: 'user') ?? '';
-    if(user != '') return true;
-    else return false;
+    if (user != '')
+      return true;
+    else
+      return false;
   }
 
   //This wipes the stored user information, but not the InternalUser instance
@@ -73,10 +69,9 @@ class InternalUser {
 Future<void> clearInternalUser() async {
   InternalUser? internalUser = InternalUser.instance();
 
-  if(internalUser != null){
+  if (internalUser != null) {
     internalUser.user = null;
     internalUser.projectId = null;
-    internalUser.isAdmin = false;
   }
 }
 

@@ -21,7 +21,6 @@ class UserPage extends StatefulWidget {
 }
 
 class _UserPageState extends State<UserPage> {
-
   late SharedPreferences _SharedPrefs;
   List<String> MissedNotifs = [];
   int notifAmount = 0;
@@ -62,7 +61,6 @@ class _UserPageState extends State<UserPage> {
 
   //This function defines the widget built into the ListView
   Widget listViewHelper(BuildContext context, int index) {
-
     final notifJSON = MissedNotifs[index];
     final nObject = jsonDecode(notifJSON);
 
@@ -76,12 +74,11 @@ class _UserPageState extends State<UserPage> {
     //Against everything I understand about Dart, it works so I'm not too worried
     //If you can find another way to do it let me know
     void openNotif() async {
-
       var newNotifList = <String>[];
       bool messageCheck = true;
 
-      for(final n in MissedNotifs) {
-        if(messageCheck) {
+      for (final n in MissedNotifs) {
+        if (messageCheck) {
           final temp = jsonDecode(n);
           //Checks the message id, filters out the handled message to remove from storage
           if (temp['id'] == nObject['id']) {
@@ -99,7 +96,7 @@ class _UserPageState extends State<UserPage> {
 
       updateMissedNotifs();
 
-      if(url != null) {
+      if (url != null) {
         if (await canLaunch(url)) {
           await launch(url);
         } else {
@@ -111,11 +108,10 @@ class _UserPageState extends State<UserPage> {
     //This part returns the actual widget, along with a pointer to the tap function
     return Card(
         child: ListTile(
-          title:Text(notifInfo),
-          subtitle: Text(dateString),
-          onTap: openNotif,
-        )
-    );
+      title: Text(notifInfo),
+      subtitle: Text(dateString),
+      onTap: openNotif,
+    ));
   }
 
   @override
@@ -127,7 +123,6 @@ class _UserPageState extends State<UserPage> {
 
   @override
   Widget build(BuildContext context) {
-
     startUserAuthListener(context);
 
     return Scaffold(
@@ -139,7 +134,7 @@ class _UserPageState extends State<UserPage> {
         //       Navigator.of(context).popUntil((route) => route.isFirst);
         //     }),
       ),
-      
+
       // body is majority of the screen
       body: Center(
         child: Column(
@@ -179,13 +174,14 @@ class _UserPageState extends State<UserPage> {
                   child: const Text('Dismiss All'),
                 )),
             Padding(
-                padding: EdgeInsets.all(20.0),
-                child: TextButton(
-                  onPressed: () {
-                    signOut();
-                  },
-                  child: const Text('Logout'),
-                ),)
+              padding: EdgeInsets.all(20.0),
+              child: TextButton(
+                onPressed: () {
+                  signOut();
+                },
+                child: const Text('Logout'),
+              ),
+            )
           ],
         ),
       ),

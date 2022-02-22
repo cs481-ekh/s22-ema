@@ -38,7 +38,6 @@ Future<bool> subscribeToProjectTopic(String projectId) {
 }
 
 Future<bool> checkProjectIdExists(String projectId) async {
-
   bool check = true;
 
   check = await FirebaseFirestore.instance
@@ -59,7 +58,8 @@ Future<bool> checkProjectIdExists(String projectId) async {
 ///
 /// Users
 ///
-Future<String> addNewUser(usernameController, passwordController, projectIdController) async {
+Future<String> addNewUser(
+    usernameController, passwordController, projectIdController) async {
   String errorMessage = "";
 
   // subscribe to provided project id list
@@ -70,7 +70,8 @@ Future<String> addNewUser(usernameController, passwordController, projectIdContr
   }
 
   // register user with authentication
-  String regUser = await registerUser(usernameController.text, passwordController.text);
+  String regUser =
+      await registerUser(usernameController.text, passwordController.text);
   if (regUser != "") {
     errorMessage = "Could not register new user: $regUser";
     return errorMessage;
@@ -79,7 +80,8 @@ Future<String> addNewUser(usernameController, passwordController, projectIdContr
   // add user to database to save projectId and other data
   // but only if auth worked
   // TODO: do we need to handle if auth succeeded but db add failed -- delete account and try again?
-  String addDb = await addUserToDatabase(usernameController.text, projectIdController.text);
+  String addDb = await addUserToDatabase(
+      usernameController.text, projectIdController.text);
   if (addDb != "") {
     errorMessage = "Could not add user to database: $addDb";
     return errorMessage;
@@ -87,21 +89,24 @@ Future<String> addNewUser(usernameController, passwordController, projectIdContr
 
   // if no errors yet, instantiate user object
   var firebaseUser = FirebaseAuth.instance.currentUser;
-  InternalUser.instance(user: firebaseUser, projectId: projectIdController.text, isAdmin: false);
-  await InternalUser.setStoredInstance(usernameController.text, passwordController.text);
+  InternalUser.instance(
+      user: firebaseUser, projectId: projectIdController.text);
+  await InternalUser.setStoredInstance(
+      usernameController.text, passwordController.text);
 
   return errorMessage;
 }
+
 Future<String> addUserToDatabase(String username, String projectId) async {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   return users
       .doc(username)
       .set({
-    'email': username,
-    'projectId': projectId,
-    'is_admin': false,
-    'dateCreated': DateTime.now()
-  })
+        'email': username,
+        'projectId': projectId,
+        'is_admin': false,
+        'dateCreated': DateTime.now()
+      })
       .then((value) => "")
       .catchError((error) => error.toString());
 }
@@ -109,8 +114,7 @@ Future<String> addUserToDatabase(String username, String projectId) async {
 Future<String> registerUser(String username, String password) {
   FirebaseAuth auth = FirebaseAuth.instance;
   return auth
-      .createUserWithEmailAndPassword(
-      email: username, password: password)
+      .createUserWithEmailAndPassword(email: username, password: password)
       .then((value) => "")
       .catchError((error) => error.toString());
 }
@@ -175,7 +179,7 @@ Future<String> signinUser(username, password) async {
 
   // if not an admin, get projectId and subscribe to project
   dynamic userProjectId = "";
-  if(!userIsAdmin) {
+  if (!userIsAdmin) {
     userProjectId = await getUsersProjectId(username);
     if (userProjectId == null) {
       errorMessage = "Unable to find user in database";
@@ -186,12 +190,12 @@ Future<String> signinUser(username, password) async {
     bool subscribeCheck = await subscribeToProjectTopic(userProjectId);
     if (!subscribeCheck) {
       errorMessage =
-      "Could not subscribe user to project using ID in database.";
+          "Could not subscribe user to project using ID in database.";
       return errorMessage;
     }
   }
   // if no errors, instantiate user instance
-  InternalUser.instance(user: authUser, projectId: userProjectId, isAdmin: userIsAdmin);
+  InternalUser.instance(user: authUser, projectId: userProjectId);
 
   return "";
 }

@@ -19,4 +19,3 @@ RUN python manage.py migrate
 # This signifies that built was complete and that instead of running the server we will simply print "Project Built Successfully"
 CMD ["/bin/echo", "Project built successfully!"]
 
-
