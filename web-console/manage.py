@@ -5,6 +5,8 @@ Copyright (c) 2019 - present AppSeed.us
 
 import os
 import sys
+from Schedule import *
+
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
@@ -16,7 +18,18 @@ def main():
             "available on your PYTHONPATH environment variable? Did you "
             "forget to activate a virtual environment?"
         ) from exc
+
+    # Starts the background deamon thread the runs the sceduling system
+    run_continuously()
+
     execute_from_command_line(sys.argv)
+
+    schedule.every().second.do(background_job)
+
+
+
+
 
 if __name__ == '__main__':
     main()
+
