@@ -1,3 +1,4 @@
+
 # Meeting Minutes: EMA
 
 ## Web
@@ -15,6 +16,16 @@
 
 ## Mobile
 
+### 2/22/22
+
+*Scribe:* Jeff
+
+*Present:* Jason, Jeff, Jon
+
+*Absent:* N/A
+
+*Items:* The meeting began by giving an update on Sprint 1 progress for each team. Several tasks were completed since the last meeting with regards to stripping the admin side from the mobile app. Members from the web team, Daniel and Andrew also joined the meeting to discuss the firebase notification system as well as changes needed for the firebase schema. The team made changes to allow for an array of users to be stored within projects in the database and also determined to use Firebase's internal messaging system.
+
 ### 2/16/22
 
 *Scribe:* Jeff
@@ -25,6 +36,16 @@
 
 *Items:* We met for Sprint 1 planning where we created the sprint goal, user stories, tasks and assigned them. We decided that for Sprint 1 we would focus on removing the admin side form the mobile app while improving user notifications by including the expiration time for the survey in their information. We also decided to add a user password reset for the case that a user forgets their login information.
 ## Full Team
+
+### 2/19/22
+
+*Scribe:* Jeff
+
+*Present:* Alejandro, Andrew, Daniel, Jason, Jeff, Jon, Brandon
+
+*Absent:* N/A
+
+*Items:* Both sections met with William and discussed the scope of the project. Each section also showcased their current progress on UI/UX for the mobile and web app. 
 
 ### 2/12/22
 
