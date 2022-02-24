@@ -71,7 +71,6 @@ def read_projects():
 
 # Writing (project) data to firebase
 def write_project(project_name, survey_link, notes, participants):
-
     # Connecting to Firebase
     db = connect_firebase()
 
@@ -89,6 +88,7 @@ def write_project(project_name, survey_link, notes, participants):
 
     # Adding new values to firebase
     col_ref.document(project_name).create(new_values)
+
 
 # Reading (users) data from the collection
 def read_users():
