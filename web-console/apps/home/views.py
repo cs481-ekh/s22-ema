@@ -15,12 +15,9 @@ import os
 
 @login_required(login_url="/login/")
 def index(request):
-
-    # Connecting to Firebase
-    connectFirebase()
-
     context = {'segment': 'index'}
     html_template = loader.get_template('home/index.html')
+    read_projects()
     return HttpResponse(html_template.render(context, request))
 
 
@@ -51,11 +48,17 @@ def pages(request):
 
 
 # Connecting to firebase
-def connectFirebase():
+def connect_firebase():
     # provide file path for firebase credentials
-    os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/dnlrao/Desktop/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
+    os.environ[
+        "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/dnlrao/Desktop/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
     print("Connected to Firebase!")
-    # Reading (projects) data from the collection
+
+
+# Reading (projects) data from the collection
+def read_projects():
+    # Connecting to Firebase
+    connect_firebase()
     db = firestore.Client()
     docs = db.collection(u'projects').stream()
     for doc in docs:
