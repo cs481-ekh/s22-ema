@@ -70,7 +70,7 @@ def read_projects():
 
 
 # Writing (project) data to firebase
-def write_projects(project_name, survery_link, notes, participants):
+def write_project(project_name, survey_link, notes, participants):
 
     # Connecting to Firebase
     db = connect_firebase()
@@ -83,7 +83,7 @@ def write_projects(project_name, survery_link, notes, participants):
         "dateCreated": datetime.datetime.now(),
         "desc": notes,
         "projectId": project_name,
-        "surveryLink": survery_link,
+        "surveryLink": survey_link,
         "participants": participants
     }
 
