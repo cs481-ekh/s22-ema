@@ -249,7 +249,8 @@ class LoginPage extends StatelessWidget {
                         Navigator.push(
                           context,
                           new MaterialPageRoute(
-                            builder: (context) => new ForgotPassword(),
+                            builder: (context) => MyStatefulWidget(
+                                usernameController: usernameController),
                           ),
                         );
                       },

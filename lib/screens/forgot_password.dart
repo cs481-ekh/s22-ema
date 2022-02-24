@@ -1,11 +1,22 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:ema/utils/data_classes.dart';
 
-class ForgotPassword extends StatelessWidget {
+class MyStatefulWidget extends StatefulWidget {
+  final TextEditingController usernameController;
+  MyStatefulWidget({Key? key, required this.usernameController})
+      : super(key: key);
+  @override
+  State<MyStatefulWidget> createState() => ForgotPassword(usernameController);
+}
+
+class ForgotPassword extends State<MyStatefulWidget> {
   static String id = 'forgot-password';
   String _email = "";
+  final TextEditingController usernameController;
 
+  ForgotPassword(this.usernameController);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,6 +32,7 @@ class ForgotPassword extends StatelessWidget {
                 style: TextStyle(fontSize: 30, color: Colors.white),
               ),
               TextFormField(
+                controller: usernameController,
                 onSaved: (newEmail) {
                   _email = newEmail!;
                 },
@@ -55,7 +67,9 @@ class ForgotPassword extends StatelessWidget {
               ),
               FlatButton(
                 child: const Text('Sign In'),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               )
             ],
           ),
@@ -68,7 +82,7 @@ class ForgotPassword extends StatelessWidget {
     String errorMessage = "";
     try {
       final _auth = FirebaseAuth.instance;
-      await _auth.sendPasswordResetEmail(email: _email);
+      await _auth.sendPasswordResetEmail(email: usernameController.text.trim());
     } catch (error) {
       errorMessage = error.toString();
     }
