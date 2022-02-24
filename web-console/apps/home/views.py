@@ -18,9 +18,9 @@ def index(request):
     context = {'segment': 'index'}
     html_template = loader.get_template('home/index.html')
     # These tests were conducted
-    read_projects()
-    write_projects("test2", "https://www.facebook.com/", "This is test2", ['abc@gmail.com', 'efg@gmail.com'])
-    read_projects()
+    # read_projects()
+    # write_projects("test2", "https://www.facebook.com/", "This is test2", ['abc@gmail.com', 'efg@gmail.com'])
+    # read_projects()
     return HttpResponse(html_template.render(context, request))
 
 
