@@ -5,13 +5,14 @@ import 'package:ema/actions/login_actions.dart';
 //import 'package:firebase_auth/firebase_auth.dart';
 import 'package:http/http.dart' as http;
 
-Future<String?> createNewProject(String projectId, String projectDesc) async {
-  bool doesExist = await checkProjectIdExists(projectId);
+Future<String?> createNewProject(
+    List<String> projectId, String projectDesc) async {
+  bool doesExist = await checkProjectIdExists(projectId.first);
   if (doesExist) {
     return "Project already exists.";
   }
 
-  String addProject = await addProjectToDatabase(projectId, projectDesc);
+  String addProject = await addProjectToDatabase(projectId.first, projectDesc);
   if (addProject != "") {
     return "Unable to add project $projectId to database: $addProject";
   }

@@ -30,11 +30,15 @@ Future<void> onActionSelected(String value) async {
 ///
 /// Project/subscription
 ///
-Future<bool> subscribeToProjectTopic(String projectId) {
-  return FirebaseMessaging.instance
-      .subscribeToTopic(projectId)
-      .then((value) => true)
-      .catchError((error) => false);
+Future<bool> subscribeToProjectTopic(List<dynamic> projectId) async {
+  bool check = true;
+  for (var element in projectId) {
+    FirebaseMessaging.instance
+        .subscribeToTopic(element)
+        .then((value) => true)
+        .catchError((check) => false);
+  }
+  return check;
 }
 
 Future<bool> checkProjectIdExists(String projectId) async {
@@ -169,33 +173,25 @@ Future<String> signinUser(username, password) async {
     return errorMessage;
   }
 
-  // get user data from firebase data for project id
-  // get if user is admin
-  dynamic userIsAdmin = await getUsersAdminPriv(username);
-  if (userIsAdmin == null) {
+  // get projectId and subscribe to project
+  dynamic userProjects;
+
+  userProjects = await getUsersProjectId(username);
+  if (userProjects == null) {
     errorMessage = "Unable to find user in database";
     return errorMessage;
   }
 
-  // if not an admin, get projectId and subscribe to project
-  dynamic userProjectId = "";
-  if (!userIsAdmin) {
-    userProjectId = await getUsersProjectId(username);
-    if (userProjectId == null) {
-      errorMessage = "Unable to find user in database";
-      return errorMessage;
-    }
-
-    //subscribe user to project
-    bool subscribeCheck = await subscribeToProjectTopic(userProjectId);
-    if (!subscribeCheck) {
-      errorMessage =
-          "Could not subscribe user to project using ID in database.";
-      return errorMessage;
-    }
+  //subscribe user to project
+  bool subscribeCheck = await subscribeToProjectTopic(userProjects);
+  if (!subscribeCheck) {
+    errorMessage =
+        "Could not subscribe user to project using ID(s) in database.";
+    return errorMessage;
   }
+
   // if no errors, instantiate user instance
-  InternalUser.instance(user: authUser, projectId: userProjectId);
+  InternalUser.instance(user: authUser, projectId: userProjects);
 
   return "";
 }

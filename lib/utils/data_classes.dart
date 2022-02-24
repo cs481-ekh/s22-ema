@@ -2,13 +2,15 @@
 // plus our own user information
 // instantiate this using: InternalUser.instance(user: <user>, projectId: <projectId>, isAdmin: <isAdmin>
 // access the instance with InternalUser.instance() or InternalUser.instance().projectId, etc.
+import 'dart:ffi';
+
 import 'package:ema/actions/login_actions.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class InternalUser {
   User? user;
-  String? projectId;
+  List<dynamic>? projectId;
 
   InternalUser({this.user, this.projectId});
 
