@@ -90,3 +90,10 @@ def write_project(project_name, survey_link, notes, participants):
     # Adding new values to firebase
     col_ref.document(project_name).create(new_values)
 
+# Reading (users) data from the collection
+def read_users():
+    # Connecting to Firebase
+    db = connect_firebase()
+    docs = db.collection(u'users').stream()
+    for doc in docs:
+        print(f'{doc.id} => {doc.to_dict()}')
