@@ -1,4 +1,4 @@
-from firebase_admin import firestore
+from firebase_admin import firestore, messaging
 import os
 import datetime
 
@@ -68,3 +68,19 @@ def get_user_registration_token(user_email):
         return registration_token
     else:
         raise Exception("No such document!")
+
+
+# Send Notification to users given a list of notification registration tokens
+# Warning only send in a list.
+def send_group_notification(registration_token_list):
+    # Create a list containing up to 500 registration tokens.
+    # These registration tokens come from the client FCM SDKs.
+
+    message = messaging.MulticastMessage(
+        data={'score': '850', 'time': '2:45'},
+        tokens=registration_token_list,
+    )
+    response = messaging.send_multicast(message)
+    # See the BatchResponse reference documentation
+    # for the contents of response.
+    print('{0} messages were sent successfully'.format(response.success_count))
