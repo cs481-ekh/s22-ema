@@ -8,7 +8,11 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-import Firebase
+import sys
+from importlib.machinery import SourceFileLoader
+firebase = SourceFileLoader("fbase", sys.path[0] + "/fbase.py").load_module()
+
+
 
 
 @login_required(login_url="/login/")
@@ -19,6 +23,7 @@ def index(request):
     # read_projects()
     # write_projects("test2", "https://www.facebook.com/", "This is test2", ['abc@gmail.com', 'efg@gmail.com'])
     # print(read_user('test1@gmail.com'))
+    print(firebase.get_user_registration_token("test1@gmail.com"))
     return HttpResponse(html_template.render(context, request))
 
 
