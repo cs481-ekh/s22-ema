@@ -16,6 +16,16 @@
 
 ## Mobile
 
+### 2/24/22
+
+*Scribe:* Jeff
+
+*Present:* Jason, Jeff, Jon
+
+*Absent:* N/A
+
+*Items:* The meeting began by giving an update on Sprint 1 progress for each team. Daniel from the web team met with us during our mobile meeting to showcase the project creation template that the web team has devised. To that effect we also decided to reformat the database scheme again to add tokens for users. Our team also enabled the login system to work with projectID's in a list due to our new schema and also added in reset password for the app since our last sprint.  
+
 ### 2/22/22
 
 *Scribe:* Jeff
