@@ -1,0 +1,148 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Notification Settings {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h1 class="m-b-10">Configure Notifications</h1>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Notification Settings</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Configure Notifications</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Please select a project below to configure notification settings</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h3>Project Information</h3>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="projectNameLabel">Project Name</label>
+                                                    <input type="text" class="form-control" id="protectNameInput"
+                                                           aria-describedby="theNameOfTheProject"
+                                                           placeholder="Project Name">
+                                                    {#                                                <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>#}
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="surveyLinkLabel">Survey Link</label>
+                                                    <input type="link" class="form-control" id="surveyLinkInput"
+                                                           placeholder="Link">
+                                                </div>
+                                                {#                                            <div class="form-group form-check">#}
+                                                {#                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">#}
+                                                {#                                                <label class="form-check-label" for="exampleCheck1">Check me out</label>#}
+                                                {#                                            </div>#}
+                                                <div class="form-group">
+                                                    <label for="NotesLabel">Notes</label>
+                                                    <textarea class="form-control" id="notesInput" rows="3"></textarea>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Create New Project
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form>
+                                                {#                                            <div class="form-group">#}
+                                                {#                                                <label>Text</label>#}
+                                                {#                                                <input type="text" class="form-control" placeholder="Text">#}
+                                                {#                                            </div>#}
+                                                <h5>Set a date and time to start notifications</h5>
+                                                <hr>
+                                                <div class="form-group">
+                                                    <label for="scheduleSendDate">Schedule Send Date</label>
+                                                    <input type="date" class="form-control" id="scheduleSendDateInput"
+                                                           aria-describedby="scheduleSendDate" placeholder="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="scheduleSendTime">Schedule Send Time</label>
+                                                    <input type="time" class="form-control"
+                                                           id="scheduleSendDateTimeInput"
+                                                           aria-describedby="scheduleSendTime" placeholder="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="whenToNotifyLabel">How often should these participants
+                                                        be notified?</label>
+                                                    <select class="form-control" id="whenToNotify">
+                                                        <option>Once</option>
+                                                        <option>Hourly</option>
+                                                        <option>Daily</option>
+                                                        <option>Weekly</option>
+                                                        <option>Every Few Hours</option>
+                                                    </select>
+                                                </div>
+                                                <h5>Set a date and time to stop notifications</h5>
+                                                <hr>
+                                                <div class="form-group">
+                                                    <label for="expirationDate">Expiration Date</label>
+                                                    <input type="date" class="form-control" id="expirationDateInput"
+                                                           aria-describedby="timeTheNotificationExpires" placeholder="">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="expirationTime">Expiration Time</label>
+                                                    <input type="time" class="form-control" id="expirationTimeInput"
+                                                           aria-describedby="scheduleexpirationTime" placeholder="">
+                                                </div>
+                                                <h5>Enter participants for this project</h5>
+                                                <hr>
+                                                <div class="form-group">
+                                                    <label for="addParticipantLabel">Add Participant</label>
+                                                    <input type="text" class="form-control" id="addParticipantInput"
+                                                           aria-describedby="participantToBeAdded"
+                                                           placeholder="Participant Email">
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Add Participant</button>
+                                                <h5>Remove participants for this project</h5>
+                                                <hr>
+                                                <div class="form-group">
+                                                    <label for="removeParticipantLabel">Select a participant to be
+                                                        removed</label>
+                                                    <select class="form-control" id="removeParticipant">
+                                                        <option>user1</option>
+                                                        <option>user2</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-primary">Remove Participant
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- [ Main Content ] end -->
+            </div>
+        </div>
+    </div>
+    </div>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
