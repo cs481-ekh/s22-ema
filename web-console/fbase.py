@@ -34,9 +34,9 @@ def write_project(project_name, survey_link, notes, participants):
 
     # New values to be added
     new_values = {
+        "projectId": project_name,
         "dateCreated": datetime.datetime.now(),
         "desc": notes,
-        "projectId": project_name,
         "surveryLink": survey_link,
         "participants": participants
     }
