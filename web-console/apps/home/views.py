@@ -70,8 +70,7 @@ def read_projects():
 
 
 # Writing (project) data to firebase
-def write_projects(project_name, survery_link, notes, participants):
-
+def write_project(project_name, survey_link, notes, participants):
     # Connecting to Firebase
     db = connect_firebase()
 
@@ -83,10 +82,18 @@ def write_projects(project_name, survery_link, notes, participants):
         "dateCreated": datetime.datetime.now(),
         "desc": notes,
         "projectId": project_name,
-        "surveryLink": survery_link,
+        "surveryLink": survey_link,
         "participants": participants
     }
 
     # Adding new values to firebase
     col_ref.document(project_name).create(new_values)
 
+
+# Reading (users) data from the collection
+def read_users():
+    # Connecting to Firebase
+    db = connect_firebase()
+    docs = db.collection(u'users').stream()
+    for doc in docs:
+        print(f'{doc.id} => {doc.to_dict()}')
