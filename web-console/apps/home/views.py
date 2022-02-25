@@ -11,6 +11,7 @@ from django.urls import reverse
 from firebase_admin import firestore
 import os
 import datetime
+import schedule
 
 
 @login_required(login_url="/login/")
@@ -20,7 +21,7 @@ def index(request):
     # These tests were conducted
     # read_projects()
     # write_projects("test2", "https://www.facebook.com/", "This is test2", ['abc@gmail.com', 'efg@gmail.com'])
-    # read_projects()
+    # print(read_user('test1@gmail.com'))
     return HttpResponse(html_template.render(context, request))
 
 
@@ -97,3 +98,18 @@ def read_users():
     docs = db.collection(u'users').stream()
     for doc in docs:
         print(f'{doc.id} => {doc.to_dict()}')
+
+
+# get user token using email address.
+def get_user_registration_token(user_email):
+    db = connect_firebase()
+    doc_ref = db.collection(u'users').document(user_email)
+    # getting document reference
+    doc = doc_ref.get()
+    # if document exists than convert the document to dictionary and return the token else raise an exception
+    if doc.exists:
+        reg_token_dict = doc.to_dict()
+        registration_token = reg_token_dict['token']
+        return registration_token
+    else:
+        raise Exception("No such document!")
