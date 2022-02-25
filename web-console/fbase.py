@@ -18,8 +18,10 @@ def read_projects():
     # Connecting to Firebase
     db = connect_firebase()
     docs = db.collection(u'projects').stream()
+    document_list = []
     for doc in docs:
-        print(f'{doc.id} => {doc.to_dict()}')
+        document_list.append(f'{doc.id} => {doc.to_dict()}')
+    return document_list
 
 
 # Writing (project) data to firebase
@@ -48,5 +50,21 @@ def read_users():
     # Connecting to Firebase
     db = connect_firebase()
     docs = db.collection(u'users').stream()
+    document_list = []
     for doc in docs:
-        print(f'{doc.id} => {doc.to_dict()}')
+        document_list.append(f'{doc.id} => {doc.to_dict()}')
+    return document_list
+
+# get user token using email address.
+def get_user_registration_token(user_email):
+    db = connect_firebase()
+    doc_ref = db.collection(u'users').document(user_email)
+    # getting document reference
+    doc = doc_ref.get()
+    # if document exists than convert the document to dictionary and return the token else raise an exception
+    if doc.exists:
+        reg_token_dict = doc.to_dict()
+        registration_token = reg_token_dict['token']
+        return registration_token
+    else:
+        raise Exception("No such document!")

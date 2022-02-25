@@ -10,6 +10,7 @@ from django.template import loader
 from django.urls import reverse
 import sys
 from importlib.machinery import SourceFileLoader
+# importing fbase (custom) module from web-console
 firebase = SourceFileLoader("fbase", sys.path[0] + "/fbase.py").load_module()
 
 
@@ -20,10 +21,10 @@ def index(request):
     context = {'segment': 'index'}
     html_template = loader.get_template('home/index.html')
     # These tests were conducted
-    # read_projects()
-    # write_projects("test2", "https://www.facebook.com/", "This is test2", ['abc@gmail.com', 'efg@gmail.com'])
-    # print(read_user('test1@gmail.com'))
-    print(firebase.get_user_registration_token("test1@gmail.com"))
+    # print(firebase.read_projects())
+    # firebase.write_projects("test2", "https://www.facebook.com/", "This is test2", ['abc@gmail.com', 'efg@gmail.com'])
+    # print(firebase.read_users())
+    # print(firebase.get_user_registration_token("test1@gmail.com"))
     return HttpResponse(html_template.render(context, request))
 
 
