@@ -3,9 +3,9 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
-import os
 import sys
 from Schedule import *
+import os
 
 
 def main():
@@ -27,9 +27,5 @@ def main():
     schedule.every().second.do(background_job)
 
 
-
-
-
 if __name__ == '__main__':
     main()
-
