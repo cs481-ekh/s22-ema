@@ -11,7 +11,8 @@ from django.urls import reverse
 import sys
 from importlib.machinery import SourceFileLoader
 # importing fbase (custom) module from web-console
-firebase = SourceFileLoader("fbase", sys.path[0].split("web-console")[0] + "web-console/fbase.py").load_module()
+import re
+firebase = SourceFileLoader("fbase", list(filter(re.compile(".*web-console").match, sys.path))[0] + "/fbase.py").load_module()
 
 
 
@@ -25,7 +26,6 @@ def index(request):
     # firebase.write_projects("test2", "https://www.facebook.com/", "This is test2", ['abc@gmail.com', 'efg@gmail.com'])
     # print(firebase.read_users())
     # print(firebase.get_user_registration_token("test1@gmail.com"))
-    # print(sys.path[0].split("web-console"))
     return HttpResponse(html_template.render(context, request))
 
 
