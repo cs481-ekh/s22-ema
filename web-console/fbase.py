@@ -55,6 +55,7 @@ def read_users():
         document_list.append(f'{doc.id} => {doc.to_dict()}')
     return document_list
 
+
 # get user token using email address.
 def get_user_registration_token(user_email):
     db = connect_firebase()
