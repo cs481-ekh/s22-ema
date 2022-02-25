@@ -8,12 +8,9 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
-import sys
 from importlib.machinery import SourceFileLoader
-# importing fbase (custom) module from web-console
-firebase = SourceFileLoader("fbase", sys.path[0] + "/fbase.py").load_module()
-
-
+import os
+firebase = SourceFileLoader("fbase", os.getcwd() + "/fbase.py").load_module()
 
 
 @login_required(login_url="/login/")
