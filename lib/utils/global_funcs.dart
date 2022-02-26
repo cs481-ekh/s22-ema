@@ -11,7 +11,6 @@ Future<void> startUserAuthListener(context) async {
   final passwordController = TextEditingController();
   final projectIdController = TextEditingController();
   final adminProjectIdController = TextEditingController();
-  final emailController = TextEditingController();
 
   FirebaseAuth.instance.userChanges().listen((User? user) {
     // TODO: commented out stuff was supposed to keep regular users from being able to access the admin page (which they shouldn't be doing anyways)

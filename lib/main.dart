@@ -58,7 +58,6 @@ class _AppState extends State<App> {
   final passwordController = TextEditingController();
   final projectIdController = TextEditingController();
   final adminProjectIdController = TextEditingController();
-  final emailController = TextEditingController();
   bool _messagerInitialized = false;
   bool _savedLogin = false;
   bool _loginInitialized = false;
@@ -135,7 +134,6 @@ class _AppState extends State<App> {
     passwordController.dispose();
     projectIdController.dispose();
     adminProjectIdController.dispose();
-    emailController.dispose();
     super.dispose();
   }
 

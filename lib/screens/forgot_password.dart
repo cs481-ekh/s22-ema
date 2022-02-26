@@ -28,7 +28,7 @@ class ForgotPassword extends State<MyStatefulWidget> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               const Text(
-                'Email Your Email',
+                'Recovery Email',
                 style: TextStyle(fontSize: 30, color: Colors.white),
               ),
               TextFormField(
@@ -66,7 +66,7 @@ class ForgotPassword extends State<MyStatefulWidget> {
                 },
               ),
               FlatButton(
-                child: const Text('Sign In'),
+                child: const Text('Back'),
                 onPressed: () {
                   Navigator.pop(context);
                 },
