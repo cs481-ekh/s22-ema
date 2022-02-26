@@ -143,7 +143,6 @@ class _AppState extends State<App> {
 
     if (_savedLogin && _loginInitialized) {
       return MaterialApp(home: UserPage());
-
     }
 
     if (_loginInitialized) {
