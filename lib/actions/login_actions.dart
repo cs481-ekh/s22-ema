@@ -159,6 +159,33 @@ Future<dynamic> getUsersAdminPriv(String username) async {
   return data;
 }
 
+Future<String> getUsersToken(String username) async {
+  dynamic data;
+
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(username)
+      .get()
+      .then((DocumentSnapshot documentSnapchat) {
+    if (documentSnapchat.exists) {
+      data = documentSnapchat.get("token");
+    } else {
+      data = null;
+    }
+  });
+
+  return data;
+}
+
+Future<String> updateUsersToken(String username, String token) {
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  return users
+      .doc(username)
+      .update({'token': token})
+      .then((value) => "")
+      .catchError((error) => error.toString());
+}
+
 Future<String> signinUser(username, password) async {
   String errorMessage = "";
 
@@ -188,6 +215,20 @@ Future<String> signinUser(username, password) async {
     errorMessage =
         "Could not subscribe user to project using ID(s) in database.";
     return errorMessage;
+  }
+
+  //Update the user's token if it is new
+  String token = await getUsersToken(username);
+  if (token == "") {
+    errorMessage = "Could not get the user's token.";
+    return errorMessage;
+  } else if (token != await FirebaseMessaging.instance.getToken()) {
+    String? newToken = await FirebaseMessaging.instance.getToken();
+    String check = await updateUsersToken(username, newToken!);
+    if (check != "") {
+      errorMessage = "Could not update the user's token.";
+      return errorMessage;
+    }
   }
 
   // if no errors, instantiate user instance
