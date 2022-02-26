@@ -84,8 +84,12 @@ Future<String> addNewUser(
   // add user to database to save projectId and other data
   // but only if auth worked
   // TODO: do we need to handle if auth succeeded but db add failed -- delete account and try again?
+
+  List<String> projectList = <String>[];
+  projectList.add(projectIdController.text);
+
   String addDb = await addUserToDatabase(
-      usernameController.text, projectIdController.text);
+      usernameController.text, projectList);
   if (addDb != "") {
     errorMessage = "Could not add user to database: $addDb";
     return errorMessage;
@@ -94,22 +98,22 @@ Future<String> addNewUser(
   // if no errors yet, instantiate user object
   var firebaseUser = FirebaseAuth.instance.currentUser;
   InternalUser.instance(
-      user: firebaseUser, projectId: projectIdController.text);
+      user: firebaseUser, projectId: projectList);
   await InternalUser.setStoredInstance(
       usernameController.text, passwordController.text);
 
   return errorMessage;
 }
 
-Future<String> addUserToDatabase(String username, String projectId) async {
+Future<String> addUserToDatabase(String username, List<String> projectId) async {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   return users
       .doc(username)
       .set({
         'email': username,
         'projectId': projectId,
-        'is_admin': false,
-        'dateCreated': DateTime.now()
+        'dateCreated': DateTime.now(),
+        'token': await FirebaseMessaging.instance.getToken()
       })
       .then((value) => "")
       .catchError((error) => error.toString());
