@@ -170,7 +170,7 @@ Future<String> getUsersToken(String username) async {
     if (documentSnapchat.exists) {
       data = documentSnapchat.get("token");
     } else {
-      data = null;
+      data = "";
     }
   });
 
