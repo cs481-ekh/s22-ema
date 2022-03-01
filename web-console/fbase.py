@@ -4,11 +4,8 @@ import datetime
 
 
 # Connecting to firebase
-def connect_firebase():
-    # provide file path for firebase credentials
-    os.environ[
-        "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/dnlrao/Desktop/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
-    print("Connected to Firebase!")
+def db_connect_firebase():
+    print("Connected to Firebase Database!")
     db = firestore.Client()
     return db
 
@@ -16,7 +13,7 @@ def connect_firebase():
 # Reading (projects) data from the collection
 def read_projects():
     # Connecting to Firebase
-    db = connect_firebase()
+    db = db_connect_firebase()
     docs = db.collection(u'projects').stream()
     document_list = []
     for doc in docs:
@@ -27,7 +24,7 @@ def read_projects():
 # Writing (project) data to firebase
 def write_project(project_name, survey_link, notes, participants):
     # Connecting to Firebase
-    db = connect_firebase()
+    db = db_connect_firebase()
 
     # Collection reference
     col_ref = db.collection(u'projects')
@@ -48,7 +45,7 @@ def write_project(project_name, survey_link, notes, participants):
 # Reading (users) data from the collection
 def read_users():
     # Connecting to Firebase
-    db = connect_firebase()
+    db = db_connect_firebase()
     docs = db.collection(u'users').stream()
     document_list = []
     for doc in docs:
@@ -58,7 +55,7 @@ def read_users():
 
 # get user token using email address.
 def get_user_registration_token(user_email):
-    db = connect_firebase()
+    db = db_connect_firebase()
     doc_ref = db.collection(u'users').document(user_email)
     # getting document reference
     doc = doc_ref.get()
