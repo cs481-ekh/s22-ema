@@ -4,11 +4,9 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 import sys
-
-import firebase_admin
-
 from Schedule import *
 import os
+import firebase_admin
 from firebase_admin import credentials
 
 
