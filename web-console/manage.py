@@ -19,6 +19,11 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
 
+    # Firebase
+    # provide file path for firebase credentials
+    os.environ[
+        "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/dnlrao/Desktop/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
+
     # Starts the background deamon thread the runs the sceduling system
     run_continuously()
 
