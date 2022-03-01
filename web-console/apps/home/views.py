@@ -60,3 +60,8 @@ def pages(request):
     except:
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render(context, request))
+
+# Custom methods added.
+@login_required(login_url="/login/")
+def create_project(request):
+    return HttpResponse("Hello, World!")
