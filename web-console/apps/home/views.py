@@ -22,6 +22,17 @@ def index(request):
     # firebase.write_projects("test2", "https://www.facebook.com/", "This is test2", ['abc@gmail.com', 'efg@gmail.com'])
     # print(firebase.read_users())
     # print(firebase.get_user_registration_token("test1@gmail.com"))
+
+    # tokens = []
+    # tokenOne = firebase.get_user_registration_token("test1@gmail.com")
+    # tokenTwo = firebase.get_user_registration_token("xojevop760@sueshaw.com")
+    # print(tokenOne)
+    # print(tokenTwo)
+    # tokens.append(tokenOne)
+    # tokens.append(tokenTwo)
+    # firebase.send_group_notification(tokens)
+
+    # print(firebase.read_projects()[2])
     return HttpResponse(html_template.render(context, request))
 
 

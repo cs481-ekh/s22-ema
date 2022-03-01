@@ -4,8 +4,12 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 import sys
+
+import firebase_admin
+
 from Schedule import *
 import os
+from firebase_admin import credentials
 
 
 def main():
@@ -19,10 +23,17 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
 
+    ##################################################################################################################
     # Firebase
+    ##################################################################################################################
     # provide file path for firebase credentials
     os.environ[
         "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/dnlrao/Desktop/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
+
+    # initializing app using credentials
+    firebase_admin.initialize_app(credentials.Certificate(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")))
+
+    ##################################################################################################################
 
     # Starts the background deamon thread the runs the sceduling system
     run_continuously()
