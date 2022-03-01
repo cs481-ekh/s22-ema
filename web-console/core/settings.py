@@ -6,6 +6,7 @@ Copyright (c) 2019 - present AppSeed.us
 import os
 from decouple import config
 from unipath import Path
+from rest_framework import permissions
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = Path(__file__).parent
@@ -30,7 +31,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'apps.home'  # Enable the inner home (home)
+    'apps.home',  # Enable the inner home (home)
+    'apps.API',
+    'rest_framework'
 ]
 
 MIDDLEWARE = [
@@ -124,3 +127,19 @@ STATICFILES_DIRS = (
 
 #############################################################
 #############################################################
+
+
+#TODO read and write only for authenticated users
+REST_FRAMEWORK = {
+    # Use Django's standard `django.contrib.auth` permissions,
+    # or allow read-only access for unauthenticated users.
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
+    ],
+
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    ]
+}
+
