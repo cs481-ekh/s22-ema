@@ -24,4 +24,5 @@ jobs:
     - name: Run Tests
       run: |
         cd web-console
+        ./web-build.sh
         ./web-test.sh
