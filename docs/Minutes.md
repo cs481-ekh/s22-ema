@@ -3,6 +3,16 @@
 
 ## Web
 
+### 2/24/22
+
+*Scribe:* Alejandro
+
+*Present:* Andrew, Alejandro, Daniel
+
+*Absent:* Brandon
+
+*Items:* Each member in the team meeting provided an update on their progress. There were still minor discussions on finalizing how Firebase was managing tokens. There was a meeting later that day to clean up the confusion. After having a better understanding of how Firebase was processing the tokens, we had to make some adjustments to the front-end design. We came to an agreement on what the front-end should look like for creating projects and managing the notification for that project.
+
 ### 2/22/22
 
 *Scribe:* Andrew
@@ -13,6 +23,15 @@
 
 *Items:* We updated each other on current progress of sprint one, including deciding on a JSON format to send data to Django to schedule reminders. We also talked about new issues we have encountered over sprint one and concerns we have. We now have concerns about getting the tokens to send push notifications as well as it appears that there is two different ways to send the push notifications depending on if the receiving device is IOS or android.
 
+### 2/17/22
+
+*Scribe:* Daniel
+
+*Present:* Andrew, Alejandro, Daniel, Brandon
+
+*Absent:* N/A
+
+*Items:* We discussed about how we will setup our web CI as mentioned by the professor. The whole team is currently working on CI tasks. The objective of today's meeting was to write user stories and related tasks for our sprint 1 goal, which includes the two major stories which needs to be implemented are: NodeJS system needs to be converted to python and to add/remove UI elements (which could be linked up to the backend in the later sprints) according to the project plan. We also discussed how professor wants us to merge the updated changes into the branch as we achieve our sprint goal.
 
 ## Mobile
 
