@@ -45,6 +45,16 @@
 
 ## Mobile
 
+### 3/02/22
+
+*Scribe:* Jon
+
+*Present:* Jason, Jeff, Jon
+
+*Absent:* N/A
+
+*Items:* Started meeting by completing Sprint 1 retrospective and closing board. Reflected on challenges and successes faced during the previous sprint and reviewed upcoming tasks and milestones from the project plan. Created Sprint 2 board, goal, stories and tasks. Discussed how to prioritize tasks and what needs to be coordinated with the Web Team before we can proceed/create new tasks. Decided to begin work on streak system, removing NodeJS, setting up App Store Connect distribution via TestFlight, and fixing UI bugs. Briefly researched best ways to share project and notification data via firebase and web console through data messages or optional data section in a notification message.
+
 ### 2/24/22
 
 *Scribe:* Jeff
