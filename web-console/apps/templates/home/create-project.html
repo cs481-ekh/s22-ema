@@ -6,6 +6,8 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
+    {% load static %}
+    <script src="{% static "assets/js/createProject.js" %}" type="text/javascript"></script>
 
     <div class="pcoded-content">
         <div class="pcoded-inner-content">
@@ -61,93 +63,93 @@
                                                 {#                                            </div>#}
                                                 <div class="form-group">
                                                     <label for="NotesLabel">Notes</label>
-                                                    <textarea class="form-control" id="notesInput" rows="3" name="description"></textarea>
+                                                    <textarea class="form-control" id="notesInput" rows="3"
+                                                              name="description"></textarea>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary" name="participants">Create New Project
+                                                <button type="submit" class="btn btn-primary" name="participants">Create
+                                                    New Project
                                                 </button>
                                             </form>
                                         </div>
                                         <div class="col-md-6">
-                                            <form>
-                                                {#                                            <div class="form-group">#}
-                                                {#                                                <label>Text</label>#}
-                                                {#                                                <input type="text" class="form-control" placeholder="Text">#}
-                                                {#                                            </div>#}
-                                                {#                                                <h5>Set a date and time to start notifications</h5>#}
-                                                {#                                                <hr>#}
-                                                {#                                                <div class="form-group">#}
-                                                {#                                                    <label for="scheduleSendDate">Schedule Send Date</label>#}
-                                                {#                                                    <input type="date" class="form-control" id="scheduleSendDateInput"#}
-                                                {#                                                           aria-describedby="scheduleSendDate" placeholder="">#}
-                                                {#                                                </div>#}
-                                                {#                                                <div class="form-group">#}
-                                                {#                                                    <label for="scheduleSendTime">Schedule Send Time</label>#}
-                                                {#                                                    <input type="time" class="form-control"#}
-                                                {#                                                           id="scheduleSendDateTimeInput"#}
-                                                {#                                                           aria-describedby="scheduleSendTime" placeholder="">#}
-                                                {#                                                </div>#}
-                                                {#                                                <div class="form-group">#}
-                                                {#                                                    <label for="whenToNotifyLabel">How often should these participants#}
-                                                {#                                                        be notified?</label>#}
-                                                {#                                                    <select class="form-control" id="whenToNotify">#}
-                                                {#                                                        <option>Once</option>#}
-                                                {#                                                        <option>Hourly</option>#}
-                                                {#                                                        <option>Daily</option>#}
-                                                {#                                                        <option>Weekly</option>#}
-                                                {#                                                        <option>Every Few Hours</option>#}
-                                                {#                                                    </select>#}
-                                                {#                                                </div>#}
-                                                {#                                                <h5>Set a date and time to stop notifications</h5>#}
-                                                {#                                                <hr>#}
-                                                {#                                                <div class="form-group">#}
-                                                {#                                                    <label for="expirationDate">Expiration Date</label>#}
-                                                {#                                                    <input type="date" class="form-control" id="expirationDateInput"#}
-                                                {#                                                           aria-describedby="timeTheNotificationExpires" placeholder="">#}
-                                                {#                                                </div>#}
-                                                {#                                                <div class="form-group">#}
-                                                {#                                                    <label for="expirationTime">Expiration Time</label>#}
-                                                {#                                                    <input type="time" class="form-control" id="expirationTimeInput"#}
-                                                {#                                                           aria-describedby="scheduleexpirationTime" placeholder="">#}
-                                                {#                                                </div>#}
-{#                                                <h5>Enter participants for this project</h5>#}
-{#                                                <hr>#}
-{#                                                <div class="form-group">#}
-{#                                                    <label for="addParticipantLabel">Add Participant</label>#}
-{#                                                    <input type="text" class="form-control" id="addParticipantInput"#}
-{#                                                           aria-describedby="participantToBeAdded"#}
-{#                                                           placeholder="Participant Email">#}
-{#                                                </div>#}
-{#                                                <button type="submit" class="btn btn-primary">Add Participant</button>#}
-{#                                                <h5>Remove participants for this project</h5>#}
-{#                                                <hr>#}
-{#                                                <div class="form-group">#}
-{#                                                    <label for="removeParticipantLabel">Select a participant to be#}
-{#                                                        removed</label>#}
-{#                                                    <select class="form-control" id="removeParticipant">#}
-{#                                                        <option>user1</option>#}
-{#                                                        <option>user2</option>#}
-{#                                                    </select>#}
-{#                                                </div>#}
-{#                                                <button type="submit" class="btn btn-primary">Remove Participant#}
-{#                                                </button>#}
+                                            {#                                            <div class="form-group">#}
+                                            {#                                                <label>Text</label>#}
+                                            {#                                                <input type="text" class="form-control" placeholder="Text">#}
+                                            {#                                            </div>#}
+                                            {#                                                <h5>Set a date and time to start notifications</h5>#}
+                                            {#                                                <hr>#}
+                                            {#                                                <div class="form-group">#}
+                                            {#                                                    <label for="scheduleSendDate">Schedule Send Date</label>#}
+                                            {#                                                    <input type="date" class="form-control" id="scheduleSendDateInput"#}
+                                            {#                                                           aria-describedby="scheduleSendDate" placeholder="">#}
+                                            {#                                                </div>#}
+                                            {#                                                <div class="form-group">#}
+                                            {#                                                    <label for="scheduleSendTime">Schedule Send Time</label>#}
+                                            {#                                                    <input type="time" class="form-control"#}
+                                            {#                                                           id="scheduleSendDateTimeInput"#}
+                                            {#                                                           aria-describedby="scheduleSendTime" placeholder="">#}
+                                            {#                                                </div>#}
+                                            {#                                                <div class="form-group">#}
+                                            {#                                                    <label for="whenToNotifyLabel">How often should these participants#}
+                                            {#                                                        be notified?</label>#}
+                                            {#                                                    <select class="form-control" id="whenToNotify">#}
+                                            {#                                                        <option>Once</option>#}
+                                            {#                                                        <option>Hourly</option>#}
+                                            {#                                                        <option>Daily</option>#}
+                                            {#                                                        <option>Weekly</option>#}
+                                            {#                                                        <option>Every Few Hours</option>#}
+                                            {#                                                    </select>#}
+                                            {#                                                </div>#}
+                                            {#                                                <h5>Set a date and time to stop notifications</h5>#}
+                                            {#                                                <hr>#}
+                                            {#                                                <div class="form-group">#}
+                                            {#                                                    <label for="expirationDate">Expiration Date</label>#}
+                                            {#                                                    <input type="date" class="form-control" id="expirationDateInput"#}
+                                            {#                                                           aria-describedby="timeTheNotificationExpires" placeholder="">#}
+                                            {#                                                </div>#}
+                                            {#                                                <div class="form-group">#}
+                                            {#                                                    <label for="expirationTime">Expiration Time</label>#}
+                                            {#                                                    <input type="time" class="form-control" id="expirationTimeInput"#}
+                                            {#                                                           aria-describedby="scheduleexpirationTime" placeholder="">#}
+                                            {#                                                </div>#}
+                                            {#                                                <h5>Enter participants for this project</h5>#}
+                                            {#                                                <hr>#}
+                                            {#                                                <div class="form-group">#}
+                                            {#                                                    <label for="addParticipantLabel">Add Participant</label>#}
+                                            {#                                                    <input type="text" class="form-control" id="addParticipantInput"#}
+                                            {#                                                           aria-describedby="participantToBeAdded"#}
+                                            {#                                                           placeholder="Participant Email">#}
+                                            {#                                                </div>#}
+                                            {#                                                <button type="submit" class="btn btn-primary">Add Participant</button>#}
+                                            {#                                                <h5>Remove participants for this project</h5>#}
+                                            {#                                                <hr>#}
+                                            {#                                                <div class="form-group">#}
+                                            {#                                                    <label for="removeParticipantLabel">Select a participant to be#}
+                                            {#                                                        removed</label>#}
+                                            {#                                                    <select class="form-control" id="removeParticipant">#}
+                                            {#                                                        <option>user1</option>#}
+                                            {#                                                        <option>user2</option>#}
+                                            {#                                                    </select>#}
+                                            {#                                                </div>#}
+                                            {#                                                <button type="submit" class="btn btn-primary">Remove Participant#}
+                                            {#                                                </button>#}
 
 
-
-
-                                    <!-- [ List of participants to be added ] start -->
-{#                                    <div class="col-xl-8 col-md-6">#}
-{#                                        <div class="card Recent-Users">#}
-{#                                            <div class="card-header">#}
-{#                                                <h5>Recent Users</h5>#}
-{#                                            </div>#}
-                                                <div class="form-group">
-                                                    <label for="surveyLinkLabel">Enter participant(s)</label>
-                                                    <input type="email" class="form-control" id="participantEmailInput"
-                                                           placeholder="Email">
-                                                    <br>
-                                                    <button type="submit" class="btn btn-primary">Add Participant</button>
-                                                </div>
-                                                <label for="surveyLinkLabel">List of participants added:</label>
+                                            <!-- [ List of participants to be added ] start -->
+                                            {#                                    <div class="col-xl-8 col-md-6">#}
+                                            {#                                        <div class="card Recent-Users">#}
+                                            {#                                            <div class="card-header">#}
+                                            {#                                                <h5>Recent Users</h5>#}
+                                            {#                                            </div>#}
+                                            <div class="form-group">
+                                                <label for="surveyLinkLabel">Enter participant(s)</label>
+                                                <input type="email" class="form-control" id="participantEmailInput"
+                                                       placeholder="Email">
+                                                <br>
+                                                <button class="btn btn-primary" id="submitParticipant">Add Participant
+                                                </button>
+                                            </div>
+                                            <label for="surveyLinkLabel">List of participants added:</label>
                                             <div class="card-block px-0 py-3">
                                                 <div class="table-responsive">
                                                     <table class="table table-hover">
@@ -162,10 +164,11 @@
                                                             </td>
                                                             <td>
                                                                 <h6 class="text-muted"><i
-                                                                        class="fas fa-circle text-c-green f-10 m-r-15"></i>user1 info</h6>
+                                                                        class="fas fa-circle text-c-green f-10 m-r-15"></i>user1
+                                                                    info</h6>
                                                             </td>
                                                             <td><a href="#!" class="label theme-bg2 text-white f-12">Remove</a>
-{#                                                                <a href="#!" class="label theme-bg text-white f-12">Approve</a>#}
+                                                                {#                                                                <a href="#!" class="label theme-bg text-white f-12">Approve</a>#}
                                                             </td>
                                                         </tr>
                                                         <tr class="unread">
@@ -177,75 +180,76 @@
                                                                 <p class="m-0">User2 email</p>
                                                             </td>
                                                             <td>
-                                                                <h6 class="text-muted"><i class="fas fa-circle text-c-red f-10 m-r-15"></i>user2 info</h6>
+                                                                <h6 class="text-muted"><i
+                                                                        class="fas fa-circle text-c-red f-10 m-r-15"></i>user2
+                                                                    info</h6>
                                                             </td>
                                                             <td><a href="#!" class="label theme-bg2 text-white f-12">Remove</a>
-{#                                                                <a href="#!" class="label theme-bg text-white f-12">Approve</a>#}
+                                                                {#                                                                <a href="#!" class="label theme-bg text-white f-12">Approve</a>#}
                                                             </td>
                                                         </tr>
-{#                                                        <tr class="unread">#}
-{#                                                            <td><img class="rounded-circle" style="width:40px;"#}
-{#                                                                     src="/static/assets/images/user/avatar-3.jpg"#}
-{#                                                                     alt="activity-user"></td>#}
-{#                                                            <td>#}
-{#                                                                <h6 class="mb-1">Karla Sorensen</h6>#}
-{#                                                                <p class="m-0">Lorem Ipsum is simply…</p>#}
-{#                                                            </td>#}
-{#                                                            <td>#}
-{#                                                                <h6 class="text-muted"><i#}
-{#                                                                        class="fas fa-circle text-c-green f-10 m-r-15"></i>9#}
-{#                                                                    MAY#}
-{#                                                                    17:38</h6>#}
-{#                                                            </td>#}
-{#                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a#}
-{#                                                                    href="#!" class="label theme-bg text-white f-12">Approve</a>#}
-{#                                                            </td>#}
-{#                                                        </tr>#}
-{#                                                        <tr class="unread">#}
-{#                                                            <td><img class="rounded-circle" style="width:40px;"#}
-{#                                                                     src="/static/assets/images/user/avatar-1.jpg"#}
-{#                                                                     alt="activity-user"></td>#}
-{#                                                            <td>#}
-{#                                                                <h6 class="mb-1">Ida Jorgensen</h6>#}
-{#                                                                <p class="m-0">Lorem Ipsum is simply text of…</p>#}
-{#                                                            </td>#}
-{#                                                            <td>#}
-{#                                                                <h6 class="text-muted f-w-300"><i#}
-{#                                                                        class="fas fa-circle text-c-red f-10 m-r-15"></i>19#}
-{#                                                                    MAY#}
-{#                                                                    12:56</h6>#}
-{#                                                            </td>#}
-{#                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a#}
-{#                                                                    href="#!" class="label theme-bg text-white f-12">Approve</a>#}
-{#                                                            </td>#}
-{#                                                        </tr>#}
-{#                                                        <tr class="unread">#}
-{#                                                            <td><img class="rounded-circle" style="width:40px;"#}
-{#                                                                     src="/static/assets/images/user/avatar-2.jpg"#}
-{#                                                                     alt="activity-user"></td>#}
-{#                                                            <td>#}
-{#                                                                <h6 class="mb-1">Albert Andersen</h6>#}
-{#                                                                <p class="m-0">Lorem Ipsum is simply dummy…</p>#}
-{#                                                            </td>#}
-{#                                                            <td>#}
-{#                                                                <h6 class="text-muted"><i#}
-{#                                                                        class="fas fa-circle text-c-green f-10 m-r-15"></i>21#}
-{#                                                                    July#}
-{#                                                                    12:56</h6>#}
-{#                                                            </td>#}
-{#                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a#}
-{#                                                                    href="#!" class="label theme-bg text-white f-12">Approve</a>#}
-{#                                                            </td>#}
-{#                                                        </tr>#}
+                                                        {#                                                        <tr class="unread">#}
+                                                        {#                                                            <td><img class="rounded-circle" style="width:40px;"#}
+                                                        {#                                                                     src="/static/assets/images/user/avatar-3.jpg"#}
+                                                        {#                                                                     alt="activity-user"></td>#}
+                                                        {#                                                            <td>#}
+                                                        {#                                                                <h6 class="mb-1">Karla Sorensen</h6>#}
+                                                        {#                                                                <p class="m-0">Lorem Ipsum is simply…</p>#}
+                                                        {#                                                            </td>#}
+                                                        {#                                                            <td>#}
+                                                        {#                                                                <h6 class="text-muted"><i#}
+                                                        {#                                                                        class="fas fa-circle text-c-green f-10 m-r-15"></i>9#}
+                                                        {#                                                                    MAY#}
+                                                        {#                                                                    17:38</h6>#}
+                                                        {#                                                            </td>#}
+                                                        {#                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a#}
+                                                        {#                                                                    href="#!" class="label theme-bg text-white f-12">Approve</a>#}
+                                                        {#                                                            </td>#}
+                                                        {#                                                        </tr>#}
+                                                        {#                                                        <tr class="unread">#}
+                                                        {#                                                            <td><img class="rounded-circle" style="width:40px;"#}
+                                                        {#                                                                     src="/static/assets/images/user/avatar-1.jpg"#}
+                                                        {#                                                                     alt="activity-user"></td>#}
+                                                        {#                                                            <td>#}
+                                                        {#                                                                <h6 class="mb-1">Ida Jorgensen</h6>#}
+                                                        {#                                                                <p class="m-0">Lorem Ipsum is simply text of…</p>#}
+                                                        {#                                                            </td>#}
+                                                        {#                                                            <td>#}
+                                                        {#                                                                <h6 class="text-muted f-w-300"><i#}
+                                                        {#                                                                        class="fas fa-circle text-c-red f-10 m-r-15"></i>19#}
+                                                        {#                                                                    MAY#}
+                                                        {#                                                                    12:56</h6>#}
+                                                        {#                                                            </td>#}
+                                                        {#                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a#}
+                                                        {#                                                                    href="#!" class="label theme-bg text-white f-12">Approve</a>#}
+                                                        {#                                                            </td>#}
+                                                        {#                                                        </tr>#}
+                                                        {#                                                        <tr class="unread">#}
+                                                        {#                                                            <td><img class="rounded-circle" style="width:40px;"#}
+                                                        {#                                                                     src="/static/assets/images/user/avatar-2.jpg"#}
+                                                        {#                                                                     alt="activity-user"></td>#}
+                                                        {#                                                            <td>#}
+                                                        {#                                                                <h6 class="mb-1">Albert Andersen</h6>#}
+                                                        {#                                                                <p class="m-0">Lorem Ipsum is simply dummy…</p>#}
+                                                        {#                                                            </td>#}
+                                                        {#                                                            <td>#}
+                                                        {#                                                                <h6 class="text-muted"><i#}
+                                                        {#                                                                        class="fas fa-circle text-c-green f-10 m-r-15"></i>21#}
+                                                        {#                                                                    July#}
+                                                        {#                                                                    12:56</h6>#}
+                                                        {#                                                            </td>#}
+                                                        {#                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Reject</a><a#}
+                                                        {#                                                                    href="#!" class="label theme-bg text-white f-12">Approve</a>#}
+                                                        {#                                                            </td>#}
+                                                        {#                                                        </tr>#}
                                                         </tbody>
                                                     </table>
                                                 </div>
                                             </div>
-                                    </form>
-                                </div>
-                            </div>
-{#                                        </div>#}
-{#                                    </div>#}
+                                        </div>
+                                    </div>
+                                    {#                                        </div>#}
+                                    {#                                    </div>#}
                                     {#                                <h5 class="mt-5">Sizing</h5>#}
                                     {#                                <hr>#}
                                     {#                                <div class="row">#}

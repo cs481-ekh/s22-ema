@@ -1,5 +1,5 @@
-$(document).ready(function() {
-
-        // JQuery code to be added in here.
-
+$(document).ready(function () {
+    $("#submitParticipant").click(function () {
+        console.log("hello")
+    });
 });
