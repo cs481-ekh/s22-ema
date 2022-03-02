@@ -14,6 +14,5 @@ $(document).ready(function () {
             $("#createProject").attr("value", participant_list);
         }
 
-
     });
 });
