@@ -33,7 +33,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.home',  # Enable the inner home (home)
     'apps.API',
-    'rest_framework'
+    'rest_framework',
+    'apps.create_project'
 ]
 
 MIDDLEWARE = [
