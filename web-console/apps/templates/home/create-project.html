@@ -57,6 +57,16 @@
                                                     <input type="link" class="form-control" id="surveyLinkInput"
                                                            placeholder="Link" name="surveyLink" required>
                                                 </div>
+                                                <div class="form-group">
+                                                    <label for="surveyLinkLabel">Enter participant(s)</label>
+                                                    <input type="email" class="form-control" id="participantEmailInput"
+                                                           placeholder="Email">
+                                                    <br>
+                                                    <button type="button" class="btn btn-success"
+                                                            id="submitParticipant">Add
+                                                        Participant
+                                                    </button>
+                                                </div>
                                                 {#                                            <div class="form-group form-check">#}
                                                 {#                                                <input type="checkbox" class="form-check-input" id="exampleCheck1">#}
                                                 {#                                                <label class="form-check-label" for="exampleCheck1">Check me out</label>#}
@@ -66,7 +76,8 @@
                                                     <textarea class="form-control" id="notesInput" rows="3"
                                                               name="description"></textarea>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary" name="participants">Create
+                                                <button type="submit" class="btn btn-primary" id="createProject"
+                                                        name="participant_list">Create
                                                     New Project
                                                 </button>
                                             </form>
@@ -141,14 +152,6 @@
                                             {#                                            <div class="card-header">#}
                                             {#                                                <h5>Recent Users</h5>#}
                                             {#                                            </div>#}
-                                            <div class="form-group">
-                                                <label for="surveyLinkLabel">Enter participant(s)</label>
-                                                <input type="email" class="form-control" id="participantEmailInput"
-                                                       placeholder="Email">
-                                                <br>
-                                                <button class="btn btn-primary" id="submitParticipant">Add Participant
-                                                </button>
-                                            </div>
                                             <label for="surveyLinkLabel">List of participants added:</label>
                                             <div class="card-block px-0 py-3">
                                                 <div class="table-responsive">

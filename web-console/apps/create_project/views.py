@@ -18,14 +18,15 @@ def create_project(request):
         projectId = request.POST.get('projectId')
         surveyLink = request.POST.get('surveyLink')
         description = request.POST.get("description")
-        participants = request.POST.get("participants")
-
+        participants = request.POST.get("participant_list")
+        print(request.POST)
         # Check if the required fields are not None
-        if projectId and surveyLink and participants is not None:
+        if projectId and surveyLink is not None:
             # Check if the project does not exist than send the data to Firebase
             if firebase.project_doc_exist(projectId) is not True:
                 # adding data to firebase
                 print(projectId, surveyLink, description, participants)
+                return render(request, 'home/create-project.html')
                 # firebase.write_project(projectId, surveyLink, description, participants)
 
     # html_template = loader.get_template('home/create-project.html')
