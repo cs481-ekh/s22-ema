@@ -42,6 +42,17 @@ def write_project(project_id, survey_link, description, participants):
     col_ref.document(project_id).create(new_values)
 
 
+# check if project document exist
+def project_doc_exist(document_name):
+    db = firestore.Client()
+    doc_ref = db.collection(u'projects').document(document_name)
+    doc = doc_ref.get()
+    if doc.exists:
+        return True
+    else:
+        return False
+
+
 # Reading (users) data from the collection
 def read_users():
     # Connecting to Firebase

@@ -22,7 +22,7 @@
                     </li>
                     <li data-username="Create a project information"
                         class="nav-item {% if 'create-project' in segment %} active {% endif %}">
-                        <a href="create-project/" class="nav-link "><span class="pcoded-micon"><i class="feather icon-edit"></i></span><span class="pcoded-mtext">Create a Project</span></a>
+                        <a href="{% url 'createProject' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-edit"></i></span><span class="pcoded-mtext">Create a Project</span></a>
                     </li>
                     <li data-username="Set the notification settings for a project"
                         class="nav-item {% if 'notification-settings' in segment %} active {% endif %}">

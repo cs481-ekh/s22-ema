@@ -20,6 +20,7 @@ def index(request):
     html_template = loader.get_template('home/index.html')
     # These tests were conducted
     # print(firebase.read_projects())
+
     # firebase.write_projects("test2", "https://www.facebook.com/", "This is test2", ['abc@gmail.com', 'efg@gmail.com'])
     # print(firebase.read_users())
     # print(firebase.get_user_registration_token("test1@gmail.com"))
@@ -61,19 +62,3 @@ def pages(request):
     except:
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render(context, request))
-
-# Custom methods added.
-@login_required(login_url="/login/")
-def create_project(request):
-    if request.method == 'POST':
-        # Getting values from the template (create-project)
-        projectId = request.POST.get('projectId')
-        surveyLink = request.POST.get('surveyLink')
-        description = request.POST.get("description")
-        participants = request.POST.get("participants")
-
-        # adding data to firebase
-        firebase.write_project(projectId, surveyLink, description, participants)
-
-    html_template = loader.get_template('home/create-project.html')
-    return render(request, 'home/create-project.html')
