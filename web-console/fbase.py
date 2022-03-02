@@ -43,8 +43,9 @@ def write_project(project_id, survey_link, description, participants):
 
 
 # check if project document exist
-def project_doc_exist(document_name):
-    db = firestore.Client()
+def project_document_exist(document_name):
+    # Connecting to Firebase
+    db = db_connect_firebase()
     doc_ref = db.collection(u'projects').document(document_name)
     doc = doc_ref.get()
     if doc.exists:
