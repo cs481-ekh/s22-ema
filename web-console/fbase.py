@@ -22,7 +22,7 @@ def read_projects():
 
 
 # Writing (project) data to firebase
-def write_project(project_name, survey_link, notes, participants):
+def write_project(project_id, survey_link, description, participants):
     # Connecting to Firebase
     db = db_connect_firebase()
 
@@ -31,15 +31,15 @@ def write_project(project_name, survey_link, notes, participants):
 
     # New values to be added
     new_values = {
-        "projectId": project_name,
+        "projectId": project_id,
         "dateCreated": datetime.datetime.now(),
-        "desc": notes,
-        "surveryLink": survey_link,
+        "description": description,
+        "surveyLink": survey_link,
         "participants": participants
     }
 
     # Adding new values to firebase
-    col_ref.document(project_name).create(new_values)
+    col_ref.document(project_id).create(new_values)
 
 
 # Reading (users) data from the collection
