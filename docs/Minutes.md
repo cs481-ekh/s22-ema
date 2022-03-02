@@ -3,6 +3,16 @@
 
 ## Web
 
+### 3/01/22
+
+*Scribe:* Alejandro
+
+*Present:* Andrew, Alejandro, Daniel
+
+*Absent:* Brandon
+
+*Items:* As a team, we discussed what was accomplished in Sprint 1 and what needed to get pushed back to Sprint 2. Then we segued into our discussion for the Sprint 2 planning. During our Sprint 2 planning, we have created a new board and added user stories. We discussed how the connection with the front-end and the back-end is going to pan out. We also discussed certain functions that may need some refactoring.
+
 ### 2/24/22
 
 *Scribe:* Alejandro
