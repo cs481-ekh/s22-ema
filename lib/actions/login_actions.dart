@@ -112,7 +112,8 @@ Future<String> addUserToDatabase(
         'email': username,
         'projectId': projectId,
         'dateCreated': DateTime.now(),
-        'token': await FirebaseMessaging.instance.getToken()
+        'token': await FirebaseMessaging.instance.getToken(),
+        'streak': 0
       })
       .then((value) => "")
       .catchError((error) => error.toString());
