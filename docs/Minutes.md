@@ -3,6 +3,19 @@
 
 ## Web
 
+### 3/03/22
+
+*Scribe:* Andrew
+
+*Present:* Andrew, Alejandro, Brandon
+
+*Absent:* Daniel - Had an interview a pretty good reason to be absent
+
+*Items:* We started to bring Brandon up to speed with the project and Brandon opened new lines of communication. We did some brief updates of where we are in on the project, we kept is short and spent some time working on the project.
+
+
+## Web
+
 ### 3/01/22
 
 *Scribe:* Alejandro
