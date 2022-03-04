@@ -9,8 +9,8 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import loader
 from django.urls import reverse
 from importlib.machinery import SourceFileLoader
-from django.shortcuts import render
 import os
+
 firebase = SourceFileLoader("fbase", os.getcwd() + "/fbase.py").load_module()
 
 

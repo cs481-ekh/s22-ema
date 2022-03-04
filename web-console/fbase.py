@@ -1,5 +1,4 @@
 from firebase_admin import firestore, messaging
-import os
 import datetime
 
 
@@ -43,8 +42,9 @@ def write_project(project_id, survey_link, description, participants):
 
 
 # check if project document exist
-def project_doc_exist(document_name):
-    db = firestore.Client()
+def project_document_exist(document_name):
+    # Connecting to Firebase
+    db = db_connect_firebase()
     doc_ref = db.collection(u'projects').document(document_name)
     doc = doc_ref.get()
     if doc.exists:
@@ -85,6 +85,7 @@ def send_group_notification(registration_token_list):
     # Create a list containing up to 500 registration tokens.
     # These registration tokens come from the client FCM SDKs.
 
+    # send expiration date/time, surveyLink to data, projectId to the mobile app.
     message = messaging.MulticastMessage(
         data={'score': '850', 'time': '2:45'},
         tokens=registration_token_list,

@@ -6,8 +6,6 @@ Copyright (c) 2019 - present AppSeed.us
 import sys
 from Schedule import *
 import os
-import firebase_admin
-from firebase_admin import credentials
 
 
 def main():
@@ -30,7 +28,6 @@ def main():
     #
     # # initializing app using credentials
     # firebase_admin.initialize_app(credentials.Certificate(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")))
-
     ##################################################################################################################
 
     # Starts the background deamon thread the runs the sceduling system
