@@ -1,5 +1,4 @@
 from firebase_admin import firestore, messaging
-import os
 import datetime
 
 
@@ -86,6 +85,7 @@ def send_group_notification(registration_token_list):
     # Create a list containing up to 500 registration tokens.
     # These registration tokens come from the client FCM SDKs.
 
+    # send expiration date/time, surveyLink to data, projectId to the mobile app.
     message = messaging.MulticastMessage(
         data={'score': '850', 'time': '2:45'},
         tokens=registration_token_list,
