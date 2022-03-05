@@ -1,8 +1,8 @@
 
+
 # Meeting Minutes: EMA
 
 ## Web
-
 ### 3/03/22
 
 *Scribe:* Andrew
@@ -12,9 +12,6 @@
 *Absent:* Daniel - Had an interview a pretty good reason to be absent
 
 *Items:* We started to bring Brandon up to speed with the project and Brandon opened new lines of communication. We did some brief updates of where we are in on the project, we kept is short and spent some time working on the project.
-
-
-## Web
 
 ### 3/01/22
 
@@ -98,6 +95,16 @@
 
 *Items:* We met for Sprint 1 planning where we created the sprint goal, user stories, tasks and assigned them. We decided that for Sprint 1 we would focus on removing the admin side form the mobile app while improving user notifications by including the expiration time for the survey in their information. We also decided to add a user password reset for the case that a user forgets their login information.
 ## Full Team
+
+### 3/5/22
+
+*Scribe:* Jeff
+
+*Present:* Alejandro, Andrew, Daniel, Jason, Jeff, Jon, Brandon
+
+*Absent:* N/A
+
+*Items:* Planned next sponsor meeting around the end of Sprint 2. Also discussed Firestore database insecure rules and assigned a user story, research and implementation task for increasing the security.
 
 ### 2/19/22
 
