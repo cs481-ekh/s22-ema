@@ -1,0 +1,166 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Edit Project {% endblock %}
+
+<!-- Specific CSS goes HERE -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="pcoded-content">
+        <div class="pcoded-inner-content">
+            <!-- [ breadcrumb ] start -->
+            <div class="page-header">
+                <div class="page-block">
+                    <div class="row align-items-center">
+                        <div class="col-md-12">
+                            <div class="page-header-title">
+                                <h1 class="m-b-10">Edit a Project</h1>
+                            </div>
+                            <ul class="breadcrumb">
+                                <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Edit Project</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- [ breadcrumb ] end -->
+            <div class="main-body">
+                <div class="page-wrapper">
+                    <!-- [ Main Content ] start -->
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h5>Please select a project below to edit:</h5>
+                                </div>
+                                <div class="card-body">
+                                    <h3>Project Information</h3>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <form action="" method="post">
+                                                {% csrf_token %}
+                                                <!-- [ Select project ] start -->
+                                                <div class="form-group">
+                                                    <label for="selectProjectToDelete">Select Project</label>
+                                                    <select class="form-control" id="selectProjectDelete">
+                                                        <option>Project1</option>
+                                                        <option>Project2</option>
+                                                    </select>
+                                                </div>
+                                                <!-- [ Select project ] end -->
+                                                <!-- [ Enter link ] start -->
+                                                <div class="form-group">
+                                                    <label for="surveyLinkLabel">Survey Link</label>
+                                                    <input type="link" class="form-control" id="surveyLinkInput"
+                                                           placeholder="Link" name="surveyLink" required>
+                                                </div>
+                                                <!-- [ Enter link ] end -->
+                                                <!-- [ Enter participants ] start -->
+                                                <div class="form-group">
+                                                    <label for="surveyLinkLabel">Enter participant(s)</label>
+                                                    <input type="email" class="form-control" id="participantEmailInput"
+                                                           placeholder="Email">
+                                                    <br>
+                                                    <button type="submit" class="btn btn-primary">Add Participant
+                                                    </button>
+                                                </div>
+                                                <!-- [ Enter participants ] end -->
+                                                <!-- [ Notes ] start -->
+                                                <div class="form-group">
+                                                    <label for="NotesLabel">Notes</label>
+                                                    <textarea class="form-control" id="notesInput" rows="3"
+                                                              name="description"></textarea>
+                                                </div>
+                                                <!-- [ Notes ] end -->
+                                                <button type="submit" class="btn btn-success" name="participants">Edit
+                                                    Project
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <form>
+                                                <!-- [ List of participants to be added ] start -->
+                                                <label for="surveyLinkLabel">Participants:</label>
+                                                <div class="card-block px-0 py-3">
+                                                    <div class="table-responsive">
+                                                        <table class="table table-hover">
+                                                            <tbody>
+                                                            <tr class="unread">
+                                                                <td><img class="rounded-circle" style="width:40px;"
+                                                                         src="/static/assets/images/user/avatar-1.jpg"
+                                                                         alt="activity-user"></td>
+                                                                <td>
+                                                                    <h6 class="mb-1">User1</h6>
+                                                                    <p class="m-0">User1 email</p>
+                                                                </td>
+                                                                <td>
+                                                                    <h6 class="text-muted"><i
+                                                                            class="fas fa-circle text-c-green f-10 m-r-15"></i>user1
+                                                                        info</h6>
+                                                                </td>
+                                                                <td><a href="#!"
+                                                                       class="label theme-bg2 text-white f-12">Remove</a>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="unread">
+                                                                <td><img class="rounded-circle" style="width:40px;"
+                                                                         src="/static/assets/images/user/avatar-2.jpg"
+                                                                         alt="activity-user"></td>
+                                                                <td>
+                                                                    <h6 class="mb-1">User2</h6>
+                                                                    <p class="m-0">User2 email</p>
+                                                                </td>
+                                                                <td>
+                                                                    <h6 class="text-muted"><i
+                                                                            class="fas fa-circle text-c-red f-10 m-r-15"></i>user2
+                                                                        info</h6>
+                                                                </td>
+                                                                <td><a href="#!"
+                                                                       class="label theme-bg2 text-white f-12">Remove</a>
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                                <!-- [ List of participants to be added ] end -->
+                                            </form>
+                                        </div>
+                                    </div>
+                                    <!-- [ Delete Project section ] start -->
+                                    <br>
+                                    <h3>Delete Project</h3>
+                                    <hr>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <form>
+                                                <div class="form-group">
+                                                    <label for="selectProjectToDelete">Select Project</label>
+                                                    <select class="form-control" id="selectProjectDelete">
+                                                        <option>Project1</option>
+                                                        <option>Project2</option>
+                                                    </select>
+                                                </div>
+                                                <button type="submit" class="btn btn-danger " name="DprojectsBtn">Delete
+                                                    Project
+                                                </button>
+                                            </form>
+                                        </div>
+                                        <!-- [ Delete Project section ] end -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- [ Main Content ] end -->
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
