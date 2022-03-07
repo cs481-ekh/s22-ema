@@ -51,8 +51,11 @@ class LoginPage extends StatelessWidget {
             Flexible(
               flex: 3,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 20.0, bottom: 20.0, left: 20.0, right: 20.0),
+                padding: EdgeInsets.only(
+                    top: screenSize.height * 0.015,
+                    bottom: screenSize.height * 0.015,
+                    left: screenSize.width * 0.07,
+                    right: screenSize.width * 0.07),
                 child: TextField(
                   key: const Key("email-field"),
                   controller: usernameController,
@@ -67,7 +70,11 @@ class LoginPage extends StatelessWidget {
             Flexible(
               flex: 3,
               child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.only(
+                      top: screenSize.height * 0.015,
+                      bottom: screenSize.height * 0.015,
+                      left: screenSize.width * 0.07,
+                      right: screenSize.width * 0.07),
                   child: TextField(
                     key: const Key("password-field"),
                     controller: passwordController,
