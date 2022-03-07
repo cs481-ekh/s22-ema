@@ -84,8 +84,8 @@ class LoginPage extends StatelessWidget {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Padding(
                     padding: EdgeInsets.only(
-                        top: screenSize.height * 0.02,
-                        bottom: screenSize.height * 0.02,
+                        top: screenSize.height * 0.015,
+                        bottom: screenSize.height * 0.015,
                         left: screenSize.width * 0.07,
                         right: screenSize.width * 0.07),
                     child: TextButton(
@@ -138,8 +138,8 @@ class LoginPage extends StatelessWidget {
                   ),
                   Padding(
                     padding: EdgeInsets.only(
-                        top: screenSize.height * 0.02,
-                        bottom: screenSize.height * 0.02,
+                        top: screenSize.height * 0.015,
+                        bottom: screenSize.height * 0.015,
                         left: screenSize.width * 0.07,
                         right: screenSize.width * 0.07),
                     child: TextButton(
