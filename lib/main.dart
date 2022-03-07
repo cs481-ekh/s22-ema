@@ -1,3 +1,4 @@
+import 'package:ema/utils/size_config.dart';
 import 'package:flutter/material.dart';
 /*
 import 'dart:async';
@@ -140,6 +141,7 @@ class _AppState extends State<App> {
   @override
   Widget build(BuildContext context) {
     // scaffold is a layout for the major Material Components
+    // SizeConfig().init(context);
 
     if (_savedLogin && _loginInitialized) {
       return MaterialApp(home: UserPage());
