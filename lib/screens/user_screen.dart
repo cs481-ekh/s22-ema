@@ -1,11 +1,7 @@
 import 'dart:convert';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:ema/utils/data_classes.dart';
 import 'package:ema/utils/global_funcs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -110,10 +106,7 @@ class _UserPageState extends State<UserPage> {
       //check for the click happening between 12-24 hours from the last click,
       //then update the clicked bool 
       if (clicked) {
-        // ignore: avoid_print
-        print("Current user: ");
-        print(FirebaseAuth.instance.currentUser?.email);
-        //incrementCount(InternalUser.instance().user.displayName);
+        incrementCount(FirebaseAuth.instance.currentUser?.email);
       }
       else{
         resetCount();

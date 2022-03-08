@@ -1,12 +1,9 @@
 import 'dart:convert';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../screens/user_screen.dart';
 
 Future<void> firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print("Handling a background message: ${message.messageId}");
@@ -110,6 +107,6 @@ void _handleMessage(RemoteMessage message) async {
 }
 
 void incrementCount(String? email) {
-  final DocumentReference docRef = FirebaseFirestore.instance.collection("users").document(REPLACE_WITH_ID);
-  //docRef.update({"streak": FieldValue.increment(1)});
+  final DocumentReference docRef = FirebaseFirestore.instance.collection("users").doc(email);
+  docRef.update({"streak": FieldValue.increment(1)});
 }
