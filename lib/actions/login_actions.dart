@@ -6,40 +6,40 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 FirebaseAuth auth = FirebaseAuth.instance;
 
 // TODO: delete/manage this (was just for testing)
-Future<void> onActionSelected(String value) async {
-  switch (value) {
-    case 'subscribe':
-      {
-        print('Subscribing to test topic: notif_test');
-        await FirebaseMessaging.instance.subscribeToTopic('notif_test');
-        print('Subscription successful');
-      }
-      break;
-    case 'unsubscribe':
-      {
-        print('Unsubscibing from test topic: notif_test');
-        await FirebaseMessaging.instance.unsubscribeFromTopic('notif_test');
-        print('Unsubscription successful');
-      }
-      break;
-    default:
-      break;
-  }
-}
+// Future<void> onActionSelected(String value) async {
+//   switch (value) {
+//     case 'subscribe':
+//       {
+//         print('Subscribing to test topic: notif_test');
+//         await FirebaseMessaging.instance.subscribeToTopic('notif_test');
+//         print('Subscription successful');
+//       }
+//       break;
+//     case 'unsubscribe':
+//       {
+//         print('Unsubscibing from test topic: notif_test');
+//         await FirebaseMessaging.instance.unsubscribeFromTopic('notif_test');
+//         print('Unsubscription successful');
+//       }
+//       break;
+//     default:
+//       break;
+//   }
+// }
 
 ///
 /// Project/subscription
 ///
-Future<bool> subscribeToProjectTopic(List<dynamic> projectId) async {
-  bool check = true;
-  for (var element in projectId) {
-    FirebaseMessaging.instance
-        .subscribeToTopic(element)
-        .then((value) => true)
-        .catchError((check) => false);
-  }
-  return check;
-}
+// Future<bool> subscribeToProjectTopic(List<dynamic> projectId) async {
+//   bool check = true;
+//   for (var element in projectId) {
+//     FirebaseMessaging.instance
+//         .subscribeToTopic(element)
+//         .then((value) => true)
+//         .catchError((check) => false);
+//   }
+//   return check;
+// }
 
 Future<bool> checkProjectIdExists(String projectId) async {
   bool check = true;
@@ -88,8 +88,7 @@ Future<String> addNewUser(
   List<String> projectList = <String>[];
   projectList.add(projectIdController.text);
 
-  String addDb = await addUserToDatabase(
-      usernameController.text, projectList);
+  String addDb = await addUserToDatabase(usernameController.text, projectList);
   if (addDb != "") {
     errorMessage = "Could not add user to database: $addDb";
     return errorMessage;
@@ -97,15 +96,15 @@ Future<String> addNewUser(
 
   // if no errors yet, instantiate user object
   var firebaseUser = FirebaseAuth.instance.currentUser;
-  InternalUser.instance(
-      user: firebaseUser, projectId: projectList);
+  InternalUser.instance(user: firebaseUser, projectId: projectList);
   await InternalUser.setStoredInstance(
       usernameController.text, passwordController.text);
 
   return errorMessage;
 }
 
-Future<String> addUserToDatabase(String username, List<String> projectId) async {
+Future<String> addUserToDatabase(
+    String username, List<String> projectId) async {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
   return users
       .doc(username)
@@ -113,7 +112,8 @@ Future<String> addUserToDatabase(String username, List<String> projectId) async 
         'email': username,
         'projectId': projectId,
         'dateCreated': DateTime.now(),
-        'token': await FirebaseMessaging.instance.getToken()
+        'token': await FirebaseMessaging.instance.getToken(),
+        'streak': 0
       })
       .then((value) => "")
       .catchError((error) => error.toString());
@@ -214,12 +214,12 @@ Future<String> signinUser(username, password) async {
   }
 
   //subscribe user to project
-  bool subscribeCheck = await subscribeToProjectTopic(userProjects);
-  if (!subscribeCheck) {
-    errorMessage =
-        "Could not subscribe user to project using ID(s) in database.";
-    return errorMessage;
-  }
+  // bool subscribeCheck = await subscribeToProjectTopic(userProjects);
+  // if (!subscribeCheck) {
+  //   errorMessage =
+  //       "Could not subscribe user to project using ID(s) in database.";
+  //   return errorMessage;
+  // }
 
   //Update the user's token if it is new
   String token = await getUsersToken(username);
