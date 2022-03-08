@@ -25,3 +25,7 @@
     animation: flickerAnimation 1s forwards;
 }
 
+.error_class_input {
+    border: solid 2px #FF0000;
+}
+

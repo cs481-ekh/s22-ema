@@ -65,13 +65,13 @@
                                             <form action="" method="post">
                                                 {% csrf_token %}
                                                 <div class="form-group">
-                                                    <label for="projectNameLabel">Project Name</label>
-                                                    <input type="text" class="form-control" id="protectNameInput"
+                                                    <label for="projectNameLabel">Project Name *</label>
+                                                    <input type="text" class="form-control" id="projectNameInput"
                                                            aria-describedby="theNameOfTheProject"
                                                            placeholder="Project Name" name="projectId" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="surveyLinkLabel">Survey Link</label>
+                                                    <label for="surveyLinkLabel">Survey Link *</label>
                                                     <input type="link" class="form-control" id="surveyLinkInput"
                                                            placeholder="Link" name="surveyLink" required>
                                                 </div>
@@ -110,13 +110,8 @@
                                                                 <h6 class="mb-1">User1</h6>
                                                                 <p class="m-0">User1 email</p>
                                                             </td>
-                                                            <td>
-                                                                <h6 class="text-muted"><i
-                                                                        class="fas fa-circle text-c-green f-10 m-r-15"></i>user1
-                                                                    info</h6>
-                                                            </td>
+
                                                             <td><a href="#!" class="label theme-bg2 text-white f-12">Remove</a>
-                                                                {#                                                                <a href="#!" class="label theme-bg text-white f-12">Approve</a>#}
                                                             </td>
                                                         </tr>
                                                         <tr class="unread">
@@ -127,13 +122,8 @@
                                                                 <h6 class="mb-1">User2</h6>
                                                                 <p class="m-0">User2 email</p>
                                                             </td>
-                                                            <td>
-                                                                <h6 class="text-muted"><i
-                                                                        class="fas fa-circle text-c-red f-10 m-r-15"></i>user2
-                                                                    info</h6>
-                                                            </td>
+
                                                             <td><a href="#!" class="label theme-bg2 text-white f-12">Remove</a>
-                                                                {#                                                                <a href="#!" class="label theme-bg text-white f-12">Approve</a>#}
                                                             </td>
                                                         </tr>
                                                         </tbody>
