@@ -39,9 +39,8 @@
                                 <div class="card-body">
                                     <h3>Project Notification Information</h3>
                                     <hr>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <form action="" method="post">
+                                            <form>
+                                                <div class="col-md-6">
                                                 {% csrf_token %}
                                                 <div class="form-group">
                                                     <label for="whenToNotifyLabel">Select a project</label>
@@ -75,17 +74,8 @@
                                                         <option>Every Few Hours</option>
                                                     </select>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary">Set Notification
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <form>
-                                                {#                                            <div class="form-group">#}
-                                                {#                                                <label>Text</label>#}
-                                                {#                                                <input type="text" class="form-control" placeholder="Text">#}
-                                                {#                                            </div>#}
-
+                                                </div>
+                                                <div class="col-md-6">
                                                 <h5>Set a date and time to stop notifications</h5>
                                                 <hr>
                                                 <div class="form-group">
@@ -98,6 +88,12 @@
                                                     <input type="time" class="form-control" id="expirationTimeInput"
                                                            aria-describedby="scheduleexpirationTime" placeholder="">
                                                 </div>
+                                                <button type="submit" class="btn btn-primary">Set Notification
+                                                </button>
+                                                </div>
+                                            </form>
+
+
                                             </form>
                                         </div>
                                     </div>
