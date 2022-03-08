@@ -29,12 +29,6 @@ class _UserPageState extends State<UserPage> {
     FirebaseMessaging.onMessage.listen(handleForegroundNotif);
   }
 
-  
-
-  void resetCount() {
-
-  }
-
   void initializeSharedPrefs() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
@@ -111,7 +105,7 @@ class _UserPageState extends State<UserPage> {
       }
       else{
         //clicked more than 24 hours after the previous click
-        resetCount();
+        resetCount(FirebaseAuth.instance.currentUser?.email);
       }
 
       if (url != null) {
@@ -123,10 +117,6 @@ class _UserPageState extends State<UserPage> {
       }
 
     }
-
-    
-
-    
 
     //This part returns the actual widget, along with a pointer to the tap function
     return Card(
