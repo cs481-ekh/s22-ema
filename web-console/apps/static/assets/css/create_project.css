@@ -1,27 +1,124 @@
-@keyframes flickerAnimation {
-  0%   { opacity:0; }
-  50%  { opacity:0.5; }
-  100% { opacity:1; }
-}
-@-o-keyframes flickerAnimation{
-  0%   { opacity:0; }
-  50%  { opacity:0.5; }
-  100% { opacity:1; }
-}
-@-moz-keyframes flickerAnimation{
-  0%   { opacity:0; }
-  50%  { opacity:0.5; }
-  100% { opacity:1; }
-}
-@-webkit-keyframes flickerAnimation{
-  0%   { opacity:0; }
-  50%  { opacity:0.5; }
-  100% { opacity:1; }
-}
-.animate-flicker {
-   -webkit-animation: flickerAnimation 1s forwards;
-   -moz-animation: flickerAnimation 1s forwards;
-   -o-animation: flickerAnimation 1s forwards;
-    animation: flickerAnimation 1s forwards;
+@keyframes fade_in {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
+@-o-keyframes fade_in {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-moz-keyframes fade_in {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes fade_in {
+    0% {
+        opacity: 0;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+.animate_fade_in {
+    -webkit-animation: fade_in 1s forwards;
+    -moz-animation: fade_in 1s forwards;
+    -o-animation: fade_in 1s forwards;
+    animation: fade_in 1s forwards;
+}
+
+
+@keyframes fade_out {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-o-keyframes fade_out {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes fade_out {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes fade_out {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
+.animate_fade_out {
+    -webkit-animation: fade_out 1s forwards;
+    -moz-animation: fade_out 1s forwards;
+    -o-animation: fade_out 1s forwards;
+    animation: fade_out 1s forwards;
+}
+
+
+.error_class_input {
+    border: solid 2px #FF0000;
+}
+
+.error_class_label {
+    color: #FF0000;
+}
+
+.removeButton {
+    border-radius: 8px;
+    border: none;
+}
