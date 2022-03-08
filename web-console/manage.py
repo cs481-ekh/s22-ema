@@ -4,6 +4,10 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 import sys
+
+import firebase_admin
+from firebase_admin import credentials
+
 from Schedule import *
 import os
 
@@ -24,7 +28,7 @@ def main():
     ##################################################################################################################
     # provide file path for firebase credentials (Needs to be taken out during build [CI])
     # os.environ[
-    #     "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/dnlrao/Desktop/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
+    #     "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/danielrao/Desktop/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
     #
     # # initializing app using credentials
     # firebase_admin.initialize_app(credentials.Certificate(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")))

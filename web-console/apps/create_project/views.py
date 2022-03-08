@@ -1,9 +1,15 @@
+from json import dumps
+
 from django.contrib.auth.decorators import login_required
 from importlib.machinery import SourceFileLoader
+from django.http import HttpResponse
 from django.shortcuts import render
 import os
 
 firebase = SourceFileLoader("fbase", os.getcwd() + "/fbase.py").load_module()
+
+# keeping track of non-participants.
+non_participants = []
 
 
 @login_required(login_url="/login/")
@@ -12,6 +18,15 @@ def create_project(request):
 
         project_id = request.POST.get('projectId')  # This field on front end is required.
         survey_link = request.POST.get('surveyLink')  # This field on front end is required.
+
+        # Participant email comes in after clicking Add Participant on the front end.
+        participant_email = request.POST.get('participantEmail')
+        if participant_email is not None:
+            if not firebase.user_exist(participant_email):
+                non_participants.append(participant_email)
+                response = HttpResponse("Cookie Set")
+                response.set_cookie('non_participant_email', participant_email)
+                return response
 
         # Getting other values from the template (create-project)
         description = request.POST.get("description")
@@ -25,16 +40,22 @@ def create_project(request):
         if participants is not None:
             # Split method is used because data is coming as a string
             participants = participants.split(",")
+            # checks if there are any duplicate values in the participant list if there are
+            # than they are automatically removed.
+            participants = removed_duplicate(participants)
 
         if project_id is not None and survey_link is not None:
             # run firebase query to see if the project exist.
             if firebase.project_document_exist(project_id) is not True:
-                # checks if there are any duplicate values in the participant list if there are
-                # than they are automatically removed.
-                participants = removed_duplicate(participants)
+                print(project_id, survey_link, description, participants)
                 # Write data to firebase
                 # firebase.write_project(project_id, survey_link, description, participants)
-                return render(request, 'home/create-project.html')
+                # clearing the global non-participants list [to carry out new instance of project.]
+                non_participants.clear()
+                return render(request, 'home/create-project.html', {'message_success': 'Project created Successfully!'})
+            else:
+                return render(request, 'home/create-project.html',
+                              {'message_error': 'Project name exists! Please choose a different name'})
 
     # html_template = loader.get_template('home/create-project.html')
     return render(request, 'home/create-project.html')

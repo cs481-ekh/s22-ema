@@ -1,0 +1,27 @@
+@keyframes flickerAnimation {
+  0%   { opacity:0; }
+  50%  { opacity:0.5; }
+  100% { opacity:1; }
+}
+@-o-keyframes flickerAnimation{
+  0%   { opacity:0; }
+  50%  { opacity:0.5; }
+  100% { opacity:1; }
+}
+@-moz-keyframes flickerAnimation{
+  0%   { opacity:0; }
+  50%  { opacity:0.5; }
+  100% { opacity:1; }
+}
+@-webkit-keyframes flickerAnimation{
+  0%   { opacity:0; }
+  50%  { opacity:0.5; }
+  100% { opacity:1; }
+}
+.animate-flicker {
+   -webkit-animation: flickerAnimation 1s forwards;
+   -moz-animation: flickerAnimation 1s forwards;
+   -o-animation: flickerAnimation 1s forwards;
+    animation: flickerAnimation 1s forwards;
+}
+
