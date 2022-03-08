@@ -65,18 +65,18 @@
                                             <form action="" method="post">
                                                 {% csrf_token %}
                                                 <div class="form-group">
-                                                    <label for="projectNameLabel">Project Name *</label>
+                                                    <label for="projectNameLabel" id="projectLabel">Project Name *</label>
                                                     <input type="text" class="form-control" id="projectNameInput"
                                                            aria-describedby="theNameOfTheProject"
                                                            placeholder="Project Name" name="projectId" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="surveyLinkLabel">Survey Link *</label>
+                                                    <label for="surveyLinkLabel" id="surveyLinkLabel">Survey Link *</label>
                                                     <input type="link" class="form-control" id="surveyLinkInput"
                                                            placeholder="Link" name="surveyLink" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="surveyLinkLabel">Enter participant(s)</label>
+                                                    <label for="surveyLinkLabel" id="email_label">Enter participant(s)</label>
                                                     <input type="email" class="form-control" id="participantEmailInput"
                                                            placeholder="Email">
                                                     <br>

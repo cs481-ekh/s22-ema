@@ -1,6 +1,5 @@
 $(document).ready(function () {
 
-
     let participant_list = []; // List that will contain all the emails of participants to be added to the project.
     let participant_email;
     let project_name;
@@ -16,7 +15,10 @@ $(document).ready(function () {
         //this code runs every few seconds
         let non_part = Cookies.get("non_participant_email")
         if (typeof non_part !== "undefined") {
-            alert(non_part + " does not exist!")
+            // setting the color of input field and label to red.
+            $("#email_label").addClass("error_class_label")
+            $("#participantEmailInput").addClass("error_class_input");
+
             //clear data from participant list.
             participant_list = participant_list.filter(item => item !== non_part)
             // Delete the cookie after usage.
@@ -86,22 +88,23 @@ $(document).ready(function () {
                     data: {'participantEmail': participant_email, 'project_Id': project_name},
                 });
 
-
-            } else {
-                // There needs to be a div here.
-                alert("Email has been added already.");
             }
 
         } else {
 
-            // Set input field to red color depending on which one is empty
+            // Set input field, label to red color depending on which one is empty
             if (project_name == "" && surveyLink != "") {
+                $('#projectLabel').addClass('error_class_label')
                 $('#projectNameInput').addClass('error_class_input');
             } else if (project_name != "" && surveyLink == "") {
+                $('#surveyLinkLabel').addClass('error_class_label')
                 $('#surveyLinkInput').addClass('error_class_input');
-            } else {
+            } else if (project_name == "" && surveyLink == "") {
                 $('#projectNameInput').addClass('error_class_input');
                 $('#surveyLinkInput').addClass('error_class_input');
+                $('#projectLabel').addClass('error_class_label')
+                $('#surveyLinkLabel').addClass('error_class_label')
+
             }
 
 
@@ -111,13 +114,20 @@ $(document).ready(function () {
         $("#createProject").attr("value", participant_list);
     });
 
-    // On focus remove the error class from the input field.
+    // On focus remove the error class from the input field and label.
     $("#projectNameInput").on('focus', function (message) {
-        $('#projectNameInput').removeClass('error_class');
+        $('#projectNameInput').removeClass('error_class_input');
+        $('#projectLabel').removeClass('error_class_label')
     });
 
     $("#surveyLinkInput").on('focus', function (message) {
-        $('#surveyLinkInput').removeClass('error_class');
+        $('#surveyLinkInput').removeClass('error_class_input');
+        $('#surveyLinkLabel').removeClass('error_class_label')
+    });
+
+    $("#participantEmailInput").on('focus', function (message) {
+        $("#participantEmailInput").removeClass("error_class_input");
+        $('#email_label').removeClass('error_class_label')
     });
 
 
