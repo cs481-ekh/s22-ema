@@ -108,10 +108,10 @@ void _handleMessage(RemoteMessage message) async {
 
 void incrementCount(String? email) {
   final DocumentReference docRef = FirebaseFirestore.instance.collection("users").doc(email);
-  docRef.update({"streak": FieldValue.increment(1)});
+  docRef.update({"streak": FieldValue.increment(1),"streakDate": DateTime.now()});
 }
 
 void resetCount(String? email) {
   final DocumentReference docRef = FirebaseFirestore.instance.collection("users").doc(email);
-  docRef.update({"streak": 0});
+  docRef.update({"streak": 0,"streakDate": DateTime.now()});
 }
