@@ -24,8 +24,13 @@ def create_project(request):
         if participant_email is not None:
             if not firebase.user_exist(participant_email):
                 non_participants.append(participant_email)
+                # setting cookie for non-participant
                 response = HttpResponse("Cookie Set")
                 response.set_cookie('non_participant_email', participant_email)
+                return response
+            else:
+                response = HttpResponse("Cookie Set")
+                response.set_cookie('participant_email', participant_email)
                 return response
 
         # Getting other values from the template (create-project)
