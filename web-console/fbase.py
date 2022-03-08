@@ -20,6 +20,18 @@ def read_projects():
     return document_list
 
 
+# Check if the user exist in the users collection
+def user_exist(document_name):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+    doc_ref = db.collection(u'users').document(document_name)
+    doc = doc_ref.get()
+    if doc.exists:
+        return True
+    else:
+        return False
+
+
 # Writing (project) data to firebase
 def write_project(project_id, survey_link, description, participants):
     # Connecting to Firebase
