@@ -3,6 +3,17 @@
 # Meeting Minutes: EMA
 
 ## Web
+### 3/08/22
+
+*Scribe:* Brandon
+
+*Present:* Andrew, Alejandro, Brandon, Daniel
+
+*Absent:* none
+
+*Items:* Met with Professor Henderson to go over our Sprint 2 planning. Need to make sure we have our roles at the beginning of each sprint. Spent rest of meeting debugging the notifications page. Decided to meet again on Wednesday (Alejandro and Brandon) to work on pop ups and buttons in our create project and edit project pages. 
+
+## Web
 ### 3/03/22
 
 *Scribe:* Andrew
