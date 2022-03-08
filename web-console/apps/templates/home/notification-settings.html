@@ -41,7 +41,8 @@
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <form>
+                                            <form action="" method="post">
+                                                {% csrf_token %}
                                                 <div class="form-group">
                                                     <label for="whenToNotifyLabel">Select a project</label>
                                                     <select class="form-control" id="whenToNotify">
@@ -113,4 +114,8 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+
+
+
+{% endblock javascripts %}
