@@ -103,6 +103,16 @@ class _UserPageState extends State<UserPage> {
           throw "Could not launch $url";
         }
       }
+
+      bool clicked = true;
+      //check for the click happening between 12-24 hours from the last click,
+      //then update the clicked bool 
+      if (clicked) {
+        incrementCount();
+      }
+      else{
+        resetCount();
+      }
     }
 
     //This part returns the actual widget, along with a pointer to the tap function
