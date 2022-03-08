@@ -110,3 +110,8 @@ void incrementCount(String? email) {
   final DocumentReference docRef = FirebaseFirestore.instance.collection("users").doc(email);
   docRef.update({"streak": FieldValue.increment(1)});
 }
+
+void resetCount(String? email) {
+  final DocumentReference docRef = FirebaseFirestore.instance.collection("users").doc(email);
+  docRef.update({"streak": 0});
+}

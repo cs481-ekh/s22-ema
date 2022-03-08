@@ -102,13 +102,15 @@ class _UserPageState extends State<UserPage> {
 
       updateMissedNotifs();
 
-      bool clicked = true;
+      bool streakCheck = true;
       //check for the click happening between 12-24 hours from the last click,
       //then update the clicked bool 
-      if (clicked) {
+      if (streakCheck) {
+        //clicked between 12-24 hours after the previous click
         incrementCount(FirebaseAuth.instance.currentUser?.email);
       }
       else{
+        //clicked more than 24 hours after the previous click
         resetCount();
       }
 
