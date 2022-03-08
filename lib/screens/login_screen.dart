@@ -20,6 +20,7 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var screenSize = MediaQuery.of(context).size;
     return Scaffold(
       appBar: AppBar(
         title: const Text('EMA'),
@@ -50,8 +51,11 @@ class LoginPage extends StatelessWidget {
             Flexible(
               flex: 3,
               child: Padding(
-                padding: const EdgeInsets.only(
-                    top: 20.0, bottom: 20.0, left: 20.0, right: 20.0),
+                padding: EdgeInsets.only(
+                    top: screenSize.height * 0.015,
+                    bottom: screenSize.height * 0.015,
+                    left: screenSize.width * 0.07,
+                    right: screenSize.width * 0.07),
                 child: TextField(
                   key: const Key("email-field"),
                   controller: usernameController,
@@ -66,7 +70,11 @@ class LoginPage extends StatelessWidget {
             Flexible(
               flex: 3,
               child: Padding(
-                  padding: const EdgeInsets.all(20.0),
+                  padding: EdgeInsets.only(
+                      top: screenSize.height * 0.015,
+                      bottom: screenSize.height * 0.015,
+                      left: screenSize.width * 0.07,
+                      right: screenSize.width * 0.07),
                   child: TextField(
                     key: const Key("password-field"),
                     controller: passwordController,
@@ -82,12 +90,16 @@ class LoginPage extends StatelessWidget {
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: EdgeInsets.only(
+                        top: screenSize.height * 0.015,
+                        bottom: screenSize.height * 0.015,
+                        left: screenSize.width * 0.07,
+                        right: screenSize.width * 0.07),
                     child: TextButton(
                       key: const Key("login-button"),
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.only(
-                              top: 20.0, bottom: 20.0, left: 30.0, right: 30.0),
+                              top: 10.0, bottom: 10.0, left: 10.0, right: 10.0),
                           primary: Colors.white,
                           textStyle: const TextStyle(fontSize: 20),
                           backgroundColor: Colors.blue),
@@ -132,10 +144,18 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.all(20.0),
+                    padding: EdgeInsets.only(
+                        top: screenSize.height * 0.015,
+                        bottom: screenSize.height * 0.015,
+                        left: screenSize.width * 0.07,
+                        right: screenSize.width * 0.07),
                     child: TextButton(
                       style: TextButton.styleFrom(
-                          padding: EdgeInsets.all(20.0),
+                          padding: EdgeInsets.only(
+                              top: screenSize.height * 0.02,
+                              bottom: screenSize.height * 0.02,
+                              left: screenSize.width * 0.05,
+                              right: screenSize.width * 0.05),
                           primary: Colors.white,
                           textStyle: const TextStyle(fontSize: 20),
                           backgroundColor: Colors.blue),
@@ -237,11 +257,14 @@ class LoginPage extends StatelessWidget {
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Padding(
-                    padding: const EdgeInsets.all(20.0),
+                    padding: const EdgeInsets.all(0.0),
                     child: TextButton(
                       style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              top: 20.0, bottom: 20.0, left: 30.0, right: 30.0),
+                          padding: EdgeInsets.only(
+                              top: screenSize.height * 0.02,
+                              bottom: screenSize.height * 0.02,
+                              left: screenSize.width * 0.10,
+                              right: screenSize.width * 0.10),
                           primary: Colors.white,
                           textStyle: const TextStyle(fontSize: 20),
                           backgroundColor: Colors.blue),
