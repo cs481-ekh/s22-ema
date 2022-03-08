@@ -29,21 +29,21 @@ $(document).ready(function () {
     // Check if participant_email cookie is set every few seconds.
     setInterval(function () {
         //this code runs every few seconds
-        let non_part = Cookies.get("participant_email")
-        if (typeof non_part !== "undefined") {
+        let part = Cookies.get("participant_email")
+        if (typeof part !== "undefined") {
+            //extracting user_name from email
+            let text = part;
+            const myArray = text.split("@");
+            let userName = myArray[0];
+
             // Adding a participant card to the right
             $("tbody").append(" <tr class=\"unread\">\n" +
                 "                                                            <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
                 "                                                                     src=\"/static/assets/images/user/user-3.png\"\n" +
                 "                                                                     alt=\"activity-user\"></td>\n" +
                 "                                                            <td>\n" +
-                "                                                                <h6 class=\"mb-1\">User3</h6>\n" +
-                "                                                                <p class=\"m-0\">User3 email</p>\n" +
-                "                                                            </td>\n" +
-                "                                                            <td>\n" +
-                "                                                                <h6 class=\"text-muted\"><i\n" +
-                "                                                                        class=\"fas fa-circle text-c-green f-10 m-r-15\"></i>user3\n" +
-                "                                                                    info</h6>\n" +
+                "                                                                <h6 class=\"mb-1\">" + part + "</h6>\n" +
+                "                                                                <p class=\"m-0\">" + userName + "</p>\n" +
                 "                                                            </td>\n" +
                 "                                                            <td><a href=\"#!\" class=\"label theme-bg2 text-white f-12\">Remove</a>\n" +
                 "                                                            </td>\n" +
