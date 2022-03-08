@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:ema/utils/global_funcs.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
@@ -96,6 +96,18 @@ class _UserPageState extends State<UserPage> {
 
       updateMissedNotifs();
 
+      bool streakCheck = true;
+      //check for the click happening between 12-24 hours from the last click,
+      //then update the clicked bool 
+      if (streakCheck) {
+        //clicked between 12-24 hours after the previous click
+        incrementCount(FirebaseAuth.instance.currentUser?.email);
+      }
+      else{
+        //clicked more than 24 hours after the previous click
+        resetCount(FirebaseAuth.instance.currentUser?.email);
+      }
+
       if (url != null) {
         if (await canLaunch(url)) {
           await launch(url);
@@ -103,6 +115,7 @@ class _UserPageState extends State<UserPage> {
           throw "Could not launch $url";
         }
       }
+
     }
 
     //This part returns the actual widget, along with a pointer to the tap function
