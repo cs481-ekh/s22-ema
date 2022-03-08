@@ -1,5 +1,9 @@
 import 'dart:convert';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ema/utils/data_classes.dart';
 import 'package:ema/utils/global_funcs.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +31,12 @@ class _UserPageState extends State<UserPage> {
 
   void initializeMessageHandler() async {
     FirebaseMessaging.onMessage.listen(handleForegroundNotif);
+  }
+
+  
+
+  void resetCount() {
+
   }
 
   void initializeSharedPrefs() async {
@@ -96,6 +106,19 @@ class _UserPageState extends State<UserPage> {
 
       updateMissedNotifs();
 
+      bool clicked = true;
+      //check for the click happening between 12-24 hours from the last click,
+      //then update the clicked bool 
+      if (clicked) {
+        // ignore: avoid_print
+        print("Current user: ");
+        print(FirebaseAuth.instance.currentUser?.email);
+        //incrementCount(InternalUser.instance().user.displayName);
+      }
+      else{
+        resetCount();
+      }
+
       if (url != null) {
         if (await canLaunch(url)) {
           await launch(url);
@@ -104,16 +127,11 @@ class _UserPageState extends State<UserPage> {
         }
       }
 
-      bool clicked = true;
-      //check for the click happening between 12-24 hours from the last click,
-      //then update the clicked bool 
-      if (clicked) {
-        incrementCount();
-      }
-      else{
-        resetCount();
-      }
     }
+
+    
+
+    
 
     //This part returns the actual widget, along with a pointer to the tap function
     return Card(

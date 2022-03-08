@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -105,4 +107,9 @@ void _handleMessage(RemoteMessage message) async {
     } else
       throw "Could not launch $url";
   }
+}
+
+void incrementCount(String? email) {
+  final DocumentReference docRef = FirebaseFirestore.instance.collection("users").document(REPLACE_WITH_ID);
+  //docRef.update({"streak": FieldValue.increment(1)});
 }
