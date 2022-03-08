@@ -37,7 +37,7 @@ $(document).ready(function () {
             let userName = myArray[0];
 
             // Adding a participant card to the right
-            $("tbody").append(" <tr class=\"unread\">\n" +
+            $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + part + ">\n" +
                 "                                                            <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
                 "                                                                     src=\"/static/assets/images/user/user-3.png\"\n" +
                 "                                                                     alt=\"activity-user\"></td>\n" +
@@ -45,7 +45,7 @@ $(document).ready(function () {
                 "                                                                <h6 class=\"mb-1\">" + part + "</h6>\n" +
                 "                                                                <p class=\"m-0\">" + userName + "</p>\n" +
                 "                                                            </td>\n" +
-                "                                                            <td><a href=\"#!\" class=\"label theme-bg2 text-white f-12\">Remove</a>\n" +
+                "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 removeCard removeButton\">Remove</button>\n" +
                 "                                                            </td>\n" +
                 "                                                        </tr>");
             // Delete the cookie after usage.
@@ -70,7 +70,7 @@ $(document).ready(function () {
     });
 
     // Targeting Add Participant button
-    $("#submitParticipant").click(function (message) {
+    $("#submitParticipant").click(function () {
 
         participant_email = $("#participantEmailInput").val();
         project_name = $("#projectNameInput").val();
@@ -107,7 +107,6 @@ $(document).ready(function () {
 
             }
 
-
         }
         // Once participant list has been built it needs to be tied into the Create New Project as this data will be getting posted to the same page.
         // Only button of submit type 'value' can be edited which is to be posted.
@@ -130,5 +129,44 @@ $(document).ready(function () {
         $('#email_label').removeClass('error_class_label')
     });
 
+
+    // remove the participant card upon clicking Remove
+    $(document).on('click', '.removeCard', function () {
+        let parent = $(this).closest('tr').attr('id');
+
+        // Before removing the div remove the animate class from the div
+        document.getElementById(parent).classList.remove("animate_fade_in")
+        // fadeout the element first
+        document.getElementById(parent).classList.add("animate_fade_out");
+        // //remove the parent element
+        setTimeout(function () {
+            // Wait for the element to exist
+            if ($(document.getElementById(parent)).length > 0) {
+                $(document.getElementById(parent)).remove();
+            }
+        }, 3000)
+        // remove the parent from the participant list as well
+        participant_list = participant_list.filter(item => item !== parent)
+        //also update the list that will be sent with submit button
+        $("#createProject").attr("value", participant_list);
+    });
+
+    // removes the error/success card upon submission
+    $(document).on('click', '.close_button', function () {
+        // remove fade_in class from the element
+        document.getElementById("message").classList.remove("animate_fade_in");
+        // add fade_out class to the element
+        document.getElementById("message").classList.add("animate_fade_out");
+
+        // delete the element after 1 second
+        // //remove the parent element
+        setTimeout(function () {
+            // Wait for the element to exist
+            if ($(document.getElementById("message")).length > 0) {
+                $(document.getElementById("message")).remove();
+            }
+        }, 1000)
+
+    });
 
 });

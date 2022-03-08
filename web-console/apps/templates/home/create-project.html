@@ -43,18 +43,18 @@
                                     <hr>
                                     <!-- var: -->
                                     {% if message_error %}
-                                        <div class="alert alert-danger animate-flicker" role="alert" id="message">
+                                        <div class="alert alert-danger animate_fade_in" role="alert" id="message">
                                             {{ message_error }}
-                                            <button type="button" class="close" aria-label="Close" id="close_button">
+                                            <button type="button" class="close close_button" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
                                     {% endif %}
 
                                     {% if message_success %}
-                                        <div class="alert alert-success animate-flicker" role="alert" id="message">
+                                        <div class="alert alert-success animate_fade_in" role="alert" id="message">
                                             {{ message_success }}
-                                            <button type="button" class="close" aria-label="Close" id="close_button">
+                                            <button type="button" class="close close_button" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
                                             </button>
                                         </div>
@@ -65,18 +65,21 @@
                                             <form action="" method="post">
                                                 {% csrf_token %}
                                                 <div class="form-group">
-                                                    <label for="projectNameLabel" id="projectLabel">Project Name *</label>
+                                                    <label for="projectNameLabel" id="projectLabel">Project Name
+                                                        *</label>
                                                     <input type="text" class="form-control" id="projectNameInput"
                                                            aria-describedby="theNameOfTheProject"
                                                            placeholder="Project Name" name="projectId" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="surveyLinkLabel" id="surveyLinkLabel">Survey Link *</label>
+                                                    <label for="surveyLinkLabel" id="surveyLinkLabel">Survey Link
+                                                        *</label>
                                                     <input type="link" class="form-control" id="surveyLinkInput"
                                                            placeholder="Link" name="surveyLink" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="surveyLinkLabel" id="email_label">Enter participant(s)</label>
+                                                    <label for="surveyLinkLabel" id="email_label">Enter
+                                                        participant(s)</label>
                                                     <input type="email" class="form-control" id="participantEmailInput"
                                                            placeholder="Email">
                                                     <br>
@@ -102,30 +105,6 @@
                                                 <div class="table-responsive">
                                                     <table class="table table-hover">
                                                         <tbody>
-                                                        <tr class="unread">
-                                                            <td><img class="rounded-circle" style="width:40px;"
-                                                                     src="/static/assets/images/user/avatar-1.jpg"
-                                                                     alt="activity-user"></td>
-                                                            <td>
-                                                                <h6 class="mb-1">User1</h6>
-                                                                <p class="m-0">User1 email</p>
-                                                            </td>
-
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Remove</a>
-                                                            </td>
-                                                        </tr>
-                                                        <tr class="unread">
-                                                            <td><img class="rounded-circle" style="width:40px;"
-                                                                     src="/static/assets/images/user/avatar-2.jpg"
-                                                                     alt="activity-user"></td>
-                                                            <td>
-                                                                <h6 class="mb-1">User2</h6>
-                                                                <p class="m-0">User2 email</p>
-                                                            </td>
-
-                                                            <td><a href="#!" class="label theme-bg2 text-white f-12">Remove</a>
-                                                            </td>
-                                                        </tr>
                                                         </tbody>
                                                     </table>
                                                 </div>
