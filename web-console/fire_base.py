@@ -84,7 +84,7 @@ def delete_project_document(document_name):
 
 
 # Reading (users) data from the collection
-def read_users():
+def get_all_users():
     # Connecting to Firebase
     db = db_connect_firebase()
     docs = db.collection(u'users').stream()
