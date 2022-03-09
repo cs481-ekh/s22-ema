@@ -20,6 +20,8 @@ def index(request):
     html_template = loader.get_template('home/index.html')
     # These tests were conducted
     # print(firebase.get_all_projects())
+    # print(firebase.get_all_projects())
+
     # print(firebase.get_project_document_data("notif_test"))
     # firebase.delete_project_document("notif_test")
 

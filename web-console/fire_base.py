@@ -78,6 +78,15 @@ def delete_project_document(document_name):
     db.collection(u'projects').document(document_name).delete()
 
 
+# removing participants from project
+def remove_participant_from_project(document_name, participant_email):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+    doc_ref = db.collection(u'projects').document(document_name)
+    # // Atomically remove given participant email from the 'participants' array field.
+    doc_ref.update({u'participants': firestore.ArrayRemove([participant_email])})
+
+
 ########################################################################################################################
 #                                                   Users Queries                                                      #
 ########################################################################################################################
