@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 import os
 
-firebase = SourceFileLoader("fbase", os.getcwd() + "/fbase.py").load_module()
+firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 
 # keeping track of non-participants.
 non_participants = []

@@ -11,7 +11,7 @@ from django.urls import reverse
 from importlib.machinery import SourceFileLoader
 import os
 
-firebase = SourceFileLoader("fbase", os.getcwd() + "/fbase.py").load_module()
+firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 
 
 @login_required(login_url="/login/")
