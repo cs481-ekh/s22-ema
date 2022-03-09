@@ -58,6 +58,19 @@ def project_document_exist(document_name):
         return False
 
 
+# returns document data of the specific project from the 'projects' collection
+def project_document_data(document_name):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+    doc_ref = db.collection(u'projects').document(document_name)
+    doc = doc_ref.get()
+    if doc.exists:
+        data_dict = doc.to_dict()
+        return data_dict
+    else:
+        return None
+
+
 ########################################################################################################################
 #                                                   Users Queries                                                      #
 ########################################################################################################################

@@ -19,7 +19,8 @@ def index(request):
     context = {'segment': 'index'}
     html_template = loader.get_template('home/index.html')
     # These tests were conducted
-    # print(firebase.read_projects())
+    # print(firebase.read_all_projects())
+    print(firebase.project_document_data("ema"))
 
     # firebase.write_projects("test2", "https://www.facebook.com/", "This is test2", ['abc@gmail.com', 'efg@gmail.com'])
     # print(firebase.read_users())
