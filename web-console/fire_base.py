@@ -15,7 +15,7 @@ def db_connect_firebase():
 
 
 # Reading (projects) data from the collection
-def read_all_projects():
+def get_all_projects():
     # Connecting to Firebase
     db = db_connect_firebase()
     docs = db.collection(u'projects').stream()
@@ -59,7 +59,7 @@ def project_document_exist(document_name):
 
 
 # returns document data of the specific project from the 'projects' collection
-def project_document_data(document_name):
+def get_project_document_data(document_name):
     # Connecting to Firebase
     db = db_connect_firebase()
     doc_ref = db.collection(u'projects').document(document_name)
@@ -69,6 +69,13 @@ def project_document_data(document_name):
         return data_dict
     else:
         return None
+
+
+# deletes the project given a document name (project name)
+def delete_project_document(document_name):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+    db.collection(u'projects').document(document_name).delete()
 
 
 ########################################################################################################################
