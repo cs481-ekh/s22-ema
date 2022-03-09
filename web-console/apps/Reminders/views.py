@@ -6,5 +6,6 @@ from django.shortcuts import render
 @login_required(login_url="/login/")
 def index(request):
     if(request.method == 'POST'):
-        print(request.POST.get('scheduleSendDateInput'))
-    return render(request, 'home/notification-settings.html')
+        print('test')
+        print(list(request.POST.items()))
+        return render(request, 'home/notification-settings.html')
