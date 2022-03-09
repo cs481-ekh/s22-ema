@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.shortcuts import render
 import os
 
-firebase = SourceFileLoader("fbase", os.getcwd() + "/fbase.py").load_module()
+firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 
 # keeping track of non-participants.
 non_participants = []
@@ -52,9 +52,8 @@ def create_project(request):
         if project_id is not None and survey_link is not None:
             # run firebase query to see if the project exist.
             if firebase.project_document_exist(project_id) is not True:
-                print(project_id, survey_link, description, participants)
                 # Write data to firebase
-                # firebase.write_project(project_id, survey_link, description, participants)
+                firebase.write_project(project_id, survey_link, description, participants)
                 # clearing the global non-participants list [to carry out new instance of project.]
                 non_participants.clear()
                 return render(request, 'home/create-project.html', {'message_success': 'Project created Successfully!'})

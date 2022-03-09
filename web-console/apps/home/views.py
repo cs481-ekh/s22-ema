@@ -11,7 +11,7 @@ from django.urls import reverse
 from importlib.machinery import SourceFileLoader
 import os
 
-firebase = SourceFileLoader("fbase", os.getcwd() + "/fbase.py").load_module()
+firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 
 
 @login_required(login_url="/login/")
@@ -19,10 +19,14 @@ def index(request):
     context = {'segment': 'index'}
     html_template = loader.get_template('home/index.html')
     # These tests were conducted
-    # print(firebase.read_projects())
+    # print(firebase.get_all_projects())
+    # print(firebase.get_all_projects())
+
+    # print(firebase.get_project_document_data("notif_test"))
+    # firebase.delete_project_document("notif_test")
 
     # firebase.write_projects("test2", "https://www.facebook.com/", "This is test2", ['abc@gmail.com', 'efg@gmail.com'])
-    # print(firebase.read_users())
+    # print(firebase.get_all_users())
     # print(firebase.get_user_registration_token("test1@gmail.com"))
 
     # tokens = []
