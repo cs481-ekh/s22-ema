@@ -37,8 +37,8 @@ def write_project(project_id, survey_link, description, participants):
     new_values = {
         "projectId": project_id,
         "dateCreated": datetime.datetime.now(),
-        "description": description,
         "surveyLink": survey_link,
+        "description": description,
         "participants": participants
     }
 
@@ -71,6 +71,28 @@ def get_project_document_data(document_name):
         return None
 
 
+# Being able to edit any meta-data in the project other than participants provided a document name. pass participants as they are
+def update_project_details(document_name, project_id, survey_link, description, participants):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+
+    # delete the previous document
+    delete_project_document(document_name)
+
+    # New values to be added
+    data = {
+        "projectId": project_id,
+        "dateCreated": datetime.datetime.now(),
+        "surveyLink": survey_link,
+        "description": description,
+        "participants": participants
+    }
+
+    # creating the document with the new name
+    db.collection(u'cities').document(project_id).set(data)
+
+
+# adding participants to the project.
 def add_participant_to_project(document_name, participant_email):
     # Connecting to Firebase
     db = db_connect_firebase()
@@ -80,7 +102,7 @@ def add_participant_to_project(document_name, participant_email):
     doc_ref.update({u'participants': firestore.ArrayUnion([participant_email])})
 
 
-# removing participants from project
+# removing participants from project.
 def remove_participant_from_project(document_name, participant_email):
     # Connecting to Firebase
     db = db_connect_firebase()
