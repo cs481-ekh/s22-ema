@@ -9,8 +9,13 @@ def db_connect_firebase():
     return db
 
 
+########################################################################################################################
+#                                                   Project Queries                                                    #
+########################################################################################################################
+
+
 # Reading (projects) data from the collection
-def read_projects():
+def read_all_projects():
     # Connecting to Firebase
     db = db_connect_firebase()
     docs = db.collection(u'projects').stream()
@@ -18,18 +23,6 @@ def read_projects():
     for doc in docs:
         document_list.append(f'{doc.id} => {doc.to_dict()}')
     return document_list
-
-
-# Check if the user exist in the users collection
-def user_exist(document_name):
-    # Connecting to Firebase
-    db = db_connect_firebase()
-    doc_ref = db.collection(u'users').document(document_name)
-    doc = doc_ref.get()
-    if doc.exists:
-        return True
-    else:
-        return False
 
 
 # Writing (project) data to firebase
@@ -65,6 +58,11 @@ def project_document_exist(document_name):
         return False
 
 
+########################################################################################################################
+#                                                   Users Queries                                                      #
+########################################################################################################################
+
+
 # Reading (users) data from the collection
 def read_users():
     # Connecting to Firebase
@@ -74,6 +72,23 @@ def read_users():
     for doc in docs:
         document_list.append(f'{doc.id} => {doc.to_dict()}')
     return document_list
+
+
+# Check if the user exist in the users collection
+def user_exist(document_name):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+    doc_ref = db.collection(u'users').document(document_name)
+    doc = doc_ref.get()
+    if doc.exists:
+        return True
+    else:
+        return False
+
+
+########################################################################################################################
+#                                                  Notification Queries                                                #
+########################################################################################################################
 
 
 # get user token using email address.
