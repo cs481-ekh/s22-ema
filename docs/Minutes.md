@@ -77,6 +77,16 @@
 
 ## Mobile
 
+### 3/08/22
+
+*Scribe:* Jason
+
+*Present:* Jason, Jeff, Jon
+
+*Absent:* N/A
+
+*Items:* Met with the professor at our scheduled time and discussed how Sprint 1 went, what we can improve on, and currently how Sprint 2 is going. After our meeting, we also talked about what each of us are currently working on, and things to get done by the end of the sprint. We are currently trying to get some iOS bugs fixed and get the streak system functioning.
+
 ### 3/02/22
 
 *Scribe:* Jon
