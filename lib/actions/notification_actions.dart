@@ -107,11 +107,47 @@ void _handleMessage(RemoteMessage message) async {
 }
 
 void incrementCount(String? email) {
-  final DocumentReference docRef = FirebaseFirestore.instance.collection("users").doc(email);
-  docRef.update({"streak": FieldValue.increment(1),"streakDate": DateTime.now()});
+  final DocumentReference docRef =
+      FirebaseFirestore.instance.collection("users").doc(email);
+  docRef.update(
+      {"streak": FieldValue.increment(1), "streakDate": DateTime.now()});
 }
 
 void resetCount(String? email) {
-  final DocumentReference docRef = FirebaseFirestore.instance.collection("users").doc(email);
-  docRef.update({"streak": 0,"streakDate": DateTime.now()});
+  final DocumentReference docRef =
+      FirebaseFirestore.instance.collection("users").doc(email);
+  docRef.update({"streak": 0, "streakDate": DateTime.now()});
+}
+
+Future<bool> checkDate(String? email) async {
+  Timestamp lastTime = await getUsersStreakDate(email!);
+  final DocumentReference docRef =
+      FirebaseFirestore.instance.collection("users").doc(email);
+
+  print(lastTime);
+  DateTime lastDate = lastTime.toDate();
+  const NUMBER_OF_SECONDS = 86400;
+  DateTime cutOff = lastDate.add(const Duration(hours: 24));
+  if ((DateTime.now().isAfter(cutOff))) {
+    return false;
+  }
+  return true;
+}
+
+Future<Timestamp> getUsersStreakDate(String username) async {
+  dynamic data;
+
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(username)
+      .get()
+      .then((DocumentSnapshot documentSnapshot) {
+    if (documentSnapshot.exists) {
+      data = documentSnapshot.get("streakDate");
+    } else {
+      data = null;
+    }
+  });
+
+  return data;
 }

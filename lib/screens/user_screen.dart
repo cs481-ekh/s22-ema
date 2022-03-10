@@ -96,14 +96,15 @@ class _UserPageState extends State<UserPage> {
 
       updateMissedNotifs();
 
-      bool streakCheck = true;
+      bool streakCheck =
+          await checkDate(FirebaseAuth.instance.currentUser?.email);
       //check for the click happening between 12-24 hours from the last click,
-      //then update the clicked bool 
+      //then update the clicked bool
+
       if (streakCheck) {
         //clicked between 12-24 hours after the previous click
         incrementCount(FirebaseAuth.instance.currentUser?.email);
-      }
-      else{
+      } else {
         //clicked more than 24 hours after the previous click
         resetCount(FirebaseAuth.instance.currentUser?.email);
       }
@@ -115,7 +116,6 @@ class _UserPageState extends State<UserPage> {
           throw "Could not launch $url";
         }
       }
-
     }
 
     //This part returns the actual widget, along with a pointer to the tap function
