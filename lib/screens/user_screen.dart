@@ -103,7 +103,7 @@ class _UserPageState extends State<UserPage> {
       if (streakCheck) {
         //clicked between 12-24 hours after the previous click
         incrementCount(FirebaseAuth.instance.currentUser?.email);
-        _showMyDialog();
+        displayCongrats();
       } else {
         //clicked more than 24 hours after the previous click
         resetCount(FirebaseAuth.instance.currentUser?.email);
@@ -201,7 +201,7 @@ class _UserPageState extends State<UserPage> {
     );
   }
 
-  Future<void> _showMyDialog() async {
+  Future<void> displayCongrats() async {
     int test = await getCount(FirebaseAuth.instance.currentUser?.email);
     return showDialog<void>(
       context: context,
