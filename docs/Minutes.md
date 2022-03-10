@@ -3,6 +3,17 @@
 # Meeting Minutes: EMA
 
 ## Web
+### 3/10/22
+
+*Scribe:* Daniel
+
+*Present:* Andrew, Alejandro, Brandon, Daniel
+
+*Absent:* none
+
+*Items:* Went over with the progress of the project and what things might needed to get done with this sprint. We also talked about integrating firebase notification with scheduler and that what method would be requireds. Brandon would be working on implementing scroll in create eproject. Other than that everything seems to be on track
+
+## Web
 ### 3/08/22
 
 *Scribe:* Brandon
