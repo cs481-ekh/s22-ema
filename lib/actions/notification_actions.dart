@@ -107,11 +107,32 @@ void _handleMessage(RemoteMessage message) async {
 }
 
 void incrementCount(String? email) {
-  final DocumentReference docRef = FirebaseFirestore.instance.collection("users").doc(email);
-  docRef.update({"streak": FieldValue.increment(1),"streakDate": DateTime.now()});
+  final DocumentReference docRef =
+      FirebaseFirestore.instance.collection("users").doc(email);
+  docRef.update(
+      {"streak": FieldValue.increment(1), "streakDate": DateTime.now()});
 }
 
 void resetCount(String? email) {
-  final DocumentReference docRef = FirebaseFirestore.instance.collection("users").doc(email);
-  docRef.update({"streak": 0,"streakDate": DateTime.now()});
+  final DocumentReference docRef =
+      FirebaseFirestore.instance.collection("users").doc(email);
+  docRef.update({"streak": 0, "streakDate": DateTime.now()});
+}
+
+Future<int> getCount(String? email) async {
+  int data = -1;
+
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(email)
+      .get()
+      .then((DocumentSnapshot documentSnapshot) {
+    if (documentSnapshot.exists) {
+      data = documentSnapshot.get("streak");
+    } else {
+      data = -1;
+    }
+  });
+
+  return data;
 }

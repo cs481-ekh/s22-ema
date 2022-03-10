@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:ema/utils/global_funcs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -98,12 +99,12 @@ class _UserPageState extends State<UserPage> {
 
       bool streakCheck = true;
       //check for the click happening between 12-24 hours from the last click,
-      //then update the clicked bool 
+      //then update the clicked bool
       if (streakCheck) {
         //clicked between 12-24 hours after the previous click
         incrementCount(FirebaseAuth.instance.currentUser?.email);
-      }
-      else{
+        _showMyDialog();
+      } else {
         //clicked more than 24 hours after the previous click
         resetCount(FirebaseAuth.instance.currentUser?.email);
       }
@@ -115,7 +116,6 @@ class _UserPageState extends State<UserPage> {
           throw "Could not launch $url";
         }
       }
-
     }
 
     //This part returns the actual widget, along with a pointer to the tap function
@@ -198,6 +198,36 @@ class _UserPageState extends State<UserPage> {
           ],
         ),
       ),
+    );
+  }
+
+  Future<void> _showMyDialog() async {
+    int test = await getCount(FirebaseAuth.instance.currentUser?.email);
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Congratulations!'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('You have done at least one survey for ' +
+                    test.toString() +
+                    ' days in a row!'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Dismiss'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
     );
   }
 }
