@@ -39,12 +39,12 @@
                                 <div class="card-body">
                                     <h3>Project Notification Information</h3>
                                     <hr>
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <form>
+                                            <form action="" method="post">
+                                                <div class="col-md-6">
+                                                {% csrf_token %}
                                                 <div class="form-group">
                                                     <label for="whenToNotifyLabel">Select a project</label>
-                                                    <select class="form-control" id="whenToNotify">
+                                                    <select class="form-control" id="whenToNotify" name="selectedProject">
                                                         <option>Project1</option>
                                                         <option>Project2</option>
                                                     </select>
@@ -55,18 +55,18 @@
                                                 <div class="form-group">
                                                     <label for="scheduleSendDate">Schedule Send Date</label>
                                                     <input type="date" class="form-control" id="scheduleSendDateInput"
-                                                           aria-describedby="scheduleSendDate" placeholder="">
+                                                           aria-describedby="scheduleSendDate" placeholder="" name="startDate">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="scheduleSendTime">Schedule Send Time</label>
                                                     <input type="time" class="form-control"
                                                            id="scheduleSendDateTimeInput"
-                                                           aria-describedby="scheduleSendTime" placeholder="">
+                                                           aria-describedby="scheduleSendTime" placeholder="" name="startTime">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="whenToNotifyLabel">How often should these participants
                                                         be notified?</label>
-                                                    <select class="form-control" id="whenToNotify">
+                                                    <select class="form-control" id="whenToNotify" name="selection">
                                                         <option>Once</option>
                                                         <option>Hourly</option>
                                                         <option>Daily</option>
@@ -74,29 +74,26 @@
                                                         <option>Every Few Hours</option>
                                                     </select>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary">Set Notification
-                                                </button>
-                                            </form>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <form>
-                                                {#                                            <div class="form-group">#}
-                                                {#                                                <label>Text</label>#}
-                                                {#                                                <input type="text" class="form-control" placeholder="Text">#}
-                                                {#                                            </div>#}
-
+                                                </div>
+                                                <div class="col-md-6">
                                                 <h5>Set a date and time to stop notifications</h5>
                                                 <hr>
                                                 <div class="form-group">
                                                     <label for="expirationDate">Expiration Date</label>
                                                     <input type="date" class="form-control" id="expirationDateInput"
-                                                           aria-describedby="timeTheNotificationExpires" placeholder="">
+                                                           aria-describedby="timeTheNotificationExpires" placeholder="" name="endDate">
                                                 </div>
                                                 <div class="form-group">
                                                     <label for="expirationTime">Expiration Time</label>
                                                     <input type="time" class="form-control" id="expirationTimeInput"
-                                                           aria-describedby="scheduleexpirationTime" placeholder="">
+                                                           aria-describedby="scheduleexpirationTime" placeholder="" name="endTime">
                                                 </div>
+                                                <button type="submit" class="btn btn-primary">Set Notification
+                                                </button>
+                                                </div>
+                                            </form>
+
+
                                             </form>
                                         </div>
                                     </div>
@@ -113,4 +110,8 @@
 {% endblock content %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+
+
+
+{% endblock javascripts %}

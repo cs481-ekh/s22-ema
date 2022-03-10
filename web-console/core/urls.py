@@ -18,7 +18,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),          # Django admin route
     path("", include("apps.authentication.urls")), # Auth routes - login / register
     path("", include("apps.home.urls")),            # UI Kits Html files
-    path('api/', include("apps.API.urls")),
     path("createProject/", include("apps.create_project.urls")),
-    path("editProject", include("apps.edit_project.urls"))
+    path("editProject", include("apps.edit_project.urls")),
+    path("reminders/", include("apps.Reminders.urls"))
 ]
