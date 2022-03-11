@@ -6,6 +6,8 @@
 {% block stylesheets %}{% endblock stylesheets %}
 
 {% block content %}
+    {% load static %}
+    <script src="{% static "assets/js/edit-project.js" %}" type="text/javascript"></script>
 
     <div class="pcoded-content">
         <div class="pcoded-inner-content">
@@ -19,7 +21,7 @@
                             </div>
                             <ul class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="/"><i class="feather icon-home"></i></a></li>
-                                <li class="breadcrumb-item"><a href="javascript:">Edit Project</a></li>
+                                <li class="breadcrumb-item"><a href="javascript:">Update Project</a></li>
                             </ul>
                         </div>
                     </div>
@@ -40,14 +42,19 @@
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <form action="" method="post">
+                                            <form action="" method="get" name="editProjectInformation" id="editProjectInformationId">
                                                 {% csrf_token %}
                                                 <!-- [ Select project ] start -->
                                                 <div class="form-group">
                                                     <label for="selectProjectToDelete">Select Project</label>
-                                                    <select class="form-control" id="selectProjectDelete">
-                                                        <option>Project1</option>
-                                                        <option>Project2</option>
+                                                    <select class="form-control" id="selectProjectEditId"
+                                                            name="selectedProject">
+
+                                                        <option selected=selected>Select</option>
+                                                        <!-- [ code to display projects ] -->
+                                                        {% for project_name in list_of_projects_dict.values %}
+                                                            <option value="{{ project_name }}" >{{ project_name }} </option>
+                                                        {% endfor %}
                                                     </select>
                                                 </div>
                                                 <!-- [ Select project ] end -->
@@ -55,7 +62,7 @@
                                                 <div class="form-group">
                                                     <label for="surveyLinkLabel">Survey Link</label>
                                                     <input type="link" class="form-control" id="surveyLinkInput"
-                                                           placeholder="Link" name="surveyLink" required>
+                                                           placeholder="Link" value="" name="surveyLink" required>
                                                 </div>
                                                 <!-- [ Enter link ] end -->
                                                 <!-- [ Enter participants ] start -->
@@ -71,57 +78,137 @@
                                                 <!-- [ Notes ] start -->
                                                 <div class="form-group">
                                                     <label for="NotesLabel">Notes</label>
-                                                    <textarea class="form-control" id="notesInput" rows="3"
+                                                    <textarea class="form-control" id="notesInput" rows="3" value=""
+                                                              placeholder="Optional"
                                                               name="description"></textarea>
                                                 </div>
                                                 <!-- [ Notes ] end -->
-                                                <button type="submit" class="btn btn-success" name="participants">Edit
+                                                <button type="submit" class="btn btn-success" name="editProjectBtn">Save
                                                     Project
                                                 </button>
                                             </form>
                                         </div>
                                         <div class="col-md-6">
-                                            <form>
+                                            <form action="" method="post">
                                                 <!-- [ List of participants to be added ] start -->
                                                 <label for="surveyLinkLabel">Participants:</label>
                                                 <div class="card-block px-0 py-3">
                                                     <div class="table-responsive">
-                                                        <table class="table table-hover">
+                                                        <table class="table table-hover" name="participantsTable"
+                                                               id="participantsTableId">
                                                             <tbody>
                                                             <tr class="unread">
-                                                                <td><img class="rounded-circle" style="width:40px;"
-                                                                         src="/static/assets/images/user/avatar-1.jpg"
-                                                                         alt="activity-user"></td>
+                                                                <td><i class="feather icon-user f-38"></i>
                                                                 <td>
                                                                     <h6 class="mb-1">User1</h6>
                                                                     <p class="m-0">User1 email</p>
                                                                 </td>
                                                                 <td>
-                                                                    <h6 class="text-muted"><i
-                                                                            class="fas fa-circle text-c-green f-10 m-r-15"></i>user1
-                                                                        info</h6>
-                                                                </td>
-                                                                <td><a href="#!"
-                                                                       class="label theme-bg2 text-white f-12">Remove</a>
+                                                                    <button type="submit"
+                                                                            class="btn btn-danger"
+                                                                            name="editProjectBtn" id="editProjectBtnId"
+                                                                            >
+                                                                        Remove
+                                                                    </button>
                                                                 </td>
                                                             </tr>
                                                             <tr class="unread">
-                                                                <td><img class="rounded-circle" style="width:40px;"
-                                                                         src="/static/assets/images/user/avatar-2.jpg"
-                                                                         alt="activity-user"></td>
+                                                                <td><i class="feather icon-user f-38"></i>
                                                                 <td>
-                                                                    <h6 class="mb-1">User2</h6>
-                                                                    <p class="m-0">User2 email</p>
+                                                                    <h6 class="mb-1">User1</h6>
+                                                                    <p class="m-0">User1 email</p>
                                                                 </td>
                                                                 <td>
-                                                                    <h6 class="text-muted"><i
-                                                                            class="fas fa-circle text-c-red f-10 m-r-15"></i>user2
-                                                                        info</h6>
-                                                                </td>
-                                                                <td><a href="#!"
-                                                                       class="label theme-bg2 text-white f-12">Remove</a>
+                                                                    <button type="submit"
+                                                                            class="btn btn-danger"
+                                                                            name="editProjectBtn" id="editProjectBtnId"
+                                                                            >
+                                                                        Remove
+                                                                    </button>
                                                                 </td>
                                                             </tr>
+                                                            <tr class="unread">
+                                                                <td><i class="feather icon-user f-38"></i>
+                                                                <td>
+                                                                    <h6 class="mb-1">User1</h6>
+                                                                    <p class="m-0">User1 email</p>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="submit"
+                                                                            class="btn btn-danger"
+                                                                            name="editProjectBtn" id="editProjectBtnId"
+                                                                            >
+                                                                        Remove
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="unread">
+                                                                <td><i class="feather icon-user f-38"></i>
+                                                                <td>
+                                                                    <h6 class="mb-1">User1</h6>
+                                                                    <p class="m-0">User1 email</p>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="submit"
+                                                                            class="btn btn-danger"
+                                                                            name="editProjectBtn" id="editProjectBtnId"
+                                                                            >
+                                                                        Remove
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="unread">
+                                                                <td><i class="feather icon-user f-38"></i>
+                                                                <td>
+                                                                    <h6 class="mb-1">User1</h6>
+                                                                    <p class="m-0">User1 email</p>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="submit"
+                                                                            class="btn btn-danger"
+                                                                            name="editProjectBtn" id="editProjectBtnId"
+                                                                            >
+                                                                        Remove
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="unread">
+                                                                <td><i class="feather icon-user f-38"></i>
+                                                                <td>
+                                                                    <h6 class="mb-1">User1</h6>
+                                                                    <p class="m-0">User1 email</p>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="submit"
+                                                                            class="btn btn-danger"
+                                                                            name="editProjectBtn" id="editProjectBtnId"
+                                                                            >
+                                                                        Remove
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+                                                            <tr class="unread">
+                                                                <td><i class="feather icon-user f-38"></i>
+                                                                <td>
+                                                                    <h6 class="mb-1">User1</h6>
+                                                                    <p class="m-0">User1 email</p>
+                                                                </td>
+                                                                <td>
+                                                                    <button type="submit"
+                                                                            class="btn btn-danger"
+                                                                            name="editProjectBtn" id="editProjectBtnId"
+                                                                            >
+                                                                        Remove
+                                                                    </button>
+                                                                </td>
+                                                            </tr>
+
+
+
+
+
+
+
                                                             </tbody>
                                                         </table>
                                                     </div>
