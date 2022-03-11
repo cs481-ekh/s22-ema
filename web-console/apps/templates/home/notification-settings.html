@@ -38,6 +38,9 @@
                                 </div>
                                 <div class="card-body">
                                     <h3>Project Notification Information</h3>
+                                    {% block error_code %}
+                                        <h4 style="color:#db2525">{{ error_code }} </h4>
+                                    {% endblock %}
                                     <hr>
                                             <form action="" method="post">
                                                 <div class="col-md-6">
@@ -45,8 +48,10 @@
                                                 <div class="form-group">
                                                     <label for="whenToNotifyLabel">Select a project</label>
                                                     <select class="form-control" id="whenToNotify" name="selectedProject">
-                                                        <option>Project1</option>
-                                                        <option>Project2</option>
+                                                        <option>Select Project</option>
+                                                        {% for project_name in list_of_projects_dict %}
+                                                            <option value="{{ project_name }}">{{ project_name }} </option>
+                                                        {% endfor %}
                                                     </select>
                                                 </div>
                                                 <br>
