@@ -14,11 +14,22 @@ def edit_project(request):
         # the project metadata
         project_id = request.POST.get('selected_project')
 
+        # Document data of all projects in a dict
         project_dict = firebase.get_project_document_data(project_id)
 
-        print(project_dict)
+        # Survey link of selected project
+        survey_link = project_dict['surveyLink']
 
-        return render(request, 'home/edit-project.html')
+        # Description of selected project
+        description = project_dict['description']
+
+        # Setting cookies so that javascript can grab them to populate
+        # input text fields
+        response = HttpResponse("Cookie Set")
+        response.set_cookie('surveyLink', survey_link)
+        response.set_cookie('description', description)
+
+        return response
 
     if request.method == 'GET':
 
@@ -49,4 +60,3 @@ def edit_project(request):
             # return render(request, 'home/edit-project.html', context, list_of_projects)
 
         return render(request, 'home/edit-project.html', {'list_of_projects_dict': list_of_projects})
-
