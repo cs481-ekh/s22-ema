@@ -38,6 +38,9 @@
                                 </div>
                                 <div class="card-body">
                                     <h3>Project Notification Information</h3>
+                                    {% for error in error_code %}
+                                        <h4 style="color:#d92424">{{ error }} </h4>
+                                    {% endfor %}
                                     <hr>
                                             <form action="" method="post">
                                                 <div class="col-md-6">
@@ -45,20 +48,22 @@
                                                 <div class="form-group">
                                                     <label for="whenToNotifyLabel">Select a project</label>
                                                     <select class="form-control" id="whenToNotify" name="selectedProject">
-                                                        <option>Project1</option>
-                                                        <option>Project2</option>
+                                                        <option>Select Project</option>
+                                                        {% for project_name in list_of_projects_dict %}
+                                                            <option value="{{ project_name }}">{{ project_name }} </option>
+                                                        {% endfor %}
                                                     </select>
                                                 </div>
                                                 <br>
                                                 <h5>Set a date and time to start notifications</h5>
                                                 <hr>
                                                 <div class="form-group">
-                                                    <label for="scheduleSendDate">Schedule Send Date</label>
+                                                    <label for="scheduleSendDate">Reminder Start Date</label>
                                                     <input type="date" class="form-control" id="scheduleSendDateInput"
                                                            aria-describedby="scheduleSendDate" placeholder="" name="startDate">
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="scheduleSendTime">Schedule Send Time</label>
+                                                    <label for="scheduleSendTime">Reminder Time</label>
                                                     <input type="time" class="form-control"
                                                            id="scheduleSendDateTimeInput"
                                                            aria-describedby="scheduleSendTime" placeholder="" name="startTime">
@@ -68,10 +73,9 @@
                                                         be notified?</label>
                                                     <select class="form-control" id="whenToNotify" name="selection">
                                                         <option>Once</option>
-                                                        <option>Hourly</option>
                                                         <option>Daily</option>
                                                         <option>Weekly</option>
-                                                        <option>Every Few Hours</option>
+
                                                     </select>
                                                 </div>
                                                 </div>
@@ -86,7 +90,10 @@
                                                 <div class="form-group">
                                                     <label for="expirationTime">Expiration Time</label>
                                                     <input type="time" class="form-control" id="expirationTimeInput"
-                                                           aria-describedby="scheduleexpirationTime" placeholder="" name="endTime">
+                                                           aria-describedby="scheduleexpirationTime" placeholder="12:00 AM" name="endTime">
+                                                    <script>
+                                                        document.getElementById("expirationTimeInput").defaultValue = "12:00:00 AM";
+                                                    </script>
                                                 </div>
                                                 <button type="submit" class="btn btn-primary">Set Notification
                                                 </button>
