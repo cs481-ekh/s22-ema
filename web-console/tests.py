@@ -2,6 +2,8 @@ from _pytest.capture import capfd
 
 from Schedule import *
 from django.test import TestCase
+from Schedule import *
+Schedule = SourceFileLoader("Schedule", os.getcwd() + "/Schedule.py").load_module()
 
 class TestCase(TestCase):
 
@@ -16,12 +18,55 @@ class TestCase(TestCase):
 
         # Stop the background thread
         #stop_run_continuously.set()
-
+        schedule.clear('test')
         assert getback != '[]'
 
-    def test_sceduling_system_adds(self):
-
+    def test_Schedule_system_once(self):
 
         #Start the background thread
         stop_run_continuously = run_continuously()
 
+        Schedule.add_reminder_once('2022-2-24', '08:30', 'Project1', 'unitTest2')
+
+        getback = schedule.get_jobs('unitTest2')
+        schedule.clear('unitTest2')
+
+        assert len(getback) == 1
+
+    def test_Schedule_system_daily(self):
+
+        #Start the background thread
+        stop_run_continuously = run_continuously()
+
+        Schedule.add_reminder_daily('2022-2-24', '08:30', '2023-2-25', '00:00', 'Project1', 'unitTest2')
+
+        getback = schedule.get_jobs('unitTest2')
+        schedule.clear('unitTest2')
+
+        assert len(getback) == 1
+
+    def test_Schedule_system_weekly(self):
+
+        #Start the background thread
+        stop_run_continuously = run_continuously()
+
+        Schedule.add_reminder_weekly('2022-2-25', '08:30', '2023-2-25', '00:00', 'Project1', 'unitTest2')
+
+        getback = schedule.get_jobs('unitTest2')
+        schedule.clear('unitTest2')
+
+        assert len(getback) == 1
+
+    def test_Schedule_system_multi(self):
+
+        #Start the background thread
+        stop_run_continuously = run_continuously()
+
+        Schedule.add_reminder_once('2022-2-24', '08:30', 'Project1', 'unitTest3')
+        Schedule.add_reminder_daily('2022-2-24', '08:30', '2023-2-25', '00:00', 'Project1', 'unitTest3')
+        Schedule.add_reminder_weekly('2022-2-25', '08:30', '2023-2-25', '00:00', 'Project1', 'unitTest3')
+
+        getback = schedule.get_jobs('unitTest3')
+        schedule.clear('unitTest3')
+
+        assert len(getback) == 3
