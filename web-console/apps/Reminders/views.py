@@ -12,7 +12,8 @@ Schedule = SourceFileLoader("Schedule", os.getcwd() + "/Schedule.py").load_modul
 @login_required(login_url="/login/")
 def index(request):
     list_of_projects = firebase.get_all_project_names()
-    error = ''
+    error = []
+    flag = False
     if request.method == 'POST':
         # separating out incoming variable
         selectedProject = request.POST.get('selectedProject')
@@ -21,25 +22,33 @@ def index(request):
         selection = request.POST.get('selection')
         endDate = request.POST.get('endDate')
         endTime = request.POST.get('endTime')
-
-        # Selection is once add one reminder to system
-        if selection == 'Once':
-            if startDate =='' or startTime == '':
-                error = 'Please enter a start date and a time for notification'
-                return render(request, 'home/notification-settings.html',
-                              {'list_of_projects_dict': list_of_projects, 'error_code': error})
-            Schedule.add_reminder_once(startDate, startTime, selectedProject, '')
-            return render(request, 'home/notification-settings.html',
-                          {'list_of_projects_dict': list_of_projects, 'error_code': error})
+        print(selectedProject)
 
         # Checks to ensure there is a end date/time if the program does not run once
         if selection != 'Once':
             if endDate == '' or endTime == '':
                 # should add an error that returns if there is an issue based on how the selection box is done
-                error = 'For Daily and Weekly Notifications please enter an expiration date and time'
-                print(error)
-                return render(request, 'home/notification-settings.html',
-                              {'list_of_projects_dict': list_of_projects, 'error_code': error})
+                error.append('For Daily and Weekly Notifications please enter an expiration date and time!')
+                flag = True
+
+        if startDate == '' or startTime == '':
+            error.append('Please enter a start date and a time for notification!')
+            flag = True
+
+        if selectedProject == 'Select Project':
+            error.append('Please select a project to add a reminder to!')
+            flag = True
+
+        if flag:
+            print(error)
+            return render(request, 'home/notification-settings.html',
+                          {'list_of_projects_dict': list_of_projects, 'error_code': error})
+
+        # Selection is once add one reminder to system
+        if selection == 'Once':
+            Schedule.add_reminder_once(startDate, startTime, selectedProject, '')
+            return render(request, 'home/notification-settings.html',
+                          {'list_of_projects_dict': list_of_projects, 'error_code': error})
 
         # if the selection is weekly
         if selection == 'Weekly':
