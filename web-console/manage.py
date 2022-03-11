@@ -27,16 +27,16 @@ def main():
     # Firebase
     ##################################################################################################################
     # provide file path for firebase credentials (Needs to be taken out during build [CI])
-    #os.environ[
+    os.environ[
 
     #     "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/rogue/Downloads/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
    
 
-    #     "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/alejandromacias/Documents/ema-firebase-credentials/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
+         "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/alejandromacias/Documents/ema-firebase-credentials/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
 
 
     # # initializing app using credentials
-    #firebase_admin.initialize_app(credentials.Certificate(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")))
+    firebase_admin.initialize_app(credentials.Certificate(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")))
     ##################################################################################################################
 
     # Starts the background deamon thread the runs the sceduling system
