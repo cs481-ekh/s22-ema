@@ -59,10 +59,10 @@ def project_document_exist(document_name):
 
 
 # returns document data of the specific project from the 'projects' collection
-def get_project_document_data(document_name):
+def get_project_document_data(project_id):
     # Connecting to Firebase
     db = db_connect_firebase()
-    doc_ref = db.collection(u'projects').document(document_name)
+    doc_ref = db.collection(u'projects').document(project_id)
     doc = doc_ref.get()
     if doc.exists:
         data_dict = doc.to_dict()

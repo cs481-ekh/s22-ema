@@ -19,5 +19,9 @@ class TestCase(TestCase):
 
         assert getback != '[]'
 
+    def test_sceduling_system_adds(self):
 
+
+        #Start the background thread
+        stop_run_continuously = run_continuously()
 
