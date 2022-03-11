@@ -7353,6 +7353,12 @@ select.form-control-lg:not([size]):not([multiple]) {
   background-color: #2d3940;
 }
 
+/*Adding a scroll bar for the table for better listing of participants will go here*/
+
+
+/*Add a space in between button and user info in rows will go here*/
+
+
 /* fixed header position */
 table.dataTable.fixedHeader-floating {
   top: 0 !important;

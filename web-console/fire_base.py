@@ -13,6 +13,15 @@ def db_connect_firebase():
 #                                                   Project Queries                                                    #
 ########################################################################################################################
 
+# Reading (projects name) from the collection
+def get_all_project_names():
+    # Connecting to Firebase
+    db = db_connect_firebase()
+    docs = db.collection(u'projects').stream()
+    document_list = []
+    for doc in docs:
+        document_list.append(f'{doc.id}')
+    return document_list
 
 # Reading (projects) data from the collection
 def get_all_projects():
