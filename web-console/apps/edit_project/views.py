@@ -14,17 +14,27 @@ def edit_project(request):
         # the project metadata
         project_id = request.POST.get('selected_project')
 
+        # Document data of all projects in a dict
         project_dict = firebase.get_project_document_data(project_id)
 
-        print(project_dict)
+        # Survey link of selected project
+        survey_link = project_dict['surveyLink']
 
-        return render(request, 'home/edit-project.html')
+        # Description of selected project
+        description = project_dict['description']
+
+        # Setting cookies so that javascript can grab them to populate
+        # input text fields
+        response = HttpResponse("Cookie Set")
+        response.set_cookie('surveyLink', survey_link)
+        response.set_cookie('description', description)
+
+        return response
 
     if request.method == 'GET':
-
         list_of_projects = firebase.get_all_project_names()
 
-        print(list_of_projects)
+        # print(list_of_projects)
 
         # This grabs the project selected from the front end
         project_selected = request.GET.get('selectedProject')
@@ -33,20 +43,19 @@ def edit_project(request):
         # This grabs the characters entered on the front end
         description = request.GET.get("description")
 
-        print(project_selected)
+        # print(project_selected)
         # If a project is select
-        if project_selected != "Select":
-            context = {'selectedProject': project_selected,
-                       'surveyLink': survey_link,
-                       'description': description
-                       }
-        else:  # the "Select" option is selected
-            print("on Select option")
-            # context = {'selectedProject': "Select",
-            #            'surveyLink': "",
-            #            'description': "",
-            #            'participant_list': ""}
-            # return render(request, 'home/edit-project.html', context, list_of_projects)
+        # if project_selected != "Select":
+        #     context = {'selectedProject': project_selected,
+        #                'surveyLink': survey_link,
+        #                'description': description
+        #                }
+        # else:  # the "Select" option is selected
+        # print("on Select option")
+        # context = {'selectedProject': "Select",
+        #            'surveyLink': "",
+        #            'description': "",
+        #            'participant_list': ""}
+        # return render(request, 'home/edit-project.html', context, list_of_projects)
 
         return render(request, 'home/edit-project.html', {'list_of_projects_dict': list_of_projects})
-
