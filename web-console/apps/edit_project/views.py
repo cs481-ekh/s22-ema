@@ -32,10 +32,9 @@ def edit_project(request):
         return response
 
     if request.method == 'GET':
-
         list_of_projects = firebase.get_all_project_names()
 
-        print(list_of_projects)
+        # print(list_of_projects)
 
         # This grabs the project selected from the front end
         project_selected = request.GET.get('selectedProject')
@@ -44,19 +43,19 @@ def edit_project(request):
         # This grabs the characters entered on the front end
         description = request.GET.get("description")
 
-        print(project_selected)
+        # print(project_selected)
         # If a project is select
-        if project_selected != "Select":
-            context = {'selectedProject': project_selected,
-                       'surveyLink': survey_link,
-                       'description': description
-                       }
-        else:  # the "Select" option is selected
-            print("on Select option")
-            # context = {'selectedProject': "Select",
-            #            'surveyLink': "",
-            #            'description': "",
-            #            'participant_list': ""}
-            # return render(request, 'home/edit-project.html', context, list_of_projects)
+        # if project_selected != "Select":
+        #     context = {'selectedProject': project_selected,
+        #                'surveyLink': survey_link,
+        #                'description': description
+        #                }
+        # else:  # the "Select" option is selected
+        # print("on Select option")
+        # context = {'selectedProject': "Select",
+        #            'surveyLink': "",
+        #            'description': "",
+        #            'participant_list': ""}
+        # return render(request, 'home/edit-project.html', context, list_of_projects)
 
         return render(request, 'home/edit-project.html', {'list_of_projects_dict': list_of_projects})
