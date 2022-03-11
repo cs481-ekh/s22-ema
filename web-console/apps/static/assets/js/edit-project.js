@@ -5,6 +5,9 @@ $(document).ready(function () {
     let survey_link_post;
     let description_post;
 
+    // "Update Project" button disabled at the beginning
+    document.getElementById("editProjectBtnId").disabled = true;
+
     // setting up ajax header
     $.ajaxSetup({
         headers: {"X-CSRFToken": Cookies.get("csrftoken")}
@@ -54,6 +57,8 @@ $(document).ready(function () {
         // checking if survey link or description was modified
         if(survey_link_initial != survey_link_post || description_initial != description_post)
         {
+            // change detected, enable button
+            document.getElementById("editProjectBtnId").disabled = false;
             alert(survey_link_post);
             alert(description_post);
         }
