@@ -68,18 +68,30 @@ $(document).ready(function () {
 
 
     // If the surveylink field has been modified
-    $('#surveyLinkInput').change(function () {
+    $("#surveyLinkInput").on("change keyup paste click", function(){
         // Values before user modification
         survey_link_post = document.getElementById("surveyLinkInput").value
-        description_post = document.getElementById("notesInput").value
 
-        // checking if survey link or description was modified
-        if (survey_link_initial != survey_link_post || description_initial != description_post) {
+
+        // checking if survey link was modified
+        if (survey_link_initial != survey_link_post)
+        {
             // change detected, enable button
             document.getElementById("editProjectBtnId").disabled = false;
-            alert(survey_link_post);
-            alert(description_post);
+
         }
     });
 
+    // If the description field has been modified
+    $("#notesInput").on("change keyup paste click", function(){
+        // Values before user modification
+        description_post = document.getElementById("notesInput").value
+
+        // checking if description was modified
+        if(description_initial != description_post)
+        {
+            // change detected, enable button
+            document.getElementById("editProjectBtnId").disabled = false;
+        }
+    });
 });

@@ -23,6 +23,7 @@ def get_all_project_names():
         document_list.append(f'{doc.id}')
     return document_list
 
+
 # Reading (projects) data from the collection
 def get_all_projects():
     # Connecting to Firebase
@@ -99,6 +100,38 @@ def update_project_details(document_name, project_id, survey_link, description, 
 
     # creating the document with the new name
     db.collection(u'cities').document(project_id).set(data)
+
+
+# function to update project survey link
+def update_project_survey_link(project_id, new_survey_link):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+
+    city_ref = db.collection(u'projects').document(project_id)
+    # Deleting the old survey link
+    city_ref.update({
+        u'surveyLink': firestore.DELETE_FIELD
+    })
+    # Inserting the new survey link
+    city_ref.set({
+        u'surveyLink': new_survey_link
+    }, merge=True)
+
+
+# function to update project description
+def update_project_description(project_id, new_description):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+
+    city_ref = db.collection(u'projects').document(project_id)
+    # Deleting the old description
+    city_ref.update({
+        u'description': firestore.DELETE_FIELD
+    })
+    # Inserting the new description
+    city_ref.set({
+        u'description': new_description
+    }, merge=True)
 
 
 # adding participants to the project.
