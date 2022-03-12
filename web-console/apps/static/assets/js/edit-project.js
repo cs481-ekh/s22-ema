@@ -7,21 +7,47 @@ $(document).ready(function () {
 
     // "Update Project" button disabled at the beginning
     document.getElementById("editProjectBtnId").disabled = true;
+    document.getElementById("surveyLinkInput").disabled = true;
+    document.getElementById("notesInput").disabled = true;
 
     // setting up ajax header
     $.ajaxSetup({
         headers: {"X-CSRFToken": Cookies.get("csrftoken")}
     });
 
-    // When the drop down is changed, a new project is selected
+    // When the drop down value is "Select"
+    $(document).on('change', '#selectProjectEditId', function () {
+        // if no project is selected
+        if (document.getElementById("selectProjectEditId").value == "Select") {
+            // disable text fields
+            document.getElementById("surveyLinkInput").disabled = true;
+            document.getElementById("notesInput").disabled = true;
+            // Clear Text in text fields
+            document.getElementById("surveyLinkInput").value = "";
+            document.getElementById("notesInput").value = "";
+        }
+    });
+
+
+    // When a project is selected
     $('#selectProjectEditId').change(function () {
+
+        // A project is selected, enable text fields
+        document.getElementById("surveyLinkInput").disabled = false;
+        document.getElementById("notesInput").disabled = false;
+
         let selectVal = $(this).val()
 
-        $.ajax({
+        // if value of dropdown is "Select" don't POST
+        if(selectVal != "Select")
+        {
+            $.ajax({
             type: "POST",
             url: '',
             data: {'selected_project': selectVal},
         });
+        }
+
     })
 
     // Check if surveylink and description cookie is set every few seconds.
@@ -41,22 +67,14 @@ $(document).ready(function () {
     }, 10);
 
 
-    //
-    // if(document.getElementById("surveyLinkInput").value != "" && document.getElementById("surveyLinkInput").value != survey_link_initial)
-    // {
-    //     alert("in if statement")
-    // }
-
-    $('#surveyLinkInput').change(function ()
-    {
-
+    // If the surveylink field has been modified
+    $('#surveyLinkInput').change(function () {
         // Values before user modification
         survey_link_post = document.getElementById("surveyLinkInput").value
         description_post = document.getElementById("notesInput").value
 
         // checking if survey link or description was modified
-        if(survey_link_initial != survey_link_post || description_initial != description_post)
-        {
+        if (survey_link_initial != survey_link_post || description_initial != description_post) {
             // change detected, enable button
             document.getElementById("editProjectBtnId").disabled = false;
             alert(survey_link_post);
