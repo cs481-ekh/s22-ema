@@ -7354,10 +7354,18 @@ select.form-control-lg:not([size]):not([multiple]) {
 }
 
 /*Adding a scroll bar for the table for better listing of participants will go here*/
-
+.table-hover tbody
+{
+  display: block; /* to enable vertical scrolling */
+  max-height: 400px; /* e.g. */
+  overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
+}
 
 /*Add a space in between button and user info in rows will go here*/
-
+.table-hover tbody>tr>td>:nth-child(2)
+{
+  padding-right: 270px;
+}
 
 /* fixed header position */
 table.dataTable.fixedHeader-floating {
