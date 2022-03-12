@@ -128,6 +128,16 @@
 *Items:* We met for Sprint 1 planning where we created the sprint goal, user stories, tasks and assigned them. We decided that for Sprint 1 we would focus on removing the admin side form the mobile app while improving user notifications by including the expiration time for the survey in their information. We also decided to add a user password reset for the case that a user forgets their login information.
 ## Full Team
 
+### 3/12/22
+
+*Scribe:* Jason
+
+*Present:* Alejandro, Andrew, Daniel, Jason, Jeff, Jon, Brandon
+
+*Absent:* N/A
+
+*Items:* Tested the notification system on the web side to make sure it was properly sending to the mobile app with data included. Also set a date for the next sponsor meeting and sent an email to the sponsor.
+
 ### 3/5/22
 
 *Scribe:* Jeff
