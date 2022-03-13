@@ -154,6 +154,13 @@ def remove_participant_from_project(document_name, participant_email):
     doc_ref.update({u'participants': firestore.ArrayRemove([participant_email])})
 
 
+# removes the list of participants from the project.
+def remove_participants_from_project(project_name, remove_participant_list):
+    # Looping through the list to remove participant from the remove_participants_list
+    for part in remove_participant_list:
+        remove_participant_from_project(project_name, part)
+
+
 # deletes the project given a document name (project name)
 def delete_project_document(document_name):
     # Connecting to Firebase
