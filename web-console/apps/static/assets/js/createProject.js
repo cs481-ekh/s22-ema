@@ -87,7 +87,6 @@ $(document).ready(function () {
                     method: 'POST', // This is the default though, you don't actually need to always mention it
                     data: {'participantEmail': participant_email, 'project_Id': project_name},
                 });
-
             }
 
         } else {
@@ -144,7 +143,7 @@ $(document).ready(function () {
             if ($(document.getElementById(parent)).length > 0) {
                 $(document.getElementById(parent)).remove();
             }
-        }, 3000)
+        }, 1000)
         // remove the parent from the participant list as well
         participant_list = participant_list.filter(item => item !== parent)
         //also update the list that will be sent with submit button
