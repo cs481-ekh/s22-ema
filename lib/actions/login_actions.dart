@@ -3,6 +3,7 @@ import 'package:ema/utils/data_classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+
 FirebaseAuth auth = FirebaseAuth.instance;
 
 // TODO: delete/manage this (was just for testing)
@@ -113,16 +114,35 @@ Future<String> addNewUser(
 Future<bool> addUserToParticipants(String email, List<String> projList) async {
   bool passed = false;
   CollectionReference projects = FirebaseFirestore.instance.collection('projects');
-  for (var project in projList) {
+  for (String project in projList) {
+    List<dynamic> participants = await getProjectParticipants(project);
+    if (participants.isEmpty) {
+      return false;
+    }
+    participants.add(email);
     projects
     .doc(project)
-    .update({
-      "participants": [email]
-    })
+    .update({"participants": participants})
     .then((passed) => true)
     .catchError((passed) => false);
   }
   return passed;
+}
+
+Future<List<dynamic>>getProjectParticipants(String project) async {
+  List<dynamic> data = List.empty();
+
+  await FirebaseFirestore.instance
+      .collection('projects')
+      .doc(project)
+      .get()
+      .then((DocumentSnapshot documentSnapchat) {
+    if (documentSnapchat.exists) {
+      data = documentSnapchat.get("participants");
+    }
+  });
+
+  return data;
 }
 
 Future<String> addUserToDatabase(
