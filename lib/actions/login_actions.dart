@@ -94,6 +94,13 @@ Future<String> addNewUser(
     return errorMessage;
   }
 
+  //add new user to 'participants' list in Project
+  bool addParticipant = await addUserToParticipants(usernameController.text, projectList);
+  if (addParticipant == false) {
+    errorMessage = "Could not add user to participants list in one or more projects";
+    return errorMessage;
+  }
+
   // if no errors yet, instantiate user object
   var firebaseUser = FirebaseAuth.instance.currentUser;
   InternalUser.instance(user: firebaseUser, projectId: projectList);
@@ -101,6 +108,21 @@ Future<String> addNewUser(
       usernameController.text, passwordController.text);
 
   return errorMessage;
+}
+
+Future<bool> addUserToParticipants(String email, List<String> projList) async {
+  bool passed = false;
+  CollectionReference projects = FirebaseFirestore.instance.collection('projects');
+  for (var project in projList) {
+    projects
+    .doc(project)
+    .update({
+      "participants": [email]
+    })
+    .then((passed) => true)
+    .catchError((passed) => false);
+  }
+  return passed;
 }
 
 Future<String> addUserToDatabase(
@@ -194,7 +216,7 @@ Future<String> signinUser(username, password) async {
   String errorMessage = "";
 
   // sign-in using auth
-  var authUser;
+  User? authUser;
   try {
     UserCredential result = await auth.signInWithEmailAndPassword(
         email: username, password: password);
