@@ -69,7 +69,7 @@ class _UserPageState extends State<UserPage> {
     final notifInfo = '${nObject['title']} : ${nObject['body']}';
     final url = nObject['url'];
     final dateString = DateFormat('yyyy-MM-dd – h:mm a').format(dateReceived);
-
+    final projectID = '${nObject['projectID']}';
     //In order to properly access the url object, this needs to be initialized here unfortunately
     //Against everything I understand about Dart, it works so I'm not too worried
     //If you can find another way to do it let me know
@@ -118,9 +118,24 @@ class _UserPageState extends State<UserPage> {
     }
 
     //This part returns the actual widget, along with a pointer to the tap function
+    //Displays notification data (Title, Body, ProjectID, ExpireDate)
     return Card(
         child: ListTile(
-      title: Text(notifInfo),
+      title: RichText(
+        text: TextSpan(
+          style: const TextStyle(
+            color: Colors.black,
+          ),
+          children: <TextSpan>[
+            TextSpan(
+              text: notifInfo,
+            ),
+            TextSpan(
+                text: "\n" + projectID,
+                style: const TextStyle(fontWeight: FontWeight.bold)),
+          ],
+        ),
+      ),
       subtitle: Text(dateString),
       onTap: openNotif,
     ));
@@ -161,7 +176,7 @@ class _UserPageState extends State<UserPage> {
             Flexible(
                 flex: 5,
                 child: Padding(
-                    padding: EdgeInsets.all(5.0),
+                    padding: const EdgeInsets.all(5.0),
                     child: ListView.builder(
                         padding: const EdgeInsets.all(5),
                         itemCount: notifAmount,
@@ -169,10 +184,10 @@ class _UserPageState extends State<UserPage> {
                         shrinkWrap: true,
                         itemBuilder: listViewHelper))),
             Padding(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 child: TextButton(
                   style: TextButton.styleFrom(
-                      padding: EdgeInsets.all(20.0),
+                      padding: const EdgeInsets.all(20.0),
                       primary: Colors.white,
                       textStyle: const TextStyle(fontSize: 20),
                       backgroundColor: Colors.blue),
@@ -186,7 +201,7 @@ class _UserPageState extends State<UserPage> {
                   child: const Text('Dismiss All'),
                 )),
             Padding(
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: TextButton(
                 onPressed: () {
                   signOut();

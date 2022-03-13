@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>655509160020-pmvjcsk6d3sakpun2jd96os7bmd9id2l.apps.googleusercontent.com</string>
+	<string>655509160020-58jbj2rvfnkbcg6n4qkqkku78peivo4t.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.655509160020-pmvjcsk6d3sakpun2jd96os7bmd9id2l</string>
+	<string>com.googleusercontent.apps.655509160020-58jbj2rvfnkbcg6n4qkqkku78peivo4t</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>655509160020-7cr3k1cjtl75mnmcc13mtgb5arhqls8s.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.ema</string>
+	<string>com.team.ema</string>
 	<key>PROJECT_ID</key>
 	<string>ema-ramen</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,7 +31,7 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:655509160020:ios:b4a5b4c68a78eb6d962dc1</string>
+	<string>1:655509160020:ios:1789ea9cbcbbd729962dc1</string>
 	<key>DATABASE_URL</key>
 	<string>https://ema-ramen-default-rtdb.firebaseio.com</string>
 </dict>
