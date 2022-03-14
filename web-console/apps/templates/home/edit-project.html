@@ -136,12 +136,18 @@
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <form>
+                                            <form action="" method="post">
+                                            {% csrf_token %}
                                                 <div class="form-group">
                                                     <label for="selectProjectToDelete">Select Project</label>
-                                                    <select class="form-control" id="selectProjectDelete">
-                                                        <option>Project1</option>
-                                                        <option>Project2</option>
+                                                    <select class="form-control" id="selectProjectEditId"
+                                                            name="selectedProject">
+
+                                                        <option selected=selected>Select</option>
+                                                        <!-- [ code to display projects ] -->
+                                                        {% for project_name in list_of_projects_dict %}
+                                                            <option value="{{ project_name }}">{{ project_name }} </option>
+                                                        {% endfor %}
                                                     </select>
                                                 </div>
                                                 <button type="submit" class="btn btn-danger " name="DprojectsBtn">Delete
