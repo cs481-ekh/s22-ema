@@ -51,15 +51,13 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyAMDtPnuc6yGiNOAtLVQFXZ5I2JTGdlYO8',
-    appId: '1:655509160020:ios:b4a5b4c68a78eb6d962dc1',
+    appId: '1:655509160020:ios:1789ea9cbcbbd729962dc1',
     messagingSenderId: '655509160020',
     projectId: 'ema-ramen',
     databaseURL: 'https://ema-ramen-default-rtdb.firebaseio.com',
     storageBucket: 'ema-ramen.appspot.com',
-    androidClientId:
-        '655509160020-7cr3k1cjtl75mnmcc13mtgb5arhqls8s.apps.googleusercontent.com',
-    iosClientId:
-        '655509160020-pmvjcsk6d3sakpun2jd96os7bmd9id2l.apps.googleusercontent.com',
-    iosBundleId: 'com.ema',
+    androidClientId: '655509160020-7cr3k1cjtl75mnmcc13mtgb5arhqls8s.apps.googleusercontent.com',
+    iosClientId: '655509160020-58jbj2rvfnkbcg6n4qkqkku78peivo4t.apps.googleusercontent.com',
+    iosBundleId: 'com.team.ema',
   );
 }

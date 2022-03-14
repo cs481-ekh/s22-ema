@@ -3,6 +3,17 @@
 # Meeting Minutes: EMA
 
 ## Web
+### 3/10/22
+
+*Scribe:* Daniel
+
+*Present:* Andrew, Alejandro, Brandon, Daniel
+
+*Absent:* none
+
+*Items:* Went over with the progress of the project and what things might needed to get done with this sprint. We also talked about integrating firebase notification with scheduler and that what method would be requireds. Brandon would be working on implementing scroll in create eproject. Other than that everything seems to be on track
+
+## Web
 ### 3/08/22
 
 *Scribe:* Brandon
@@ -66,6 +77,16 @@
 
 ## Mobile
 
+### 3/08/22
+
+*Scribe:* Jason
+
+*Present:* Jason, Jeff, Jon
+
+*Absent:* N/A
+
+*Items:* Met with the professor at our scheduled time and discussed how Sprint 1 went, what we can improve on, and currently how Sprint 2 is going. After our meeting, we also talked about what each of us are currently working on, and things to get done by the end of the sprint. We are currently trying to get some iOS bugs fixed and get the streak system functioning.
+
 ### 3/02/22
 
 *Scribe:* Jon
@@ -106,6 +127,16 @@
 
 *Items:* We met for Sprint 1 planning where we created the sprint goal, user stories, tasks and assigned them. We decided that for Sprint 1 we would focus on removing the admin side form the mobile app while improving user notifications by including the expiration time for the survey in their information. We also decided to add a user password reset for the case that a user forgets their login information.
 ## Full Team
+
+### 3/12/22
+
+*Scribe:* Jason
+
+*Present:* Alejandro, Andrew, Daniel, Jason, Jeff, Jon, Brandon
+
+*Absent:* N/A
+
+*Items:* Tested the notification system on the web side to make sure it was properly sending to the mobile app with data included. Also set a date for the next sponsor meeting and sent an email to the sponsor.
 
 ### 3/5/22
 

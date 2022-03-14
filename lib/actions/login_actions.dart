@@ -3,6 +3,7 @@ import 'package:ema/utils/data_classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 
+
 FirebaseAuth auth = FirebaseAuth.instance;
 
 // TODO: delete/manage this (was just for testing)
@@ -30,16 +31,16 @@ FirebaseAuth auth = FirebaseAuth.instance;
 ///
 /// Project/subscription
 ///
-// Future<bool> subscribeToProjectTopic(List<dynamic> projectId) async {
-//   bool check = true;
-//   for (var element in projectId) {
-//     FirebaseMessaging.instance
-//         .subscribeToTopic(element)
-//         .then((value) => true)
-//         .catchError((check) => false);
-//   }
-//   return check;
-// }
+Future<bool> subscribeToProjectTopic(List<dynamic> projectId) async {
+  bool check = true;
+  for (var element in projectId) {
+    FirebaseMessaging.instance
+        .subscribeToTopic(element)
+        .then((value) => true)
+        .catchError((check) => false);
+  }
+  return check;
+}
 
 Future<bool> checkProjectIdExists(String projectId) async {
   bool check = true;
@@ -94,6 +95,13 @@ Future<String> addNewUser(
     return errorMessage;
   }
 
+  //add new user to 'participants' list in Project
+  bool addParticipant = await addUserToParticipants(usernameController.text, projectList);
+  if (addParticipant == false) {
+    errorMessage = "Could not add user to participants list in one or more projects";
+    return errorMessage;
+  }
+
   // if no errors yet, instantiate user object
   var firebaseUser = FirebaseAuth.instance.currentUser;
   InternalUser.instance(user: firebaseUser, projectId: projectList);
@@ -101,6 +109,40 @@ Future<String> addNewUser(
       usernameController.text, passwordController.text);
 
   return errorMessage;
+}
+
+Future<bool> addUserToParticipants(String email, List<String> projList) async {
+  bool passed = true;
+  CollectionReference projects = FirebaseFirestore.instance.collection('projects');
+  for (String project in projList) {
+    List<dynamic> participants = await getProjectParticipants(project);
+    if (participants.isEmpty) {
+      return false;
+    }
+    participants.add(email);
+    projects
+    .doc(project)
+    .update({"participants": participants})
+    .then((passed) => true)
+    .catchError((passed) => false);
+  }
+  return passed;
+}
+
+Future<List<dynamic>>getProjectParticipants(String project) async {
+  List<dynamic> data = List.empty();
+
+  await FirebaseFirestore.instance
+      .collection('projects')
+      .doc(project)
+      .get()
+      .then((DocumentSnapshot documentSnapchat) {
+    if (documentSnapchat.exists) {
+      data = documentSnapchat.get("participants");
+    }
+  });
+
+  return data;
 }
 
 Future<String> addUserToDatabase(
@@ -195,7 +237,7 @@ Future<String> signinUser(username, password) async {
   String errorMessage = "";
 
   // sign-in using auth
-  var authUser;
+  User? authUser;
   try {
     UserCredential result = await auth.signInWithEmailAndPassword(
         email: username, password: password);
@@ -215,12 +257,12 @@ Future<String> signinUser(username, password) async {
   }
 
   //subscribe user to project
-  // bool subscribeCheck = await subscribeToProjectTopic(userProjects);
-  // if (!subscribeCheck) {
-  //   errorMessage =
-  //       "Could not subscribe user to project using ID(s) in database.";
-  //   return errorMessage;
-  // }
+  bool subscribeCheck = await subscribeToProjectTopic(userProjects);
+  if (!subscribeCheck) {
+    errorMessage =
+        "Could not subscribe user to project using ID(s) in database.";
+    return errorMessage;
+  }
 
   //Update the user's token if it is new
   String token = await getUsersToken(username);

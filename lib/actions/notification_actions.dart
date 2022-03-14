@@ -16,7 +16,7 @@ Future<void> storeMessage(RemoteMessage message) async {
   //info is saved to persistent storage
   SharedPreferences prefs = await SharedPreferences.getInstance();
   List<String> notifs = prefs.getStringList("missedNotifs") ?? <String>[];
-
+  //print('Message data: ${message.data}');
   //A message is stored as a json string with format:
   //["id":idnumber,"received":time,"title":"Test","body":"This is a test notification","url":"test.com",]
   final title = message.notification?.title ?? "";
@@ -24,12 +24,16 @@ Future<void> storeMessage(RemoteMessage message) async {
   final url = message.data['url'] ?? "";
   final receivedAt = DateTime.now().toString();
 
+  Map<String, dynamic> notifData = message.data;
+  final projectID = notifData["projectID"];
+
   //["id":idnumber,"received":time,"title":"Test","body":"This is a test notification","url":"test.com",]
   final newNotif = '{"id":"${message.messageId}",'
       '"received":"${receivedAt}",'
       '"title":"${title}",'
       '"body":"${body}",'
-      '"url":"${url}"}';
+      '"url":"${url}",'
+      '"projectID":"${projectID}"}';
   notifs.insert(0, newNotif);
 
   //Limit list to 5 most recent notifications
@@ -149,6 +153,23 @@ Future<Timestamp> getUsersStreakDate(String username) async {
       data = documentSnapshot.get("streakDate");
     } else {
       data = null;
+        }
+  });
+
+  return data;
+}
+Future<int> getCount(String? email) async {
+  int data = -1;
+
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(email)
+      .get()
+      .then((DocumentSnapshot documentSnapshot) {
+    if (documentSnapshot.exists) {
+      data = documentSnapshot.get("streak");
+    } else {
+      data = -1;
     }
   });
 
