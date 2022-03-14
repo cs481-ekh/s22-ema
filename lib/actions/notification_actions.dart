@@ -24,8 +24,11 @@ Future<void> storeMessage(RemoteMessage message) async {
   final url = message.data['url'] ?? "";
   final receivedAt = DateTime.now().toString();
 
+  //Read in Data section of notification payload
+  //Add other custom notification info here
   Map<String, dynamic> notifData = message.data;
   final projectID = notifData["projectID"];
+  final expiration = notifData["expiration"];
 
   //["id":idnumber,"received":time,"title":"Test","body":"This is a test notification","url":"test.com",]
   final newNotif = '{"id":"${message.messageId}",'
@@ -33,6 +36,7 @@ Future<void> storeMessage(RemoteMessage message) async {
       '"title":"${title}",'
       '"body":"${body}",'
       '"url":"${url}",'
+      '"expiration":"${expiration}",'
       '"projectID":"${projectID}"}';
   notifs.insert(0, newNotif);
 
