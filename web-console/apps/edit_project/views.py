@@ -28,6 +28,15 @@ def edit_project(request):
         # new participant is in the selected project to determine if it needs to be added
         proj_name = request.POST.get('proj_name')
 
+        # The following if condition is here to delete a project
+        selected_delete_project = request.POST.get('selectedDeleteProject')
+        if selected_delete_project is not None:
+            firebase.delete_project_document(selected_delete_project)
+            list_of_projects = firebase.get_all_project_names()
+            return render(request, 'home/edit-project.html', {'list_of_projects_dict': list_of_projects,
+                                                              'message_success': 'Project deleted successfully!'})
+
+        # When the user clicks on new participant the participant email is taken from the input field on frontend
         if new_participant_email is not None and proj_name is not None:
 
             # if the user does not exist in the users collection on firebase
