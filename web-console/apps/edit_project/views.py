@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse
 from importlib.machinery import SourceFileLoader
@@ -11,6 +12,7 @@ initial_participants = None
 remove_participants_list = None
 
 
+@login_required(login_url="/login/")
 def edit_project(request):
     if request.method == 'POST':
         global initial_survey_link, initial_description, initial_participants, remove_participants_list
@@ -20,6 +22,36 @@ def edit_project(request):
         project_id = request.POST.get('selected_project')
         remove_participants_list = request.POST.get('remove_participants')
 
+        # On the edit page, when the user clicks on the add participant button, the user's email is stored in the new_participant_email
+        new_participant_email = request.POST.get('new_participant_email')
+        # On the edit page, the selected project is stored in the proj_name variable, this will help us check if the
+        # new participant is in the selected project to determine if it needs to be added
+        proj_name = request.POST.get('proj_name')
+
+        if new_participant_email is not None and proj_name is not None:
+
+            # if the user does not exist in the users collection on firebase
+            if firebase.user_exist(new_participant_email) == False:
+                # Inform the client that the user does not exit through a cookie
+                response = HttpResponse("Cookie Set")
+                response.set_cookie('user_does_not_exist', new_participant_email)
+                return response
+
+            # if the new participant email is not a member of the selected project
+            if firebase.is_user_member_of_project(proj_name, new_participant_email) == False:
+                # add new participant to selected project on firebase
+                firebase.add_participant_to_project(proj_name, new_participant_email)
+                # Inform the client that the user has been added by adding a card to add participants
+                response = HttpResponse("Cookie Set")
+                response.set_cookie('user_does_exist', new_participant_email)
+                return response
+            else:
+                response = HttpResponse("Cookie Set")
+                response.set_cookie('user_is_member_of_project', new_participant_email)
+                return response
+
+        # Gets the value from the dropdown and returns information about the  selected project from firebase which is sent back
+        # to the front end as a cookie which populates the appropriate input fields
         if project_id is not None:
 
             # Document data of all projects in a dict
@@ -48,9 +80,7 @@ def edit_project(request):
 
             # This means that the participants list for the selected project needs to be updated on firebase
             if remove_participants_list is not None and project_name is not None:
-
                 firebase.remove_participants_from_project(project_name, email_processor(remove_participants_list))
-                print("Updated participants");
 
             # if surveylink and description fields are populated according to project selected
             if initial_survey_link is not None and initial_description is not None:
@@ -62,20 +92,18 @@ def edit_project(request):
 
                     # if survey link has been updated
                     if initial_survey_link != updated_survey_link:
-                        pass
                         # Update description on firebase
                         firebase.update_project_survey_link(project_name, updated_survey_link)
-                        print("Updated survey link");
 
                     # if description has been updated
                     if initial_description != updated_description:
-                        pass
                         # update description on firebase
                         firebase.update_project_description(project_name, updated_description)
-                        print("Updated description");
-            print(firebase.get_project_document_data(project_name))
+
+            # print(firebase.get_project_document_data(project_name))
             # Returning successful message and list of projects for dropdown to edit projects
             list_of_projects = firebase.get_all_project_names()
+            # Passing the context info to populate the dropdown option
             return render(request, 'home/edit-project.html', {'list_of_projects_dict': list_of_projects,
                                                               'message_success': 'Project updated successfully!'})
 
