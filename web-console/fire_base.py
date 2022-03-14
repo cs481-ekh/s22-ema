@@ -23,6 +23,7 @@ def get_all_project_names():
         document_list.append(f'{doc.id}')
     return document_list
 
+
 # Reading (projects) data from the collection
 def get_all_projects():
     # Connecting to Firebase
@@ -178,16 +179,21 @@ def get_user_registration_token(user_email):
 
 # Send Notification to users given a list of notification registration tokens
 # Warning only send in a list.
-def send_group_notification(registration_token_list):
+def send_group_notification(registration_token_list, expire_time, survey_link, project_id):
     # Create a list containing up to 500 registration tokens.
     # These registration tokens come from the client FCM SDKs.
 
     # send expiration date/time, surveyLink to data, projectId to the mobile app.
     message = messaging.MulticastMessage(
-        data={'score': '850', 'time': '2:45'},
+        data={'expiration': str(expire_time), 'surveyLink': str(survey_link), 'projectID': str(project_id)},
         tokens=registration_token_list,
     )
-    response = messaging.send_multicast(message)
-    # See the BatchResponse reference documentation
-    # for the contents of response.
-    print('{0} messages were sent successfully'.format(response.success_count))
+
+    print(registration_token_list)
+    try:
+        response = messaging.send_multicast(message)
+        # See the BatchResponse reference documentation
+        # for the contents of response.
+        print('{0} messages were sent successfully'.format(response.success_count))
+    except:
+        print('Error in getting response')

@@ -6,6 +6,7 @@ import schedule
 import datetime
 from datetime import date
 from datetime import datetime
+from datetime import timedelta
 
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 
@@ -99,10 +100,27 @@ def run_single_reminder_job(start_date, project, tag):
     if str(current_time) == str(parsed_start_date):
         # return schedule.cancel_job()
         # run the job to hit the API
-        loaded_project = firebase.get_project_document_data(project)
-        print(loaded_project)
+
+        print('x')
 
 
 # standard job for daily and weekly jobs, will be written in another task
 def run_standard_reminder_job(project):
     print('x')
+
+
+def sendNotification(project):
+    loaded_project = firebase.get_project_document_data(project)
+    participants = loaded_project.get('participants')
+    survey_link = loaded_project.get('surveyLink')
+
+    user_token_list = []
+    # 'erJdN5-qQK6gInbVyC_20k:APA91bG6m5GCrJ_dLoXGlHhXvc4fni2J85NUDWMwuNCkw3ypXrrKMcAwaBUi9zdtHG0urTSpLKcr2Gs4eS12P_zeEIrP3xFONyXN_Sy3tDxbvmwJx66fVpyLiJ_UY4ViS2zBAXB4ZCpA']
+    for user in participants:
+        user_token_list.append(firebase.get_user_registration_token(user))
+
+    now = datetime.now()
+    temp = now.strftime("%Y-%m-%d %H:%M:%S")
+    expire_time = datetime.strptime(temp, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=5)
+
+    firebase.send_group_notification(user_token_list, expire_time, survey_link, project)
