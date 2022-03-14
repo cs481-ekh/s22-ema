@@ -50,6 +50,14 @@
                                             </button>
                                         </div>
                                     {% endif %}
+                                    {% if message_error %}
+                                        <div class="alert alert-success animate_fade_in" role="alert" id="message">
+                                            {{ message_error }}
+                                            <button type="button" class="close close_button" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    {% endif %}
 
                                     <div class="row">
                                         <div class="col-md-6">
@@ -79,11 +87,13 @@
                                                 <!-- [ Enter link ] end -->
                                                 <!-- [ Enter participants ] start -->
                                                 <div class="form-group">
-                                                    <label for="surveyLinkLabel">Enter participant(s)</label>
-                                                    <input type="email" class="form-control" id="participantEmailInput"
+                                                    <label for="surveyLinkLabel" id="addParticipantLabelId-editProject">Enter participant(s)</label>
+                                                    <input type="email" class="form-control"
+                                                           id="addParticipantInput-editProject"
                                                            placeholder="Email">
                                                     <br>
-                                                    <button type="submit" class="btn btn-primary">Add Participant
+                                                    <button type="button" class="btn btn-primary"
+                                                            id="addParticipant-editProject">Add Participant
                                                     </button>
                                                 </div>
                                                 <!-- [ Enter participants ] end -->
@@ -104,7 +114,8 @@
                                         <div class="col-md-6">
                                             <form action="" method="post">
                                                 <!-- [ List of participants to be added ] start -->
-                                                <label for="participantsLabel" id="participantsLabelId">Participants:</label>
+                                                <label for="participantsLabel"
+                                                       id="participantsLabelId">Participants:</label>
                                                 <div class="card-block px-0 py-3">
                                                     <div class="table-responsive">
                                                         <table class="table table-hover" name="participantsTable"

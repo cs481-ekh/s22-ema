@@ -168,6 +168,29 @@ def delete_project_document(document_name):
     db.collection(u'projects').document(document_name).delete()
 
 
+def is_user_member_of_project(project_name, participant_email):
+    participant_list = get_participant_list(project_name)
+
+    # Looping through the participants in project_name
+    for part in participant_list:
+        # checking if the new participant is already a member of the project_name
+        if part == participant_email:
+            return True
+    # The participant is not a member of project_name
+    return False
+
+
+def get_participant_list(project_name):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+
+    # this contains a list of the participants who are a member of project_name
+    list_of_participants_dict = db.collection(u'projects').document(project_name).get(
+        field_paths={'participants'}).to_dict()
+
+    return list_of_participants_dict['participants']
+
+
 ########################################################################################################################
 #                                                   Users Queries                                                      #
 ########################################################################################################################
