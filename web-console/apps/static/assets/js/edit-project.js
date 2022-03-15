@@ -16,6 +16,9 @@ $(document).ready(function () {
     document.getElementById("addParticipantInput-editProject").disabled = true;
     document.getElementById("addParticipant-editProject").disabled = true;
 
+    // "Delete Project" disabled at the begining
+    document.getElementById("delete-project-id").disabled = true;
+
     // setting up ajax header
     $.ajaxSetup({
         headers: {"X-CSRFToken": Cookies.get("csrftoken")}
@@ -248,21 +251,38 @@ $(document).ready(function () {
         document.getElementById("bg-modal-id").classList.add("animate_fade_out");
         document.getElementById("bg-modal-id").remove();
     });
+
+    // drop down for project deletion
+    $(document).on('change', '#selectProjectDeleteId', function () {
+         // if no project is selected
+        if (document.getElementById("selectProjectDeleteId").value == "Select") {
+            // disable the delete button
+            document.getElementById("delete-project-id").disabled = true;
+        }
+        else {
+            // enable the button
+            document.getElementById("delete-project-id").disabled = false;
+        }
+
+    });
+
     $("#delete-project-id").click(function () {
         let super_modal = document.getElementById('super-modal');
 
         super_modal.innerHTML += '<div class="bg-modal animate_fade_in" id="bg-modal-id">\n' +
             '    <div class="modal-content">\n' +
-            '        <img src="{% static "assets/images/exclamation-mark.png" %}"\n' +
+            '        <img src="static/assets/images/exclamation-mark.png"\n' +
             '             width=100px\n' +
             '             alt="exclamation-image">\n' +
             '\n' +
             //'        <form action="" method="post" id="delete_project_form">\n' +
             '            <label for="fname">Are you sure you want to delete this project?</label><br>\n' +
-            '            <button type="submit" class="btn btn-danger" id="yesButton">Yes\n' +
-            '            </button>\n' +
-            '            <button type="button" class="btn btn-success" id="noButton">No\n' +
-            '            </button>\n' +
+            '            <div class = "modalButtons">' +
+            '               <button type="submit" class="btn btn-danger" id="yesButton">Yes\n' +
+            '               </button>\n' +
+            '               <button type="button" class="btn btn-success" id="noButton">No\n' +
+            '               </button>\n' +
+            '            </div>' +
             //'        </form>\n' +
             '    </div>\n' +
             '\n' +
