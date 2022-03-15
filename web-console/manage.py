@@ -40,7 +40,7 @@ def main():
 
 
     # # initializing app using credentials
-    firebase_admin.initialize_app(credentials.Certificate(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")))
+    #firebase_admin.initialize_app(credentials.Certificate(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")))
     ##################################################################################################################
 
 
