@@ -6,7 +6,11 @@ Copyright (c) 2019 - present AppSeed.us
 import sys
 
 import firebase_admin
+import firebase_admin.auth
 from firebase_admin import credentials
+import datetime
+from datetime import datetime
+from datetime import timedelta
 
 from Schedule import *
 import os
@@ -29,7 +33,7 @@ def main():
     # provide file path for firebase credentials (Needs to be taken out during build [CI])
     #os.environ[
 
-    #     "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/rogue/Downloads/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
+         #"GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/rogue/Downloads/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
    
 
          #"GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/alejandromacias/Documents/ema-firebase-credentials/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
@@ -40,12 +44,11 @@ def main():
    # firebase_admin.initialize_app(credentials.Certificate(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")))
     ##################################################################################################################
 
+
     # Starts the background deamon thread the runs the sceduling system
     run_continuously()
 
     execute_from_command_line(sys.argv)
-
-    schedule.every().second.do(background_job)
 
 
 if __name__ == '__main__':
