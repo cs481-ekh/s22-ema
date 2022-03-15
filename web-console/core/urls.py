@@ -19,6 +19,7 @@ urlpatterns = [
     path("", include("apps.authentication.urls")), # Auth routes - login / register
     path("", include("apps.home.urls")),            # UI Kits Html files
     path("createProject/", include("apps.create_project.urls")),
-    path("editProject", include("apps.edit_project.urls")),
-    path("reminders/", include("apps.Reminders.urls"))
+    path("editProject/", include("apps.edit_project.urls")),
+    path("reminders/", include("apps.Reminders.urls")),
+    path("dashboard/", include("apps.dashboard.urls"))
 ]
