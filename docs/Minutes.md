@@ -1,6 +1,16 @@
 
 
 # Meeting Minutes: EMA
+## Web
+### 3/15/22
+
+*Scribe:* Brandon
+
+*Present:* Andrew, Alejandro, Brandon
+
+*Absent:* Daniel (let us know yesterday he would be absent)
+
+*Items:* We wrapped up our Sprint 2 with the retrospective, and closed out the board for it. We then talked about our Sprint 3 plans and delegated roles. Andrew will be Scrum Master and Brandon will be the Scribe. Sprint 3 will focus on designing the Dashboard page of our website as well as getting the page to display up to date data about each project. We also plan to add some more pop-ups in the Edit Project and Create Project pages, which would display errors and make the user's experience easier. Daniel and Andrew plan to update the Notification Settings page, and fix issues related to the backend. Finally we plan to get our website set up on one of the school's servers.
 
 ## Web
 ### 3/10/22
