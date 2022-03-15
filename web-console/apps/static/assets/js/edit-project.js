@@ -242,4 +242,45 @@ $(document).ready(function () {
             Cookies.remove("user_is_member_of_project");
         }
     }, 10);
+
+    // when No is clicked then modal is removed, when Yes is clicked then the project is deleted
+    $(document).on('click', '#noButton', function () {
+        document.getElementById("bg-modal-id").classList.add("animate_fade_out");
+        document.getElementById("bg-modal-id").remove();
+    });
+    $("#delete-project-id").click(function () {
+        let super_modal = document.getElementById('super-modal');
+
+        super_modal.innerHTML += '<div class="bg-modal animate_fade_in" id="bg-modal-id">\n' +
+            '    <div class="modal-content">\n' +
+            '        <img src="{% static "assets/images/exclamation-mark.png" %}"\n' +
+            '             width=100px\n' +
+            '             alt="exclamation-image">\n' +
+            '\n' +
+            //'        <form action="" method="post" id="delete_project_form">\n' +
+            '            <label for="fname">Are you sure you want to delete this project?</label><br>\n' +
+            '            <button type="submit" class="btn btn-danger" id="yesButton">Yes\n' +
+            '            </button>\n' +
+            '            <button type="button" class="btn btn-success" id="noButton">No\n' +
+            '            </button>\n' +
+            //'        </form>\n' +
+            '    </div>\n' +
+            '\n' +
+            '</div>\n';
+
+        /* let form = document.getElementById('delete_project_form'),
+             input = document.createElement('input');
+
+             input.name = "csrfmiddlewaretoken";
+             input.type = "hidden";
+             input.value = Cookies.get('csrftoken');
+
+             form.appendChild(input);
+         */
+
+        //Cookies.get("csrftoken")
+
+    });
+
+
 });

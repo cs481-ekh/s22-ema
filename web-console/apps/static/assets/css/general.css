@@ -122,3 +122,35 @@
     border-radius: 8px;
     border: none;
 }
+
+.bg-modal {
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    width: 500px;
+    height: 300px;
+    background-color: white;
+    border-radius: 4px;
+    text-align: center;
+    align-items: center;
+    padding-top: 40px;
+}
+
+.modal-content img {
+    padding-bottom: 25px;
+}
+
+.modal-content button {
+    padding-right: 50px;
+    padding-left: 50px;
+    margin-top: 5px;
+}
