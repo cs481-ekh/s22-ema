@@ -35,7 +35,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'apps.create_project',
     'apps.edit_project',
-    'apps.Reminders'
+    'apps.Reminders',
+    'apps.dashboard'
 ]
 
 MIDDLEWARE = [
