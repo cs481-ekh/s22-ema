@@ -22,14 +22,15 @@ def edit_project(request):
         project_id = request.POST.get('selected_project')
         remove_participants_list = request.POST.get('remove_participants')
 
-        # On the edit page, when the user clicks on the add participant button, the user's email is stored in the new_participant_email
+        # On the edit page, when the user clicks on the add participant button,
+        # the user's email is stored in the new_participant_email
         new_participant_email = request.POST.get('new_participant_email')
         # On the edit page, the selected project is stored in the proj_name variable, this will help us check if the
         # new participant is in the selected project to determine if it needs to be added
         proj_name = request.POST.get('proj_name')
 
         # The following if condition is here to delete a project
-        selected_delete_project = request.POST.get('selectedDeleteProject')
+        selected_delete_project = request.COOKIES.get('selectedDeleteProject')
         if selected_delete_project is not None:
             firebase.delete_project_document(selected_delete_project)
             list_of_projects = firebase.get_all_project_names()
@@ -40,14 +41,14 @@ def edit_project(request):
         if new_participant_email is not None and proj_name is not None:
 
             # if the user does not exist in the users collection on firebase
-            if firebase.user_exist(new_participant_email) == False:
+            if not firebase.user_exist(new_participant_email):
                 # Inform the client that the user does not exit through a cookie
                 response = HttpResponse("Cookie Set")
                 response.set_cookie('user_does_not_exist', new_participant_email)
                 return response
 
             # if the new participant email is not a member of the selected project
-            if firebase.is_user_member_of_project(proj_name, new_participant_email) == False:
+            if not firebase.is_user_member_of_project(proj_name, new_participant_email):
                 # add new participant to selected project on firebase
                 firebase.add_participant_to_project(proj_name, new_participant_email)
                 # Inform the client that the user has been added by adding a card to add participants
@@ -59,7 +60,8 @@ def edit_project(request):
                 response.set_cookie('user_is_member_of_project', new_participant_email)
                 return response
 
-        # Gets the value from the dropdown and returns information about the  selected project from firebase which is sent back
+        # Gets the value from the dropdown and returns information about the
+        # selected project from firebase which is sent back
         # to the front end as a cookie which populates the appropriate input fields
         if project_id is not None:
 

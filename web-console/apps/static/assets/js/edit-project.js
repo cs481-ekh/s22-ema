@@ -19,6 +19,12 @@ $(document).ready(function () {
     // "Delete Project" disabled at the begining
     document.getElementById("delete-project-id").disabled = true;
 
+    // checks if delete cookie project cookie is set, if so than it is deleted.
+    let delete_project_cookie = Cookies.get('selectedDeleteProject');
+    if (delete_project_cookie !== 'undefined') {
+        Cookies.remove('selectedDeleteProject');
+    }
+
     // setting up ajax header
     $.ajaxSetup({
         headers: {"X-CSRFToken": Cookies.get("csrftoken")}
@@ -246,26 +252,25 @@ $(document).ready(function () {
         }
     }, 10);
 
-    // when No is clicked then modal is removed, when Yes is clicked then the project is deleted
-    $(document).on('click', '#noButton', function () {
-        document.getElementById("bg-modal-id").classList.add("animate_fade_out");
-        document.getElementById("bg-modal-id").remove();
-    });
 
     // drop down for project deletion
     $(document).on('change', '#selectProjectDeleteId', function () {
-         // if no project is selected
-        if (document.getElementById("selectProjectDeleteId").value == "Select") {
+        let project_name = document.getElementById("selectProjectDeleteId").value;
+        // if no project is selected
+        if (project_name == "Select") {
             // disable the delete button
             document.getElementById("delete-project-id").disabled = true;
-        }
-        else {
+        } else {
             // enable the button
             document.getElementById("delete-project-id").disabled = false;
+            // set the cookie as project name for server to know what cookie to delete.
+            Cookies.set('selectedDeleteProject', project_name)
         }
 
     });
 
+
+    // When a delete method is clicked than modal shows up
     $("#delete-project-id").click(function () {
         let super_modal = document.getElementById('super-modal');
 
@@ -275,7 +280,7 @@ $(document).ready(function () {
             '             width=100px\n' +
             '             alt="exclamation-image">\n' +
             '\n' +
-            //'        <form action="" method="post" id="delete_project_form">\n' +
+            '        <form action="" method="post" id="delete_project_form">\n' +
             '            <label for="fname">Are you sure you want to delete this project?</label><br>\n' +
             '            <div class = "modalButtons">' +
             '               <button type="submit" class="btn btn-danger" id="yesButton">Yes\n' +
@@ -283,24 +288,28 @@ $(document).ready(function () {
             '               <button type="button" class="btn btn-success" id="noButton">No\n' +
             '               </button>\n' +
             '            </div>' +
-            //'        </form>\n' +
+            '        </form>\n' +
             '    </div>\n' +
             '\n' +
             '</div>\n';
 
-        /* let form = document.getElementById('delete_project_form'),
-             input = document.createElement('input');
+        // setting the csrf token for the form included in the above tag. So that the submission goes smoothly.
+        let form = document.getElementById('delete_project_form'),
+            input = document.createElement('input');
 
-             input.name = "csrfmiddlewaretoken";
-             input.type = "hidden";
-             input.value = Cookies.get('csrftoken');
+        input.name = "csrfmiddlewaretoken";
+        input.type = "hidden";
+        input.value = Cookies.get('csrftoken');
 
-             form.appendChild(input);
-         */
+        form.appendChild(input);
 
-        //Cookies.get("csrftoken")
 
     });
 
+    // when No is clicked then modal is removed, when Yes is clicked then the project is deleted
+    $(document).on('click', '#noButton', function () {
+        document.getElementById("bg-modal-id").classList.add("animate_fade_out");
+        document.getElementById("bg-modal-id").remove();
+    });
 
 });
