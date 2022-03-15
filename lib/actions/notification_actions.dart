@@ -127,6 +127,41 @@ void resetCount(String? email) {
   docRef.update({"streak": 0, "streakDate": DateTime.now()});
 }
 
+Future<int> checkDate(String? email) async {
+  Timestamp lastTime = await getUsersStreakDate(email!);
+  final DocumentReference docRef =
+      FirebaseFirestore.instance.collection("users").doc(email);
+
+  print(lastTime);
+  DateTime lastDate = lastTime.toDate();
+  const NUMBER_OF_SECONDS = 86400;
+  DateTime cutOff = lastDate.add(const Duration(hours: 24));
+  DateTime newCycle = lastDate.add(const Duration(hours: 12));
+  if ((DateTime.now().isAfter(cutOff))) {
+    return 0;
+  } else if ((DateTime.now().isAfter(newCycle))) {
+    return 1;
+  }
+  return 2;
+}
+
+Future<Timestamp> getUsersStreakDate(String username) async {
+  dynamic data;
+
+  await FirebaseFirestore.instance
+      .collection('users')
+      .doc(username)
+      .get()
+      .then((DocumentSnapshot documentSnapshot) {
+    if (documentSnapshot.exists) {
+      data = documentSnapshot.get("streakDate");
+    } else {
+      data = null;
+        }
+  });
+
+  return data;
+}
 Future<int> getCount(String? email) async {
   int data = -1;
 
