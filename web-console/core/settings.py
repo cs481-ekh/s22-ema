@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'apps.create_project',
     'apps.edit_project',
     'apps.Reminders',
-    'apps.dashboard'
+    'apps.dashboard',
+    'apps.reset_password'
 ]
 
 MIDDLEWARE = [

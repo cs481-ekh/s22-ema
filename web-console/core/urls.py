@@ -21,5 +21,6 @@ urlpatterns = [
     path("createProject/", include("apps.create_project.urls")),
     path("editProject/", include("apps.edit_project.urls")),
     path("reminders/", include("apps.Reminders.urls")),
-    path("dashboard/", include("apps.dashboard.urls"))
+    path("dashboard/", include("apps.dashboard.urls")),
+    path("resetPassword/", include("apps.reset_password.urls"))
 ]
