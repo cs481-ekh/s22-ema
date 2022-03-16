@@ -7361,7 +7361,11 @@ select.form-control-lg:not([size]):not([multiple]) {
   overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
   touch-action: none;
   -ms-touch-action: none;
-  padding-left: 8em;
+}
+
+.table-hover tbody tr td{
+  padding-left: 5em;
+  padding-right: 5em;
 }
 
 #participantsLabelId{
