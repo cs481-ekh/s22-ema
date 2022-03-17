@@ -11,7 +11,7 @@ trap 'echo "\"${last_command}\" command failed with exit code $?."' EXIT
 # Run the unit tests
 python manage.py test
 python manage.py test apps/authentication
-python manage.py test apps/home
+python manage.py test apps/dashboard
 
 # At this point, the commands ran successfully. Therefore, the last exit status is clean trap Exit.
 trap EXIT

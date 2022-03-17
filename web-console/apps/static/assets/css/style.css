@@ -57,6 +57,10 @@ File: style.css
 /**  =====================
       Custom css start
 ==========================  **/
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
@@ -7361,7 +7365,10 @@ select.form-control-lg:not([size]):not([multiple]) {
   overflow-y: scroll; /* keeps the scrollbar even if it doesn't need it; display purpose */
   touch-action: none;
   -ms-touch-action: none;
-  padding-left: 8em;
+}
+
+.table-hover tbody tr td{
+  padding-left: 5.5em;
 }
 
 #participantsLabelId{
