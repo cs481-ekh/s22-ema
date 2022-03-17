@@ -17,10 +17,10 @@ class ProjectsPage extends StatefulWidget {
   const ProjectsPage({Key? key}) : super(key: key);
 
   @override
-  _UserPageState createState() => _UserPageState();
+  _ProjectsPageState createState() => _ProjectsPageState();
 }
 
-class _UserPageState extends State<ProjectsPage> {
+class _ProjectsPageState extends State<ProjectsPage> {
   late SharedPreferences _SharedPrefs;
   List<String> projects = [];
   int projectAmount = 0;
@@ -48,19 +48,6 @@ class _UserPageState extends State<ProjectsPage> {
     });
     print("Updated project list!");
   }
-/*
-  void handleForegroundNotif(RemoteMessage message) async {
-    print('Got a notification while in the foreground!');
-    print('Message data: ${message.data}');
-
-    if (message.notification != null) {
-      print('Message also contained a notification: ${message.notification}');
-    }
-
-    await storeMessage(message);
-    updateMissedNotifs();
-  }
-  */
 
   //This function defines the widget built into the ListView
   Widget listViewHelper(BuildContext context, int index) {
@@ -137,7 +124,7 @@ class _UserPageState extends State<ProjectsPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('EMA'),
+        title: const Text('Your Projects'),
         // leading: IconButton(
         //     icon: const Icon(Icons.arrow_back),
         //     onPressed: () {
@@ -151,7 +138,7 @@ class _UserPageState extends State<ProjectsPage> {
           children: [
             const Padding(
                 padding: EdgeInsets.all(10.0),
-                child: Text('Notifications',
+                child: Text('Projects',
                     style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,
@@ -183,6 +170,7 @@ class _UserPageState extends State<ProjectsPage> {
                   },
                   child: const Text('Dismiss All'),
                 )),
+            /*
             Padding(
               padding: const EdgeInsets.all(20.0),
               child: TextButton(
@@ -192,6 +180,7 @@ class _UserPageState extends State<ProjectsPage> {
                 child: const Text('Logout'),
               ),
             )
+            */
           ],
         ),
       ),

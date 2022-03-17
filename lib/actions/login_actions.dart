@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ema/actions/project_actions.dart';
 import 'package:ema/utils/data_classes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
@@ -96,9 +96,11 @@ Future<String> addNewUser(
   }
 
   //add new user to 'participants' list in Project
-  bool addParticipant = await addUserToParticipants(usernameController.text, projectList);
+  bool addParticipant =
+      await addUserToParticipants(usernameController.text, projectList);
   if (addParticipant == false) {
-    errorMessage = "Could not add user to participants list in one or more projects";
+    errorMessage =
+        "Could not add user to participants list in one or more projects";
     return errorMessage;
   }
 
@@ -113,7 +115,8 @@ Future<String> addNewUser(
 
 Future<bool> addUserToParticipants(String email, List<String> projList) async {
   bool passed = true;
-  CollectionReference projects = FirebaseFirestore.instance.collection('projects');
+  CollectionReference projects =
+      FirebaseFirestore.instance.collection('projects');
   for (String project in projList) {
     List<dynamic> participants = await getProjectParticipants(project);
     if (participants.isEmpty) {
@@ -121,28 +124,12 @@ Future<bool> addUserToParticipants(String email, List<String> projList) async {
     }
     participants.add(email);
     projects
-    .doc(project)
-    .update({"participants": participants})
-    .then((passed) => true)
-    .catchError((passed) => false);
+        .doc(project)
+        .update({"participants": participants})
+        .then((passed) => true)
+        .catchError((passed) => false);
   }
   return passed;
-}
-
-Future<List<dynamic>>getProjectParticipants(String project) async {
-  List<dynamic> data = List.empty();
-
-  await FirebaseFirestore.instance
-      .collection('projects')
-      .doc(project)
-      .get()
-      .then((DocumentSnapshot documentSnapchat) {
-    if (documentSnapchat.exists) {
-      data = documentSnapchat.get("participants");
-    }
-  });
-
-  return data;
 }
 
 Future<String> addUserToDatabase(
@@ -168,24 +155,6 @@ Future<String> registerUser(String username, String password) {
       .createUserWithEmailAndPassword(email: username, password: password)
       .then((value) => "")
       .catchError((error) => error.toString());
-}
-
-Future<dynamic> getUsersProjectId(String username) async {
-  dynamic data;
-
-  await FirebaseFirestore.instance
-      .collection('users')
-      .doc(username)
-      .get()
-      .then((DocumentSnapshot documentSnapshot) {
-    if (documentSnapshot.exists) {
-      data = documentSnapshot.get("projectId");
-    } else {
-      data = null;
-    }
-  });
-
-  return data;
 }
 
 Future<dynamic> getUsersAdminPriv(String username) async {
@@ -250,7 +219,7 @@ Future<String> signinUser(username, password) async {
   // get projectId and subscribe to project
   dynamic userProjects;
 
-  userProjects = await getUsersProjectId(username);
+  userProjects = await getUsersProjectList(username);
   if (userProjects == null) {
     errorMessage = "Unable to find user in database";
     return errorMessage;
