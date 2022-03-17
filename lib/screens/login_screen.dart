@@ -48,6 +48,12 @@ class LoginPage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
+            Image.asset(
+              'assets/images/sdp-logo-infinity.png',
+              alignment: Alignment.topLeft,
+              height: screenSize.height * 0.215,
+              width: screenSize.width * 0.35,
+            ),
             Flexible(
               flex: 3,
               child: Padding(
