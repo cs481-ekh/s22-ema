@@ -87,6 +87,16 @@
 
 ## Mobile
 
+### 3/16/22
+
+*Scribe:* Jason
+
+*Present:* Jason, Jeff, Jon
+
+*Absent:* N/A
+
+*Items:* We had our Sprint 2 retrospective and started planning what we are going to do for Sprint 3. For Sprint 3, we are going to add in the senior logo, use expiration date info for the notifications, redesign the notification screen a bit, and add a new screen for user's being able to manage the projects they are apart of.
+
 ### 3/08/22
 
 *Scribe:* Jason
