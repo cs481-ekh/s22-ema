@@ -119,7 +119,6 @@ The project is coded using a simple and intuitive structure presented below:
    |         |
    |         |-- accounts/                  # Authentication pages
    |         |    |-- login.html            # Login page
-   |         |    |-- register.html         # Register page
    |         |
    |         |-- home/                      # UI Kit Pages
    |              |-- index.html            # Index page

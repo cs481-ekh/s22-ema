@@ -5,7 +5,7 @@ Copyright (c) 2019 - present AppSeed.us
 
 # Create your views here.
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, SignUpForm
 from django.contrib.auth import get_user_model
 
@@ -32,31 +32,37 @@ def login_view(request):
     return render(request, "accounts/login.html", {"form": form, "msg": msg})
 
 
-def register_user(request):
-    msg = None
-    success = False
+# logging user out
+def logout_view(request):
+    logout(request)
+    return render(request, "home/login.html")
 
-    if request.method == "POST":
-        form = SignUpForm(request.POST)
-        if form.is_valid():
-            form.save()
-            username = form.cleaned_data.get("username")
-            raw_password = form.cleaned_data.get("password1")
-            user = authenticate(username=username, password=raw_password)
 
-            msg = 'User created - please <a href="/login">login</a>.'
-            success = True
-            login(request, user)
-
-            # return redirect("/login/")
-            return redirect("/")
-
-        else:
-            msg = 'Form is not valid'
-    else:
-        form = SignUpForm()
-
-    return render(request, "accounts/register.html", {"form": form, "msg": msg, "success": success})
+# def register_user(request):
+#     msg = None
+#     success = False
+#
+#     if request.method == "POST":
+#         form = SignUpForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             username = form.cleaned_data.get("username")
+#             raw_password = form.cleaned_data.get("password1")
+#             user = authenticate(username=username, password=raw_password)
+#
+#             msg = 'User created - please <a href="/login">login</a>.'
+#             success = True
+#             login(request, user)
+#
+#             # return redirect("/login/")
+#             return redirect("/")
+#
+#         else:
+#             msg = 'Form is not valid'
+#     else:
+#         form = SignUpForm()
+#
+#     return render(request, "accounts/reset_password.html", {"form": form, "msg": msg, "success": success})
 
 
 def reset_password(request):
