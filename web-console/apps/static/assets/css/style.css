@@ -57,6 +57,10 @@ File: style.css
 /**  =====================
       Custom css start
 ==========================  **/
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
 body {
   font-family: "Open Sans", sans-serif;
   font-size: 14px;
@@ -7364,8 +7368,7 @@ select.form-control-lg:not([size]):not([multiple]) {
 }
 
 .table-hover tbody tr td{
-  padding-left: 5em;
-  padding-right: 5em;
+  padding-left: 5.5em;
 }
 
 #participantsLabelId{
