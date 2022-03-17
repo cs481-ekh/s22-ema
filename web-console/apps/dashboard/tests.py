@@ -3,9 +3,7 @@ Copyright (c) 2019 - present AppSeed.us
 """
 from django.contrib.auth import get_user_model, authenticate
 from django.test import TestCase, Client
-from example import *
-
-
+from .example import *
 ##
 class testTeaseCase(TestCase):
     # Create your tests here.
