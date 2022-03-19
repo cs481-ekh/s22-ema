@@ -195,6 +195,16 @@ def get_participant_list(project_name):
 #                                                   Users Queries                                                      #
 ########################################################################################################################
 
+# Reading (users name) from the collection
+def get_all_users_names():
+    # Connecting to Firebase
+    db = db_connect_firebase()
+    docs = db.collection(u'users').stream()
+    document_list = []
+    for doc in docs:
+        document_list.append(f'{doc.id}')
+    return document_list
+
 
 # Reading (users) data from the collection
 def get_all_users():
