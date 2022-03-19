@@ -2,7 +2,7 @@
 
 {% block title %} Login {% endblock %}
 
-{% block content %}   
+{% block content %}
 
     <div class="auth-wrapper">
         <div class="auth-content">
@@ -27,21 +27,19 @@
                         {% endif %} 
                     </span>
 
-                    <br />
-                    <br />
+                    <br/>
+                    <br/>
 
                     <form role="form" method="post" action="">
 
-                        {% csrf_token %}                   
+                        {% csrf_token %}
 
                         <div class="input-group mb-3">
                             {{ form.username }}
                         </div>
-                        
                         <div class="input-group mb-4">
                             {{ form.password }}
                         </div>
-                        
                         <div class="form-group text-left">
                             <div class="checkbox checkbox-fill d-inline">
                                 <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
@@ -49,10 +47,8 @@
                             </div>
                         </div>
                         <button type="submit" name="login" class="btn btn-primary shadow-2 mb-4">Login</button>
-
                     </form>
-
-                    <p class="mb-0 text-muted"><a href="{% url 'ema_reset_password' %}" >Forgot password?</a></p>
+                    <p class="mb-0 text-muted"><a href="{% url 'ema_reset_password' %}">Forgot password?</a></p>
                 </div>
             </div>
         </div>

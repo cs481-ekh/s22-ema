@@ -3,7 +3,10 @@
 Copyright (c) 2019 - present AppSeed.us
 """
 
+import re
+
 # Create your views here.
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm, SignUpForm
@@ -74,6 +77,15 @@ def reset_password(request):
     # Security check before changing the password
     if username is not None and user_password is not None and user_confirm_password is not None:
 
+        # If the passwords are not at least 8 characters long or the passwords doesn't contain
+        # at least one uppercase letter, one lowercase letter, one number and one special character
+        if validate_password(user_password) is None or validate_password(user_confirm_password) is None:
+            # Populating fields with what the user had initially entered before submitting and notifying
+            # them with the error message
+            return render(request, 'home/auth-reset-pass.html',
+                          {'u_name': username, 'user_pw': user_password, 'user_confirm_pw': user_confirm_password,
+                           'message_error': "turn message red"})
+
         # If the both password input fields match, then proceed with the password change
         if user_password == user_confirm_password:
             user_model = get_user_model()
@@ -86,6 +98,7 @@ def reset_password(request):
                 return render(request, "home/user-not-exist.html")
             # Admin user exists, proceed with updating password
             else:
+                # Grab the user if it exists
                 user = user_model.objects.get(username=username)
                 user.set_password(user_password)
                 user.save()
@@ -98,3 +111,12 @@ def reset_password(request):
                               "home/login.html")  # Needs to be changed later to direct to dashboard/  once dashboard is implemented
 
     return render(request, "home/auth-reset-pass.html")
+
+
+# Function will check if the string is at least 8 characters with at least one uppercase letter, one lowercase letter,
+# one number and one special character. NOTE - Password cannot be started with a '.' (period)
+def validate_password(password_string):
+    # if there is no match, x will equal None
+    x = re.match(r"(?=^.{8,}$)(?=.*\d)(?=.*[!~@#\.()\$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$", password_string)
+
+    return x
