@@ -15,8 +15,11 @@ firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_modu
 def index(request):
     if request.method == 'GET':
         list_of_projects = firebase.get_all_project_names()
-        print(list_of_projects)
-        return render(request, 'home/index.html', {'list_of_projects_dict': list_of_projects})
+        list_of_projects_count = len(list_of_projects)
+        list_of_users_count = len(firebase.get_all_users_names())
+        return render(request, 'home/index.html',
+                      {'list_of_projects_dict': list_of_projects, 'list_of_projects_count': list_of_projects_count,
+                       'list_of_users_count': list_of_users_count})
 
 
 # To be removed later
