@@ -28,18 +28,62 @@
                         {% csrf_token %}
                         <h3 class="mb-4">Reset Password</h3>
                         <div class="input-group mb-3">
-
-                            <input name="user_name" type="username" class="form-control" id="username-password-reset-id"
-                                   placeholder="Username" required>
+                            <!-- The if statements help us grab data submitted initially and populate fields again on error -->
+                            {% if u_name %}
+                                <input name="user_name" type="username" class="form-control"
+                                       id="username-password-reset-id"
+                                       placeholder="Username" value="{{ u_name }}" required>
+                            {% else %}
+                                <input name="user_name" type="username" class="form-control"
+                                       id="username-password-reset-id"
+                                       placeholder="Username" required>
+                            {% endif %}
                         </div>
                         <div class="input-group mb-3">
-                            <input name="user-password" type="password" class="form-control" id="password-reset-id"
-                                   placeholder="Password" required>
+                            {% if user_pw %}
+                                <input name="user-password" type="password" class="form-control" id="password-reset-id"
+                                       placeholder="Password" value="{{ user_pw }}" required>
+                            {% else %}
+                                <input name="user-password" type="password" class="form-control" id="password-reset-id"
+                                       placeholder="Password" required>
+                            {% endif %}
                         </div>
                         <div class="input-group mb-3">
-                            <input name="user-confirm-password" type="password" class="form-control"
-                                   id="confirm-password-reset-id" placeholder="Confirm password" required>
+                            {% if user_confirm_pw %}
+                                <input name="user-confirm-password" type="password" class="form-control"
+                                       id="confirm-password-reset-id" placeholder="Confirm password"
+                                       value="{{ user_confirm_pw }}" required>
+                            {% else %}
+                                <input name="user-confirm-password" type="password" class="form-control"
+                                       id="confirm-password-reset-id" placeholder="Confirm password" required>
+                            {% endif %}
                         </div>
+                        <!-- Color changes depending on error  -->
+                        {% if message_error %}
+                            <div class="alert alert-danger animate_fade_in" role="alert" id="pw_instructions_msg">
+                                <button type="button" class="close close_button" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <div>Password needs to:</div>
+                                <div>* be at least 8 characters long</div>
+                                <div>* include at least one uppercase</div>
+                                <div>* include at least one lowercase</div>
+                                <div>* include at least one number</div>
+                                <div>* include at least one special character</div>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-warning animate_fade_in" role="alert" id="pw_instructions_msg">
+                                <button type="button" class="close close_button" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                                <div>Password needs to:</div>
+                                <div>* be at least 8 characters long</div>
+                                <div>* include at least one uppercase</div>
+                                <div>* include at least one lowercase</div>
+                                <div>* include at least one number</div>
+                                <div>* include at least one special character</div>
+                            </div>
+                        {% endif %}
                         <button type="submit" class="btn btn-primary mb-4 shadow-2" id="reset-password-button">Reset
                             Password
                         </button>
