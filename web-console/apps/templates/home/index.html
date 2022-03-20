@@ -32,7 +32,6 @@
             <div class="page-wrapper">
                 <!-- [ Main Content ] start -->
                 <div class="row">
-
                     <!--[ year  sales section ] end-->
                     <!--[ Recent Users ] start-->
                     <div class="col-xl-8 col-md-6">
@@ -40,13 +39,16 @@
                             <div class="card-header">
                                 <h5>Select Project</h5>
                                 <div class="form-group">
-                                    <select class="form-control" id="selectProjectEditId"
-                                            name="selectedProject">
+                                    <form action="" method="post">
+                                    {% csrf_token %}
+                                    <select class="form-control" id="selectProjectDashbaordId"
+                                            name="selectedProjectDashboard">
                                         <option selected=selected>Select</option>
                                         {% for project_name in list_of_projects_dict %}
                                             <option value="{{ project_name }}">{{ project_name }} </option>
                                         {% endfor %}
                                     </select>
+                                    </form>
                                 </div>
                             </div>
                             <div class="card-block px-0 py-3">
@@ -216,7 +218,7 @@
                                     </div>
                                     <div class="col">
                                         <h3 class="f-w-300">{{ list_of_users_count }}</h3>
-                                        <span class="d-block text-uppercase">TOTAL USERS</span>
+                                        <span class="d-block text-uppercase">TOTAL PARTICIPANTS</span>
                                     </div>
                                 </div>
                             </div>
@@ -319,5 +321,6 @@
     <script src="/static/assets/plugins/chart-morris/js/raphael.min.js"></script>
     <script src="/static/assets/plugins/chart-morris/js/morris.min.js"></script>
     <script src="/static/assets/js/pages/chart-morris-custom.js"></script>
+    <script src="/static/assets/js/dashboard.js"></script>
 
 {% endblock javascripts %}
