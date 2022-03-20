@@ -7371,7 +7371,13 @@ select.form-control-lg:not([size]):not([multiple]) {
   padding-left: 5.5em;
 }
 
-#participantsLabelId{
+/* participants label for the participant list in edit project*/
+#participantsLabelId-editProject{
+  padding-left: 15em;
+}
+
+/* participants label for the participant list in create project*/
+#participantsLabelId-createProject{
   padding-left: 15em;
 }
 
