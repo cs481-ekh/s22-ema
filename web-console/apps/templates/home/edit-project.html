@@ -22,7 +22,8 @@
                                 <h1 class="m-b-10">Edit Project</h1>
                             </div>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item"><a href="{% url "dashboard" %}"><i class="feather icon-home"></i></a></li>
+                                <li class="breadcrumb-item"><a href="{% url "dashboard" %}"><i
+                                        class="feather icon-home"></i></a></li>
                                 <li class="breadcrumb-item"><a href="javascript:">Edit Project</a></li>
                             </ul>
                         </div>
@@ -137,22 +138,22 @@
                                     <hr>
                                     <div class="row">
                                         <div class="col-md-6">
-                                                <div class="form-group">
-                                                    <label for="selectProjectToDelete">Select Project</label>
-                                                    <select class="form-control" id="selectProjectDeleteId"
-                                                            name="selectedDeleteProject">
+                                            <div class="form-group">
+                                                <label for="selectProjectToDelete">Select Project</label>
+                                                <select class="form-control" id="selectProjectDeleteId"
+                                                        name="selectedDeleteProject">
 
-                                                        <option selected=selected>Select</option>
-                                                        <!-- [ code to display projects ] -->
-                                                        {% for project_name in list_of_projects_dict %}
-                                                            <option value="{{ project_name }}">{{ project_name }} </option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </div>
-                                                <button type="button" class="btn btn-danger " id="delete-project-id">
-                                                    Delete
-                                                    Project
-                                                </button>
+                                                    <option selected=selected>Select</option>
+                                                    <!-- [ code to display projects ] -->
+                                                    {% for project_name in list_of_projects_dict %}
+                                                        <option value="{{ project_name }}">{{ project_name }} </option>
+                                                    {% endfor %}
+                                                </select>
+                                            </div>
+                                            <button type="button" class="btn btn-danger " id="delete-project-id">
+                                                Delete
+                                                Project
+                                            </button>
                                         </div>
                                         <!-- [ Delete Project section ] end -->
                                     </div>
