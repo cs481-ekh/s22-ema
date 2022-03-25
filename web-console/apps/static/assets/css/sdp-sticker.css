@@ -1,0 +1,31 @@
+/*Style for the support page sticker start */
+#sdp-support {
+    position: absolute;
+    margin-left: 16em;
+}
+
+#sdp-support img {
+    width: 45em;
+    cursor: pointer;
+    display: block;
+    margin-top: 8em;
+}
+
+#sdp-support > div {
+    background-color: #0033A0;
+    color: purple;
+    text-align: center;
+    margin-left: 16em;
+    margin-top: 5em;
+    border-radius: 15px;
+    visibility: hidden;
+    position: relative;
+}
+
+#sdp-support a {
+    text-decoration: none;
+    color: #D64309;
+    font-weight: bold;
+}
+
+/*Style for the support page sticker end */

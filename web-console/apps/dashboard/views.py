@@ -73,3 +73,9 @@ def pages(request):
     except:
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render(context, request))
+
+
+# Rendering the support page
+@login_required(login_url="/login/")
+def support_page(request):
+    return render(request, 'home/support.html')

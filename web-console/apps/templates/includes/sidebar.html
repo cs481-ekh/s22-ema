@@ -32,6 +32,10 @@
                         class="nav-item {% if 'notification-settings' in segment %} active {% endif %}">
                         <a href="{% url 'index' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-bell"></i></span><span class="pcoded-mtext">Notification Settings</span></a>
                     </li>
+                    <li data-username="Set the notification settings for a project"
+                        class="nav-item {% if 'support' in segment %} active {% endif %}">
+                        <a href="{% url 'support' %}" class="nav-link "><span class="pcoded-micon"><i class="feather icon-headphones"></i></span><span class="pcoded-mtext">Support</span></a>
+                    </li>
                     <li class="nav-item pcoded-menu-caption">
                         <label>UI Element</label>
                     </li>
