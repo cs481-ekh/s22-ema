@@ -269,3 +269,42 @@ def send_group_notification(registration_token_list, expire_time, survey_link, p
         print('{0} messages were sent successfully'.format(response.success_count))
     except:
         print('Error in getting response')
+
+
+########################################################################################################################
+#                                                  Notification Backup                                                #
+########################################################################################################################
+# removes a backup from the backup table selecting via uuid
+def removeBackUp(uuid):
+    db = db_connect_firebase()
+    doc_ref = db.collection(u'reminderBackUp').document('')
+
+    # Remove the
+    doc_ref.update({u'uuid': firestore.ArrayRemove([uuid])})
+
+
+# creates a new entry
+def createNewBackUp(uuid, projectName, startDate, reminderTime, repeating, expirationDate, expirationTime):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+
+    # Collection reference
+    col_ref = db.collection(u'reminderBackUp')
+
+    # New values to be added
+    new_values = {
+        "uuid": uuid,
+        "projectName": projectName,
+        "startDate": startDate,
+        "reminderTime": reminderTime,
+        "repeating": repeating,
+        "expirationDate": expirationDate,
+        "expirationTime": expirationTime
+    }
+
+    # Adding new values to firebase
+    col_ref.document(uuid).create(new_values)
+
+# gets all back ups from the firebase
+def getAllBackUps():
+    print('x')
