@@ -133,5 +133,5 @@ def sendNotification(project):
 def removeReminder(removeTag):
     # remove from Scheduling system
     schedule.clear(removeTag)
-
     # remove from firebase
+    firebase.removeBackUp(removeTag)

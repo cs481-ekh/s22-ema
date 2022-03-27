@@ -277,10 +277,8 @@ def send_group_notification(registration_token_list, expire_time, survey_link, p
 # removes a backup from the backup table selecting via uuid
 def removeBackUp(uuid):
     db = db_connect_firebase()
-    doc_ref = db.collection(u'reminderBackUp').document('')
+    db.collection(u'reminderBackUp').document(uuid).delete()
 
-    # Remove the
-    doc_ref.update({u'uuid': firestore.ArrayRemove([uuid])})
 
 
 # creates a new entry
@@ -305,6 +303,9 @@ def createNewBackUp(uuid, projectName, startDate, reminderTime, repeating, expir
     # Adding new values to firebase
     col_ref.document(uuid).create(new_values)
 
-# gets all back ups from the firebase
+# gets all back ups from the firebase will need to loop threw on the other end
 def getAllBackUps():
-    print('x')
+    db = db_connect_firebase()
+    docs = db.collection(u'reminderBackUp').stream()
+
+    return docs
