@@ -51,12 +51,14 @@ def get_day_of_week(date):
 
 
 # creates a job that will only run once at a selected time and date
+# all jobs should be tagged with a uuid
 def add_reminder_once(date, time, selectedProject, tag):
     schedule.every().day.at(time).do(run_single_reminder_job, start_date=date, project=selectedProject, tag=tag).tag(
         tag)
 
 
 # creates a job to be run on a day of the week every week at a selected time
+# all jobs should be tagged with a uuid
 def add_reminder_weekly(startDate, startTime, endDate, endTime, selectedProject, tag):
     # get the day of the week and siwtch statment to set based on the day of the week
     dayofWeek = get_day_of_week(startDate)
@@ -87,6 +89,7 @@ def add_reminder_weekly(startDate, startTime, endDate, endTime, selectedProject,
 
 
 # creates a job to run every day of the week at a selected time
+# all jobs should be tagged with a uuid
 def add_reminder_daily(startDate, startTime, endDate, endTime, selectedProject, tag):
     schedule.every().day.at(startTime).until(endDate + ' ' + endTime).do(run_standard_reminder_job,
                                                                          project=selectedProject).tag(tag)
@@ -124,3 +127,11 @@ def sendNotification(project):
     expire_time = datetime.strptime(temp, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=5)
 
     firebase.send_group_notification(user_token_list, expire_time, survey_link, project)
+
+
+# function to remove a job with a uuid from the scheduling system and
+def removeReminder(removeTag):
+    # remove from Scheduling system
+    schedule.clear(removeTag)
+    # remove from firebase
+    firebase.removeBackUp(removeTag)
