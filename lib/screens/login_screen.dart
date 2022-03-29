@@ -48,12 +48,34 @@ class LoginPage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
-            Image.asset(
-              'assets/images/sdp-logo-infinity.png',
-              alignment: Alignment.topLeft,
-              height: screenSize.height * 0.215,
-              width: screenSize.width * 0.35,
-            ),
+            Container(
+                padding: const EdgeInsets.fromLTRB(20, 0, 0, 0),
+                alignment: Alignment.topLeft,
+                child: SizedBox(
+                    height: screenSize.height * 0.115,
+                    width: screenSize.width * 0.315,
+                    child: IconButton(
+                      icon: Image.asset('assets/images/sdp-logo-infinity.png'),
+                      iconSize: screenSize.height * 0.125,
+                      onPressed: () => showDialog<String>(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('AlertDialog Title'),
+                          content: const Text(
+                              'This website/app was created for a Boise State University Computer Science Senior Design Project by Paisley Davis'),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'Cancel'),
+                              child: const Text('Cancel'),
+                            ),
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ))),
             Flexible(
               flex: 3,
               child: Padding(
