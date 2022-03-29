@@ -22,7 +22,6 @@ def index(request):
             # Getting participant list from firebase present in the project
             part_list = firebase.get_participant_list(proj_name)
             part_list_count = len(part_list)
-
             # percentage to be displayed on the card
             participant_percentage = (part_list_count / len(firebase.get_all_users_names())) * 100
 

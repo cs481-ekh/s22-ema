@@ -26,13 +26,14 @@ $(document).ready(function () {
                     // removing cookies
                     Cookies.remove("part_list_count");
                     Cookies.remove("participant_percentage");
+                    // unhiding sublabel
+
                 }
             }, 10);
         } else {
             // if project selected == "Select" than
             document.getElementById("projectCountDataId").innerText = "--";
             document.getElementById("projectCountPercentageId").innerText = "--";
-            // Hiding Participant sub element of card
 
         }
     });
