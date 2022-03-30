@@ -276,7 +276,7 @@ $(document).ready(function () {
 
         super_modal.innerHTML += '<div class="bg-modal animate_fade_in" id="bg-modal-id">\n' +
             '    <div class="modal-content">\n' +
-            '        <img src="static/assets/images/exclamation-mark.png"\n' +
+            '        <img src="/static/assets/images/exclamation-mark.png"\n' +
             '             width=100px\n' +
             '             alt="exclamation-image">\n' +
             '\n' +
