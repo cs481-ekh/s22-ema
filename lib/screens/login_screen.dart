@@ -60,9 +60,10 @@ class LoginPage extends StatelessWidget {
                       onPressed: () => showDialog<String>(
                         context: context,
                         builder: (BuildContext context) => AlertDialog(
-                          title: const Text('AlertDialog Title'),
+                          title:
+                              const Text('Senior Design Project Information'),
                           content: const Text(
-                              'This website/app was created for a Boise State University Computer Science Senior Design Project by Paisley Davis'),
+                              'This website/app was created for a Boise State University Computer Science Senior Design Project by \n Paisley Davis \n Jeff Kahn \n Jason Kuphaldt \n Mason Humpherys \n Jonathan Tipton \n For information about sponsoring a project go to \n https://www.boisestate.edu/coen-cs/community/cs481-senior-design-project/'),
                           actions: <Widget>[
                             TextButton(
                               onPressed: () => Navigator.pop(context, 'Cancel'),
