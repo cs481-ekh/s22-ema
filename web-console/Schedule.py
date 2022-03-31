@@ -7,6 +7,7 @@ import datetime
 from datetime import date
 from datetime import datetime
 from datetime import timedelta
+import uuid
 
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 
@@ -135,3 +136,21 @@ def removeReminder(removeTag):
     schedule.clear(removeTag)
     # remove from firebase
     firebase.removeBackUp(removeTag)
+
+
+# Function to generate a unique uuid that is not already taken by an existing reminder.
+def generate_uuid():
+    # flag to determine if uuid generated is taken or free
+    id_status = None
+
+    # while the uuid generated is not free (when id_status = true) in reminderBackUp collection, keep generating
+    # a new uuid until it generates one that is free (when id_status = false)
+    while id_status != False:
+        # convert the uuid to a string uuid type
+        id_string = str(uuid.uuid4())
+
+        # if id_status returns true then the uuid is taken. If the id_status
+        # is false, then the uuid is free
+        id_status = firebase.uuid_document_exist(id_string)
+
+    return id_string
