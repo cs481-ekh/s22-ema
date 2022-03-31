@@ -280,7 +280,6 @@ def removeBackUp(uuid):
     db.collection(u'reminderBackUp').document(uuid).delete()
 
 
-
 # creates a new entry
 def createNewBackUp(uuid, projectName, startDate, reminderTime, repeating, expirationDate, expirationTime):
     # Connecting to Firebase
@@ -303,9 +302,24 @@ def createNewBackUp(uuid, projectName, startDate, reminderTime, repeating, expir
     # Adding new values to firebase
     col_ref.document(uuid).create(new_values)
 
+
 # gets all back ups from the firebase will need to loop threw on the other end
 def getAllBackUps():
     db = db_connect_firebase()
     docs = db.collection(u'reminderBackUp').stream()
 
     return docs
+
+
+# check if uuid document (uuid) exists in "reminderBackUp" collection
+def uuid_document_exist(document_name):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+    doc_ref = db.collection(u'reminderBackUp').document(document_name)
+    doc = doc_ref.get()
+    if doc.exists:
+        # the uuid exists
+        return True
+    else:
+        # the uuid is free
+        return False
