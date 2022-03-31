@@ -34,10 +34,13 @@ class _ProjectsPageState extends State<ProjectsPage> {
 
   void initializeSharedPrefs() async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() async {
+    List<dynamic> test =
+        await getUsersProjectList(FirebaseAuth.instance.currentUser!.email!);
+    List<String> help = test.cast<String>();
+
+    setState(() {
       _SharedPrefs = prefs;
-      _SharedPrefs.setStringList('projects',
-          await getUsersProjectList(FirebaseAuth.instance.currentUser?.email));
+      _SharedPrefs.setStringList('projects', help);
     });
     updateProjectList();
   }
@@ -83,15 +86,12 @@ class _ProjectsPageState extends State<ProjectsPage> {
                 ),
                 children: <TextSpan>[
                   TextSpan(
-                    text: notifInfo,
+                    text: project,
                   ),
-                  TextSpan(
-                      text: "\n" + projectID,
-                      style: const TextStyle(fontWeight: FontWeight.bold)),
                 ],
               ),
             ),
-            subtitle: Text(dateString),
+            //subtitle: Text(dateString),
             trailing: IconButton(
                 icon: Image.asset("assets/images/logo.png"),
                 iconSize: screenSize.height * 0.125,

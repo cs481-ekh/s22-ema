@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-Future<List<String>> getUsersProjectList(String username) async {
-  dynamic data;
+Future<dynamic> getUsersProjectList(String username) async {
+  dynamic data = [];
 
   await FirebaseFirestore.instance
       .collection('users')
