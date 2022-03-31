@@ -12,6 +12,7 @@ import os
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 project_participants = []
 
+
 @login_required(login_url="/login/")
 def index(request):
     # print(firebase.get_all_projects())
@@ -78,6 +79,7 @@ def index(request):
                   {'list_of_projects_dict': list_of_projects, 'list_of_projects_count': list_of_projects_count,
                    'list_of_users_count': list_of_users_count})
 
+
 @login_required(login_url="/login/")
 def send_json_to_client(request):
     global project_participants
@@ -86,6 +88,7 @@ def send_json_to_client(request):
         return redirect('/')
     else:
         return JsonResponse(project_participants, safe=False)
+
 
 # Rendering the support page
 @login_required(login_url="/login/")
@@ -98,6 +101,7 @@ def get_streak_flag(streak_value):
         return 'red'
     else:
         return 'green'
+
 
 # To be removed later
 @login_required(login_url="/login/")
@@ -124,6 +128,3 @@ def pages(request):
     except:
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render(context, request))
-
-
-

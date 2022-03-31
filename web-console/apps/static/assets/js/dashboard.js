@@ -8,65 +8,63 @@ $(document).ready(function () {
     // #selectedProjectDashboard
     $(document).on('change', '#selectProjectDashbaordId', function () {
 
-        let project_name = $("#selectProjectDashbaordId").val();
-        // After getting the project name create a POST request
-        if (project_name !== 'Select') {
-            $.ajax({
-                type: "POST",
-                url: '',
-                data: {'selectedProject': project_name}
-            });
+            let project_name = $("#selectProjectDashbaordId").val();
+            // After getting the project name create a POST request
+            if (project_name !== 'Select') {
+                $.ajax({
+                    type: "POST",
+                    url: '',
+                    data: {'selectedProject': project_name}
+                });
 
-            // Setting Project Count value
-            setInterval(function () {
-                let part_count = Cookies.get("part_list_count");
-                let part_percent = Cookies.get("participant_percentage");
-                let part_list = Cookies.get("participant_list");
-
-
-                // Cleaning participant list
-                //let participant_list = part_list.match(/(?<=')[^' \054]+(?=')/g);
-
-                if (typeof part_count !== "undefined" && part_percent != "undefined" && part_list != "undefined") {
-                    document.getElementById("projectCountDataId").innerText = part_count;
-                    document.getElementById("projectCountPercentageId").innerText = part_percent + '%';
-                    // removing cookies
-                    Cookies.remove("part_list_count");
-                    Cookies.remove("participant_percentage");
-                    Cookies.remove("part_list");
-
-                }
+                // Setting Project Count value
+                setInterval(function () {
+                    let part_count = Cookies.get("part_list_count");
+                    let part_percent = Cookies.get("participant_percentage");
+                    let part_list = Cookies.get("participant_list");
 
 
-            }, 10);
+                    // Cleaning participant list
+                    //let participant_list = part_list.match(/(?<=')[^' \054]+(?=')/g);
 
-            setInterval(function () {
-                let set_json = Cookies.get("set_json");
-                if (typeof set_json != "undefined") {
-                    // Get data from JSON on client end
-                    $.get("JSON/", function (data) {
-                        for (let i = 0; i < data.length; i++) {
-                            console.log(data[i]);
+                    if (typeof part_count !== "undefined" && part_percent != "undefined" && part_list != "undefined") {
+                        document.getElementById("projectCountDataId").innerText = part_count;
+                        document.getElementById("projectCountPercentageId").innerText = part_percent + '%';
+                        // removing cookies
+                        Cookies.remove("part_list_count");
+                        Cookies.remove("participant_percentage");
+                        Cookies.remove("part_list");
+
+                    }
+
+
+                }, 10);
+
+                setInterval(function () {
+                        let set_json = Cookies.get("set_json");
+                        if (typeof set_json != "undefined") {
+                            // Get data from JSON on client end
+                            $.get("JSON/", function (data) {
+                                for (let i = 0; i < data.length; i++) {
+                                    console.log(data[i]);
+                                }
+                            });
+                            // send request to the server to clear the participant list dictionary
+                            $.ajax({
+                                type: "POST",
+                                url: '',
+                                data: {'clear_list': true}
+                            });
+                            Cookies.remove("set_json");
+
                         }
-                    });
-                    // send request to the server to clear the participant list dictionary
-                     $.ajax({
-                        type: "POST",
-                         url: '',
-                         data: {'clear_list': true}
-                     });
-                    Cookies.remove("set_json");
-
-                }
-                }
-            ,
-                10
-            )
+                    }
+                    ,
+                    10
+                )
                 ;
 
-            }
-        else
-            {
+            } else {
                 // if project selected == "Select" than
                 document.getElementById("projectCountDataId").innerText = "--";
                 document.getElementById("projectCountPercentageId").innerText = "--";
@@ -150,7 +148,7 @@ $(document).ready(function () {
             // }, 10);
         }
     )
-        ;
+    ;
 
 
-    });
+});
