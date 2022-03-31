@@ -17,7 +17,7 @@ import 'screens/user_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 //import 'package:firebase_analytics/firebase_analytics.dart';
 //import 'package:firebase_analytics/observer.dart';
-//import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 //import 'package:cloud_firestore/cloud_firestore.dart';
 import 'firebase_options.dart';
 /*
@@ -43,11 +43,6 @@ class App extends StatefulWidget {
 
   @override
   _AppState createState() => _AppState();
-
-  //static FirebaseAnalytics analytics = FirebaseAnalytics();
-  //static FirebaseAnalyticsObserver observer =
-  //   FirebaseAnalyticsObserver(analytics: analytics);
-  //static FirebaseFirestore firestore = FirebaseFirestore.instance;
 }
 
 class _AppState extends State<App> {
@@ -64,39 +59,30 @@ class _AppState extends State<App> {
 
   // Define an async function to initialize FlutterFire
   void initializeFlutterFire() async {
-    //I'm initializing this here because I'm not sure if there's a better spot for it
-    //We can move it if needed but it appears to work here for now
-    // FirebaseMessaging messaging = FirebaseMessaging.instance;
+    //Access initialized FirebaseMessagin instance
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
 
     //On iOS, the user needs to give permission for cloud messaging
     //On Android it's authorized automatically
-    // NotificationSettings settings = await messaging.requestPermission(
-    //   alert: true,
-    //   announcement: false,
-    //   badge: true,
-    //   carPlay: false,
-    //   criticalAlert: false,
-    //   provisional: false,
-    //   sound: true,
-    // );
+    NotificationSettings settings = await messaging.requestPermission(
+      alert: true,
+      announcement: false,
+      badge: true,
+      carPlay: false,
+      criticalAlert: false,
+      provisional: false,
+      sound: true,
+    );
 
-    // print('User granted permission: ${settings.authorizationStatus}');
-    // if (settings.authorizationStatus.toString() ==
-    //     "AuthorizationStatus.authorized") {
-    //   setState(() {
-    //     _messagerInitialized = true;
-    //   });
-    // }
-    // if (!_messagerInitialized) {
-    //   print("Permission for messages not given!");
-    // }
-
-    if (_messagerInitialized = true) {
-      //This should connect to the foreground message handler
-      //FirebaseMessaging.onMessage.listen(handleForegroundMessage);
-
-      // Trying to do this right here causes an error for some reason??
-      // FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+    print('User granted permission: ${settings.authorizationStatus}');
+    if (settings.authorizationStatus.toString() ==
+        "AuthorizationStatus.authorized") {
+      setState(() {
+        _messagerInitialized = true;
+      });
+    }
+    if (!_messagerInitialized) {
+      print("Permission for messages not given!");
     }
   }
 
