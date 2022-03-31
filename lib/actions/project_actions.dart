@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-Future<dynamic> getUsersProjectList(String username) async {
+Future<List<String>> getUsersProjectList(String username) async {
   dynamic data;
 
   await FirebaseFirestore.instance
@@ -50,4 +50,9 @@ Future<bool> checkProjectIdExists(String projectId) async {
   });
 
   return check;
+}
+
+Future<dynamic> removeUserFromProject() {
+  dynamic test;
+  return test;
 }

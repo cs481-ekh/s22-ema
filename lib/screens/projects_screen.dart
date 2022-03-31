@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../actions/notification_actions.dart';
+import '../actions/project_actions.dart';
 
 /// User screen, not as separated as I'd like; lots of state management stuff,
 /// so ran into issues.
@@ -33,8 +34,10 @@ class _ProjectsPageState extends State<ProjectsPage> {
 
   void initializeSharedPrefs() async {
     final prefs = await SharedPreferences.getInstance();
-    setState(() {
+    setState(() async {
       _SharedPrefs = prefs;
+      _SharedPrefs.setStringList('projects',
+          await getUsersProjectList(FirebaseAuth.instance.currentUser?.email));
     });
     updateProjectList();
   }
@@ -51,38 +54,18 @@ class _ProjectsPageState extends State<ProjectsPage> {
 
   //This function defines the widget built into the ListView
   Widget listViewHelper(BuildContext context, int index) {
-    final notifJSON = projects[index];
-    final nObject = jsonDecode(notifJSON);
+    final project = projects[index];
 
-    //["id":idnumber,"received":time,"title":"Test","body":"This is a test notification","url":"test.com",]
-    final dateReceived = DateTime.parse(nObject['received']);
-    final notifInfo = '${nObject['title']} : ${nObject['body']}';
-    final url = nObject['url'];
-    final dateString = DateFormat('yyyy-MM-dd – h:mm a').format(dateReceived);
-    final projectID = '${nObject['projectID']}';
-    //In order to properly access the url object, this needs to be initialized here unfortunately
-    //Against everything I understand about Dart, it works so I'm not too worried
-    //If you can find another way to do it let me know
-    void openNotif() async {
-      var newNotifList = <String>[];
-      bool messageCheck = true;
+    void removeProject() async {
+      var newProjectList = <String>[];
 
       for (final n in projects) {
-        if (messageCheck) {
-          final temp = jsonDecode(n);
-          //Checks the message id, filters out the handled message to remove from storage
-          if (temp['id'] == nObject['id']) {
-            messageCheck = false;
-          } else {
-            newNotifList.add(n);
-          }
-        } else {
-          //Once we've found the matching message doing unnecessary json decoding is slow
-          newNotifList.add(n);
+        if (n != project) {
+          newProjectList.add(n);
         }
       }
 
-      _SharedPrefs.setStringList("missedNotifs", newNotifList);
+      _SharedPrefs.setStringList("projects", newProjectList);
 
       updateProjectList();
     }
@@ -109,7 +92,6 @@ class _ProjectsPageState extends State<ProjectsPage> {
               ),
             ),
             subtitle: Text(dateString),
-            onTap: openNotif,
             trailing: IconButton(
                 icon: Image.asset("assets/images/logo.png"),
                 iconSize: screenSize.height * 0.125,
@@ -128,8 +110,9 @@ class _ProjectsPageState extends State<ProjectsPage> {
                           ),
                           actions: <Widget>[
                             TextButton(
-                              child: const Text('Dismiss'),
+                              child: const Text('Ok'),
                               onPressed: () {
+                                removeProject();
                                 Navigator.of(context).pop();
                               },
                             ),
