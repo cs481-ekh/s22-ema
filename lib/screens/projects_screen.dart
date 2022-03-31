@@ -87,28 +87,56 @@ class _ProjectsPageState extends State<ProjectsPage> {
       updateProjectList();
     }
 
+    var screenSize = MediaQuery.of(context).size;
+
     //This part returns the actual widget, along with a pointer to the tap function
     //Displays notification data (Title, Body, ProjectID, ExpireDate)
     return Card(
         child: ListTile(
-      title: RichText(
-        text: TextSpan(
-          style: const TextStyle(
-            color: Colors.black,
-          ),
-          children: <TextSpan>[
-            TextSpan(
-              text: notifInfo,
+            title: RichText(
+              text: TextSpan(
+                style: const TextStyle(
+                  color: Colors.black,
+                ),
+                children: <TextSpan>[
+                  TextSpan(
+                    text: notifInfo,
+                  ),
+                  TextSpan(
+                      text: "\n" + projectID,
+                      style: const TextStyle(fontWeight: FontWeight.bold)),
+                ],
+              ),
             ),
-            TextSpan(
-                text: "\n" + projectID,
-                style: const TextStyle(fontWeight: FontWeight.bold)),
-          ],
-        ),
-      ),
-      subtitle: Text(dateString),
-      onTap: openNotif,
-    ));
+            subtitle: Text(dateString),
+            onTap: openNotif,
+            trailing: IconButton(
+                icon: Image.asset("assets/images/logo.png"),
+                iconSize: screenSize.height * 0.125,
+                onPressed: () => showDialog<void>(
+                      context: context,
+                      barrierDismissible: false, // user must tap button!
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text('Congratulations!'),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: const <Widget>[
+                                Text('Hello'),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            TextButton(
+                              child: const Text('Dismiss'),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                          ],
+                        );
+                      },
+                    ))));
   }
 
   @override
@@ -153,69 +181,9 @@ class _ProjectsPageState extends State<ProjectsPage> {
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         itemBuilder: listViewHelper))),
-            Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: TextButton(
-                  style: TextButton.styleFrom(
-                      padding: const EdgeInsets.all(20.0),
-                      primary: Colors.white,
-                      textStyle: const TextStyle(fontSize: 20),
-                      backgroundColor: Colors.blue),
-                  onPressed: () {
-                    _SharedPrefs.setStringList("projects", []);
-                    setState(() {
-                      projects = [];
-                      projectAmount = 0;
-                    });
-                  },
-                  child: const Text('Dismiss All'),
-                )),
-            /*
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: TextButton(
-                onPressed: () {
-                  signOut();
-                },
-                child: const Text('Logout'),
-              ),
-            )
-            */
           ],
         ),
       ),
     );
   }
-
-/*
-  Future<void> displayCongrats() async {
-    int test = await getCount(FirebaseAuth.instance.currentUser?.email);
-    return showDialog<void>(
-      context: context,
-      barrierDismissible: false, // user must tap button!
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Congratulations!'),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text('You have done at least one survey for ' +
-                    test.toString() +
-                    ' days in a row!'),
-              ],
-            ),
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('Dismiss'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
-    );
-  }
-  */
 }

@@ -42,24 +42,6 @@ Future<bool> subscribeToProjectTopic(List<dynamic> projectId) async {
   return check;
 }
 
-Future<bool> checkProjectIdExists(String projectId) async {
-  bool check = true;
-
-  check = await FirebaseFirestore.instance
-      .collection('projects')
-      .doc(projectId)
-      .get()
-      .then((DocumentSnapshot documentSnapshot) {
-    if (documentSnapshot.exists) {
-      return true;
-    } else {
-      return false;
-    }
-  });
-
-  return check;
-}
-
 ///
 /// Users
 ///
