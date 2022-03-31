@@ -4,7 +4,7 @@ import datetime
 
 # Connecting to firebase
 def db_connect_firebase():
-    print("Connected to Firebase Database!")
+    # print("Connected to Firebase Database!")
     db = firestore.Client()
     return db
 
@@ -229,6 +229,15 @@ def user_exist(document_name):
         return False
 
 
+#  get user data
+def get_user_data(user_email):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+    doc_ref = db.collection(u'users').document(user_email)
+    doc = doc_ref.get()
+    return doc.to_dict()
+
+
 ########################################################################################################################
 #                                                  Notification Queries                                                #
 ########################################################################################################################
@@ -280,7 +289,6 @@ def removeBackUp(uuid):
     db.collection(u'reminderBackUp').document(uuid).delete()
 
 
-
 # creates a new entry
 def createNewBackUp(uuid, projectName, startDate, reminderTime, repeating, expirationDate, expirationTime):
     # Connecting to Firebase
@@ -302,6 +310,7 @@ def createNewBackUp(uuid, projectName, startDate, reminderTime, repeating, expir
 
     # Adding new values to firebase
     col_ref.document(uuid).create(new_values)
+
 
 # gets all back ups from the firebase will need to loop threw on the other end
 def getAllBackUps():
