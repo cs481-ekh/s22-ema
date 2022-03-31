@@ -316,5 +316,4 @@ def createNewBackUp(uuid, projectName, startDate, reminderTime, repeating, expir
 def getAllBackUps():
     db = db_connect_firebase()
     docs = db.collection(u'reminderBackUp').stream()
-
     return docs
