@@ -23,7 +23,7 @@ def index(request):
         # Getting project name from POST
         proj_name = request.POST.get("selectedProject")
 
-        # helps clear project_participants list
+        # helps clear project_participants list dictionary defined as global variable.
         is_clear_list = request.POST.get("clear_list")
         if is_clear_list is not None:
             if is_clear_list is not None:
