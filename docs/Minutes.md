@@ -2,6 +2,17 @@
 
 # Meeting Minutes: EMA
 ## Web
+
+### 3/29/22
+
+*Scribe:* Alejandro (Added minutes for the web team since Brandon was absent)
+
+*Present:* Andrew, Alejandro, Daniel
+
+*Absent:* Brandon
+
+*Items:* The members present at the meeting gave a status update on what has been accomplished over the Spring Break and what will be accomplished to finalize Sprint 3. We talked about some bugs that we had caught and resolved over the break. An update to the team was made that the support page was added. The dashboard is halfway complete. So far, we are displaying data about projects. We plan to add more info about the streaks and reminders. The notifications settings page is almost complete as well. The functionality that is left for the notifications settings is setting up the tag for each reminder as well as proper UI messages for the front-end. The team plans to have these changes done before the Sprint 3 deadline.
+
 ### 3/15/22
 
 *Scribe:* Brandon
@@ -12,7 +23,6 @@
 
 *Items:* We wrapped up our Sprint 2 with the retrospective, and closed out the board for it. We then talked about our Sprint 3 plans and delegated roles. Andrew will be Scrum Master and Brandon will be the Scribe. Sprint 3 will focus on designing the Dashboard page of our website as well as getting the page to display up to date data about each project. We also plan to add some more pop-ups in the Edit Project and Create Project pages, which would display errors and make the user's experience easier. Daniel and Andrew plan to update the Notification Settings page, and fix issues related to the backend. Finally we plan to get our website set up on one of the school's servers.
 
-## Web
 ### 3/10/22
 
 *Scribe:* Daniel
@@ -23,7 +33,6 @@
 
 *Items:* Went over with the progress of the project and what things might needed to get done with this sprint. We also talked about integrating firebase notification with scheduler and that what method would be requireds. Brandon would be working on implementing scroll in create eproject. Other than that everything seems to be on track
 
-## Web
 ### 3/08/22
 
 *Scribe:* Brandon
@@ -34,7 +43,6 @@
 
 *Items:* Met with Professor Henderson to go over our Sprint 2 planning. Need to make sure we have our roles at the beginning of each sprint. Spent rest of meeting debugging the notifications page. Decided to meet again on Wednesday (Alejandro and Brandon) to work on pop ups and buttons in our create project and edit project pages. 
 
-## Web
 ### 3/03/22
 
 *Scribe:* Andrew
