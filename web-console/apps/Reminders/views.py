@@ -44,19 +44,29 @@ def index(request):
             return render(request, 'home/notification-settings.html',
                           {'list_of_projects_dict': list_of_projects, 'error_code': error})
 
+        # A unique id is generated and will be tagged to the reminder, and it will be backed up to our backup
+        # reminder collection
+        unique_id = Schedule.generate_uuid()
+
         # Selection is once add one reminder to system
         if selection == 'Once':
-            Schedule.add_reminder_once(startDate, startTime, selectedProject, '')
+            Schedule.add_reminder_once(startDate, startTime, selectedProject, unique_id)
+            # adding our notification to our backUp reminder table
+            firebase.createNewBackUp(unique_id, selectedProject, startDate, startTime, selection, endDate, endTime)
             return render(request, 'home/notification-settings.html',
                           {'list_of_projects_dict': list_of_projects, 'error_code': error})
 
         # if the selection is weekly
         if selection == 'Weekly':
-            Schedule.add_reminder_weekly(startDate, startTime, endDate, endTime, selectedProject, '')
+            Schedule.add_reminder_weekly(startDate, startTime, endDate, endTime, selectedProject, unique_id)
+            # adding our notification to our backUp reminder table
+            firebase.createNewBackUp(unique_id, selectedProject, startDate, startTime, selection, endDate, endTime)
 
         # if the selection is Daily
         if selection == 'Daily':
-            Schedule.add_reminder_daily(startDate, startTime, endDate, endTime, selectedProject, '')
+            Schedule.add_reminder_daily(startDate, startTime, endDate, endTime, selectedProject, unique_id)
+            # adding our notification to our backUp reminder table
+            firebase.createNewBackUp(unique_id, selectedProject, startDate, startTime, selection, endDate, endTime)
 
     # returns the same view of the notfication page no matter what
     return render(request, 'home/notification-settings.html',
