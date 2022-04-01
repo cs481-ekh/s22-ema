@@ -7368,7 +7368,7 @@ select.form-control-lg:not([size]):not([multiple]) {
 }
 
 .table-hover tbody tr td{
-  padding-left: 5.5em;
+  padding-left: 3.5em;
 }
 
 /* participants label for the participant list in edit project*/

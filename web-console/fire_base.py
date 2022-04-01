@@ -81,7 +81,8 @@ def get_project_document_data(project_id):
         return None
 
 
-# Being able to edit any meta-data in the project other than participants provided a document name. pass participants as they are
+# Being able to edit any meta-data in the project other than participants
+# provided a document name. pass participants as they are
 def update_project_details(document_name, project_id, survey_link, description, participants):
     # Connecting to Firebase
     db = db_connect_firebase()
@@ -236,6 +237,15 @@ def get_user_data(user_email):
     doc_ref = db.collection(u'users').document(user_email)
     doc = doc_ref.get()
     return doc.to_dict()
+
+
+# Adds project to user dictionary
+def add_project_to_user(user_email, project_name):
+    db = db_connect_firebase()
+    doc_ref = db.collection(u'users').document(user_email)
+
+    # Adds project name to users collection
+    doc_ref.update({u'projectId': firestore.ArrayUnion([project_name])})
 
 
 ########################################################################################################################
