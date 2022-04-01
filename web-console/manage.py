@@ -14,8 +14,6 @@ import os
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 
 
-
-
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'core.settings')
     try:
@@ -30,21 +28,20 @@ def main():
     ##################################################################################################################
     # Firebase
     ##################################################################################################################
-    #provide file path for firebase credentials (Needs to be taken out during build [CI])
+    # provide file path for firebase credentials (Needs to be taken out during build [CI])
     os.environ[
 
-    #"GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/rogue/Downloads/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
+        # "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/rogue/Downloads/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
 
-    # "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/alejandromacias/Documents/ema-firebase-credentials/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
+        # "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/alejandromacias/Documents/ema-firebase-credentials/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
 
-    # "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/brandonboys/desktop/ema-final/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
+        # "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/brandonboys/desktop/ema-final/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
 
-    "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/danielrao/Desktop/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
+        "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/danielrao/Desktop/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
 
     # # initializing app using credentials
     firebase_admin.initialize_app(credentials.Certificate(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")))
     ##################################################################################################################
-
 
     # Starts the background deamon thread the runs the sceduling system
     run_continuously()
