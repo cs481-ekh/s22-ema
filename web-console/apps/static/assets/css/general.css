@@ -164,3 +164,10 @@
     overflow-y: scroll;
     height: 235px;
 }
+#table_body_Dashboard tr {
+    padding: 0;
+}
+
+.disabled-link {
+  pointer-events: none;
+}

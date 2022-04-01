@@ -39,7 +39,6 @@ def index(request):
             for part in part_list:
                 firebase_user_data = firebase.get_user_data(part)
                 # this will populate the list with users dictionaries, to be sent to client end.
-                print(firebase_user_data)
                 project_participants.append(firebase_user_data)
 
             # JSON response is sent from here
