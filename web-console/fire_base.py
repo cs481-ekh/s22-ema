@@ -4,7 +4,7 @@ import datetime
 
 # Connecting to firebase
 def db_connect_firebase():
-    print("Connected to Firebase Database!")
+    # print("Connected to Firebase Database!")
     db = firestore.Client()
     return db
 
@@ -229,6 +229,15 @@ def user_exist(document_name):
         return False
 
 
+#  get user data
+def get_user_data(user_email):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+    doc_ref = db.collection(u'users').document(user_email)
+    doc = doc_ref.get()
+    return doc.to_dict()
+
+
 ########################################################################################################################
 #                                                  Notification Queries                                                #
 ########################################################################################################################
@@ -307,7 +316,6 @@ def createNewBackUp(uuid, projectName, startDate, reminderTime, repeating, expir
 def getAllBackUps():
     db = db_connect_firebase()
     docs = db.collection(u'reminderBackUp').stream()
-
     return docs
 
 

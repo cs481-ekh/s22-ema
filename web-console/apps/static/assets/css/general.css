@@ -158,3 +158,9 @@
     display: flex;
     text-align: center;
 }
+
+
+#table_body_Dashboard {
+    overflow-y: scroll;
+    height: 235px;
+}
