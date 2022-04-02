@@ -26,21 +26,15 @@ class _ProjectsPageState extends State<ProjectsPage> {
   List<String> projects = [];
   int projectAmount = 0;
 
-/*
-  void initializeMessageHandler() async {
-    FirebaseMessaging.onMessage.listen(handleForegroundNotif);
-  }
-  */
-
   void initializeSharedPrefs() async {
     final prefs = await SharedPreferences.getInstance();
-    List<dynamic> test =
+    List<dynamic> dynamicList =
         await getUsersProjectList(FirebaseAuth.instance.currentUser!.email!);
-    List<String> help = test.cast<String>();
+    List<String> list = dynamicList.cast<String>();
 
     setState(() {
       _SharedPrefs = prefs;
-      _SharedPrefs.setStringList('projects', help);
+      _SharedPrefs.setStringList('projects', list);
     });
     updateProjectList();
   }
@@ -62,15 +56,17 @@ class _ProjectsPageState extends State<ProjectsPage> {
     void removeProject() async {
       var newProjectList = <String>[];
 
+      //this block removes the project from the list on the page
       for (final n in projects) {
         if (n != project) {
           newProjectList.add(n);
         }
       }
-
       _SharedPrefs.setStringList("projects", newProjectList);
-
       updateProjectList();
+
+      //removes the project from the user and project collection in firebase
+      removeUserFromProject();
     }
 
     var screenSize = MediaQuery.of(context).size;
@@ -100,11 +96,12 @@ class _ProjectsPageState extends State<ProjectsPage> {
                       barrierDismissible: false, // user must tap button!
                       builder: (BuildContext context) {
                         return AlertDialog(
-                          title: const Text('Congratulations!'),
+                          title: const Text('Warning'),
                           content: SingleChildScrollView(
                             child: ListBody(
                               children: const <Widget>[
-                                Text('Hello'),
+                                Text(
+                                    'Are you sure you wish to remove yourself from this project?'),
                               ],
                             ),
                           ),
@@ -113,6 +110,12 @@ class _ProjectsPageState extends State<ProjectsPage> {
                               child: const Text('Ok'),
                               onPressed: () {
                                 removeProject();
+                                Navigator.of(context).pop();
+                              },
+                            ),
+                            TextButton(
+                              child: const Text('Cancel'),
+                              onPressed: () {
                                 Navigator.of(context).pop();
                               },
                             ),
