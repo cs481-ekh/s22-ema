@@ -89,14 +89,18 @@ Future<dynamic> removeUserFromParticipants(
   dynamic ret;
   List<dynamic> data;
   data = await getProjectParticipants(projectId);
-  data.remove(email);
+  if (data.contains(email)) {
+    data.remove(email);
+  } else {
+    ret = "nothing";
+  }
   CollectionReference projects =
       FirebaseFirestore.instance.collection('projects');
   projects
       .doc(projectId)
       .update({"participants": data})
-      .then((ret) => "success")
-      .catchError((ret) => "fail");
+      .then((_) => {ret = "success"})
+      .catchError((_) => {ret = "failed"});
 
   return ret;
 }
@@ -110,7 +114,7 @@ Future<dynamic> removeProjectIdFromUser(String email, String projectId) async {
   projects
       .doc(email)
       .update({"projectId": data})
-      .then((ret) => "success")
-      .catchError((ret) => "failed");
+      .then((_) => {ret = "success"})
+      .catchError((_) => {ret = "failed"});
   return ret;
 }
