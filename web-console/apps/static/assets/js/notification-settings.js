@@ -70,6 +70,13 @@ $(document).ready(function () {
             $('#expirationDateLabelId').addClass('error_class_label');
             $('#expirationDateInput').addClass('error_class_input');
         }
+
+        // if the value of the time expiration is empty, then throw red border and label error
+        if(document.getElementById("expirationTimeInput").value == ""){
+
+            $('#expirationTimeLabelId').addClass('error_class_label');
+            $('#expirationTimeInput').addClass('error_class_input');
+        }
     });
 
     // Remove red border and text error expiration date label and input
@@ -78,4 +85,9 @@ $(document).ready(function () {
         $('#expirationDateInput').removeClass('error_class_input');
     });
 
+    // Remove red border and text error time expiration label and input
+    $("#expirationTimeInput").change(function () {
+        $('#expirationTimeLabelId').removeClass('error_class_label');
+        $('#expirationTimeInput').removeClass('error_class_input');
+    });
 });
