@@ -195,17 +195,11 @@ class _UserPageState extends State<UserPage> {
                       textStyle: const TextStyle(fontSize: 20),
                       backgroundColor: Colors.blue),
                   onPressed: () {
-                    /*
                     _SharedPrefs.setStringList("missedNotifs", []);
                     setState(() {
                       MissedNotifs = [];
                       notifAmount = 0;
                     });
-                    */
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ProjectsPage()));
                   },
                   child: const Text('Dismiss All'),
                 )),
