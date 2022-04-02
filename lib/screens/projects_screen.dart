@@ -89,8 +89,10 @@ class _ProjectsPageState extends State<ProjectsPage> {
             ),
             //subtitle: Text(dateString),
             trailing: IconButton(
-                icon: Image.asset("assets/images/logo.png"),
-                iconSize: screenSize.height * 0.125,
+                icon: const Icon(
+                  Icons.delete,
+                  color: Colors.black54,
+                ),
                 onPressed: () => showDialog<void>(
                       context: context,
                       barrierDismissible: false, // user must tap button!
