@@ -181,8 +181,7 @@ $(document).ready(function () {
         let proj_name = $("#selectProjectEditId").val();
 
         // A participant needs to be added to a project
-        if (new_participant_email != "" && proj_name != "")
-        {
+        if (new_participant_email != "" && proj_name != "") {
             // POST the new participant's email and project name to the server to be checked if the user exists
             $.ajax({
                 url: '',
@@ -365,8 +364,7 @@ $(document).ready(function () {
     });
 
     // Clear all error message that are displayed to the admin user
-    function clearErrorMessages()
-    {
+    function clearErrorMessages() {
         // clear red text and border
         $('#addParticipantInput-editProject').removeClass('error_class_input')
         $('#addParticipantLabelId-editProject').removeClass('error_class_label');
