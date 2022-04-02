@@ -239,13 +239,30 @@ def get_user_data(user_email):
     return doc.to_dict()
 
 
-# Adds project to user dictionary
+# Adds project to users dictionary in users collection
 def add_project_to_user(user_email, project_name):
     db = db_connect_firebase()
     doc_ref = db.collection(u'users').document(user_email)
 
     # Adds project name to users collection
     doc_ref.update({u'projectId': firestore.ArrayUnion([project_name])})
+
+
+# removing project from users collection of particular user
+def remove_project_from_participant(project_name, participant_email):
+    # Connecting to Firebase
+    db = db_connect_firebase()
+    doc_ref = db.collection(u'users').document(participant_email)
+
+    # Atomically remove given participant email from the 'participants' array field.
+    doc_ref.update({u'projectId': firestore.ArrayRemove([project_name])})
+
+
+# removes the list of participants from the project.
+def remove_project_from_participants(project_name, participants_email_list):
+    # Looping through the list to remove participant from the remove_participants_list
+    for part in participants_email_list:
+        remove_project_from_participant(project_name, part)
 
 
 ########################################################################################################################

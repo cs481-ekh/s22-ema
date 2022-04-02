@@ -15,8 +15,6 @@ project_participants = []
 
 @login_required(login_url="/login/")
 def index(request):
-    # print(firebase.get_all_projects())
-    # print(firebase.get_all_users())
     # POST only comes in if drop down is value is changed
     if request.method == 'POST':
 
@@ -94,13 +92,6 @@ def send_json_to_client(request):
 @login_required(login_url="/login/")
 def support_page(request):
     return render(request, 'home/support.html')
-
-
-def get_streak_flag(streak_value):
-    if streak_value < 3:
-        return 'red'
-    else:
-        return 'green'
 
 
 # To be removed later
