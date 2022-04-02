@@ -41,8 +41,7 @@ $(document).ready(function () {
             document.getElementById("expirationTimeInput").value = "";
         }
         // A project has been selected
-        else
-        {
+        else {
             // Reset data in selection fields
             document.getElementById("scheduleSendDateInput").value = "";
             document.getElementById("scheduleSendDateTimeInput").value = "";
@@ -60,6 +59,23 @@ $(document).ready(function () {
             // disable set notification btn
             document.getElementById("setNotificationBtnId").disabled = false;
         }
+    });
+
+    // when Set Notification btn is clicked
+    $("#setNotificationBtnId").click(function () {
+
+        // if the value of the expiration date is empty, then throw red border and label error
+        if (document.getElementById("expirationDateInput").value == "") {
+
+            $('#expirationDateLabelId').addClass('error_class_label');
+            $('#expirationDateInput').addClass('error_class_input');
+        }
+    });
+
+    // Remove red border and text error expiration date label and input
+    $("#expirationDateInput").change(function () {
+        $('#expirationDateLabelId').removeClass('error_class_label');
+        $('#expirationDateInput').removeClass('error_class_input');
     });
 
 });

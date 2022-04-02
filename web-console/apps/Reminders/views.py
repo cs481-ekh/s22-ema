@@ -22,9 +22,6 @@ def index(request):
         selection = request.POST.get('selection')
         endDate = request.POST.get('endDate')
         endTime = request.POST.get('endTime')
-
-        # Setting cookie on client end for the data to be represented:
-        response = HttpResponse("Cookie Set")
         print(selectedProject)
 
         # Checks to ensure there is a end date/time if the program does not run once
