@@ -40,6 +40,26 @@ $(document).ready(function () {
             document.getElementById("expirationDateInput").value = "";
             document.getElementById("expirationTimeInput").value = "";
         }
+        // A project has been selected
+        else
+        {
+            // Reset data in selection fields
+            document.getElementById("scheduleSendDateInput").value = "";
+            document.getElementById("scheduleSendDateTimeInput").value = "";
+            document.getElementById("whenToNotifySelectionId").value = "Once";
+            document.getElementById("expirationDateInput").value = "";
+            document.getElementById("expirationTimeInput").value = "";
+
+            // disable all selection fields
+            document.getElementById("scheduleSendDateInput").disabled = false;
+            document.getElementById("scheduleSendDateTimeInput").disabled = false;
+            document.getElementById("whenToNotifySelectionId").disabled = false;
+            document.getElementById("expirationDateInput").disabled = false;
+            document.getElementById("expirationTimeInput").disabled = false;
+
+            // disable set notification btn
+            document.getElementById("setNotificationBtnId").disabled = false;
+        }
     });
 
 });
