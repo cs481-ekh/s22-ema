@@ -1,12 +1,7 @@
-import 'dart:convert';
 import 'package:ema/utils/global_funcs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:intl/intl.dart';
-import 'package:url_launcher/url_launcher.dart';
-import '../actions/notification_actions.dart';
 import '../actions/project_actions.dart';
 
 /// User screen, not as separated as I'd like; lots of state management stuff,
@@ -66,13 +61,10 @@ class _ProjectsPageState extends State<ProjectsPage> {
       updateProjectList();
 
       //removes the project from the user and project collection in firebase
-      removeUserFromProject();
+      removeUserFromProject(FirebaseAuth.instance.currentUser!.email!);
     }
 
-    var screenSize = MediaQuery.of(context).size;
-
     //This part returns the actual widget, along with a pointer to the tap function
-    //Displays notification data (Title, Body, ProjectID, ExpireDate)
     return Card(
         child: ListTile(
             title: RichText(
@@ -141,11 +133,6 @@ class _ProjectsPageState extends State<ProjectsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Projects'),
-        // leading: IconButton(
-        //     icon: const Icon(Icons.arrow_back),
-        //     onPressed: () {
-        //       Navigator.of(context).popUntil((route) => route.isFirst);
-        //     }),
       ),
 
       // body is majority of the screen
@@ -154,7 +141,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
           children: [
             const Padding(
                 padding: EdgeInsets.all(10.0),
-                child: Text('Projects',
+                child: Text('Manage Projects',
                     style: TextStyle(
                         fontSize: 20.0,
                         fontWeight: FontWeight.bold,

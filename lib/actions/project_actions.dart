@@ -52,7 +52,23 @@ Future<bool> checkProjectIdExists(String projectId) async {
   return check;
 }
 
-Future<dynamic> removeUserFromProject() {
-  dynamic test;
-  return test;
+Future<String> removeUserFromProject(String email, String projectId) async {
+  String error = "";
+  error = await removeProjectIdFromUser(email, projectId);
+  error = await removeUserFromParticipants(email, projectId);
+
+  return error;
+}
+
+Future<dynamic> removeUserFromParticipants(
+    String email, String projectId) async {
+  List<dynamic> data;
+  data = await getProjectParticipants(projectId);
+  data.remove(email);
+  return data;
+}
+
+Future<dynamic> removeProjectIdFromUser(String email, String projectId) async {
+  dynamic data;
+  return data;
 }
