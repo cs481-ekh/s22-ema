@@ -7,7 +7,7 @@ class ProjectIdPage extends StatelessWidget {
   final TextEditingController passwordController;
   final TextEditingController projectIdController;
 
-  ProjectIdPage(
+  const ProjectIdPage(
       {Key? key,
       required this.usernameController,
       required this.passwordController,
@@ -36,10 +36,10 @@ class ProjectIdPage extends StatelessWidget {
               )),
         ),
         Padding(
-          padding: EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(20.0),
           child: TextButton(
             style: TextButton.styleFrom(
-                padding: EdgeInsets.all(20.0),
+                padding: const EdgeInsets.all(20.0),
                 primary: Colors.white,
                 textStyle: const TextStyle(fontSize: 20),
                 backgroundColor: Colors.blue),
