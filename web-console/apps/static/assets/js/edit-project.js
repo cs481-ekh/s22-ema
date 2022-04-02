@@ -67,6 +67,8 @@ $(document).ready(function () {
                 data: {'selected_project': selectVal},
             });
         }
+        // Clear the error messages
+        clearErrorMessages();
     })
 
     // Check if surveylink and description cookie is set every few seconds.
@@ -179,7 +181,8 @@ $(document).ready(function () {
         let proj_name = $("#selectProjectEditId").val();
 
         // A participant needs to be added to a project
-        if (new_participant_email != "" && proj_name != "") {
+        if (new_participant_email != "" && proj_name != "")
+        {
             // POST the new participant's email and project name to the server to be checked if the user exists
             $.ajax({
                 url: '',
@@ -187,7 +190,6 @@ $(document).ready(function () {
                 data: {'new_participant_email': new_participant_email, 'proj_name': proj_name},
             });
         }
-
     });
 
     // enable update project and add participant buttons
@@ -196,6 +198,9 @@ $(document).ready(function () {
         document.getElementById("editProjectBtnId").disabled = false;
         $('#addParticipantInput-editProject').removeClass('error_class_input')
         $('#addParticipantLabelId-editProject').removeClass('error_class_label');
+
+        // Clear the error messages
+        clearErrorMessages();
     });
 
     // Check if non_participant cookie is set every few seconds. User will be notified with an error that
@@ -336,4 +341,15 @@ $(document).ready(function () {
         document.getElementById("bg-modal-id").remove();
     });
 
+    // Clear all error message that are displayed to the admin user
+    function clearErrorMessages()
+    {
+        // clear red text and border
+        $('#addParticipantInput-editProject').removeClass('error_class_input')
+        $('#addParticipantLabelId-editProject').removeClass('error_class_label');
+
+        // Clear the add participant error message
+        let addParticipantErrorMessage = document.querySelector('#message');
+        addParticipantErrorMessage.parentNode.removeChild(addParticipantErrorMessage);
+    }
 });
