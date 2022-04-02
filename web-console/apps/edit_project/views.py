@@ -31,9 +31,15 @@ def edit_project(request):
 
         # The following if condition is here to delete a project
         selected_delete_project = request.COOKIES.get('selectedDeleteProject')
+
         if selected_delete_project is not None:
+            # get project participants [list] to remove their data from users collection
+            part_list = firebase.get_participant_list(selected_delete_project)
+            firebase.remove_project_from_participants(selected_delete_project, part_list)
+
             firebase.delete_project_document(selected_delete_project)
             list_of_projects = firebase.get_all_project_names()
+
             return render(request, 'home/edit-project.html', {'list_of_projects_dict': list_of_projects,
                                                               'message_success': 'Project deleted successfully!'})
 
@@ -49,8 +55,13 @@ def edit_project(request):
 
             # if the new participant email is not a member of the selected project
             if not firebase.is_user_member_of_project(proj_name, new_participant_email):
+
                 # add new participant to selected project on firebase
                 firebase.add_participant_to_project(proj_name, new_participant_email)
+
+                # add project to the users collection of that particular participant
+                firebase.add_project_to_user(new_participant_email, proj_name)
+
                 # Inform the client that the user has been added by adding a card to add participants
                 response = HttpResponse("Cookie Set")
                 response.set_cookie('user_does_exist', new_participant_email)
@@ -67,7 +78,6 @@ def edit_project(request):
 
             # Document data of all projects in a dict
             project_dict = firebase.get_project_document_data(project_id)
-            # print(project_dict)
 
             # Survey link of selected project
             initial_survey_link = project_dict['surveyLink']
@@ -111,7 +121,6 @@ def edit_project(request):
                         # update description on firebase
                         firebase.update_project_description(project_name, updated_description)
 
-            # print(firebase.get_project_document_data(project_name))
             # Returning successful message and list of projects for dropdown to edit projects
             list_of_projects = firebase.get_all_project_names()
             # Passing the context info to populate the dropdown option

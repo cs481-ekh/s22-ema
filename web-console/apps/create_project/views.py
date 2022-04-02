@@ -52,13 +52,26 @@ def create_project(request):
         if project_id is not None and survey_link is not None:
             # run firebase query to see if the project exist.
             if firebase.project_document_exist(project_id) is not True:
-                # Write data to firebase
-                firebase.write_project(project_id, survey_link, description, participants)
-                # add projectId to each participant dictionary in users collection on firebase
-                for part in participants:
-                    firebase.add_project_to_user(part, project_id)
+
+                if len(participants) == 1:
+                    if participants[0] == '':
+                        firebase.write_project(project_id, survey_link, description, [])
+                    else:
+                        # Write data to firebase
+                        firebase.write_project(project_id, survey_link, description, participants)
+                        # add projectId to each participant dictionary in users collection on firebase
+                        for part in participants:
+                            firebase.add_project_to_user(part, project_id)
+                else:
+                    # Write data to firebase
+                    firebase.write_project(project_id, survey_link, description, participants)
+                    # add projectId to each participant dictionary in users collection on firebase
+                    for part in participants:
+                        firebase.add_project_to_user(part, project_id)
+
                 # clearing the global non-participants list [to carry out new instance of project.]
                 non_participants.clear()
+
                 return render(request, 'home/create-project.html', {'message_success': 'Project created Successfully!'})
             else:
                 return render(request, 'home/create-project.html',
