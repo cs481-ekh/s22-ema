@@ -1,5 +1,18 @@
 $(document).ready(function () {
 
+    // When the page is rendered at the beginning, the dropdown selection for the project is
+    // by default equal to Select Project. Therefore, all selection fields and button need to be
+    // disabled
+    // disable all selection fields
+    document.getElementById("scheduleSendDateInput").disabled = true;
+    document.getElementById("scheduleSendDateTimeInput").disabled = true;
+    document.getElementById("whenToNotifySelectionId").disabled = true;
+    document.getElementById("expirationDateInput").disabled = true;
+    document.getElementById("expirationTimeInput").disabled = true;
+
+    // disable set notification btn
+    document.getElementById("setNotificationBtnId").disabled = true;
+
     // setting up ajax header
     $.ajaxSetup({
         headers: {"X-CSRFToken": Cookies.get("csrftoken")}
