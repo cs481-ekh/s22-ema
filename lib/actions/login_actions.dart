@@ -95,25 +95,6 @@ Future<String> addNewUser(
   return errorMessage;
 }
 
-Future<bool> addUserToParticipants(String email, List<String> projList) async {
-  bool passed = true;
-  CollectionReference projects =
-      FirebaseFirestore.instance.collection('projects');
-  for (String project in projList) {
-    List<dynamic> participants = await getProjectParticipants(project);
-    if (participants.isEmpty) {
-      return false;
-    }
-    participants.add(email);
-    projects
-        .doc(project)
-        .update({"participants": participants})
-        .then((passed) => true)
-        .catchError((passed) => false);
-  }
-  return passed;
-}
-
 Future<String> addUserToDatabase(
     String username, List<String> projectId) async {
   CollectionReference users = FirebaseFirestore.instance.collection('users');
