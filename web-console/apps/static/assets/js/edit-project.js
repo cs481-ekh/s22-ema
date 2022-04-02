@@ -277,6 +277,29 @@ $(document).ready(function () {
         if (typeof participant_is_member !== "undefined") {
             $('#addParticipantInput-editProject').addClass('error_class_input');
             $('#addParticipantLabelId-editProject').addClass('error_class_label');
+
+            // <---------------- participant already in list error message START --------------->
+            // Get the parent element
+            let parent = document.getElementById("div");
+
+            // The error message will be added after blankSpace (<br> tag)
+            let blankSpace = document.getElementById("space-after-add-participant-input");
+
+            // Create the new element to be added
+            const div = document.createElement("div")
+
+            // The following html will be inserted in the div (friend error message)
+            div.innerHTML = "<div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message\">\n" +
+                "                                            Participant is already in the list!\n" +
+                "                                            <button type=\"button\" class=\"close close_button\" aria-label=\"Close\">\n" +
+                "                                                <span aria-hidden=\"true\">&times;</span>\n" +
+                "                                            </button>\n" +
+                "                                        </div>"
+
+            // Insert the created element
+            blankSpace.after(div)
+            // <---------------- participant already in list error message END --------------->
+
             Cookies.remove("user_is_member_of_project");
         }
     }, 10);
