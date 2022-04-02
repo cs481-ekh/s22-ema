@@ -61,7 +61,11 @@ class _ProjectsPageState extends State<ProjectsPage> {
       updateProjectList();
 
       //removes the project from the user and project collection in firebase
-      removeUserFromProject(FirebaseAuth.instance.currentUser!.email!, project);
+      String error = await removeUserFromProject(
+          FirebaseAuth.instance.currentUser!.email!, project);
+      if (error != "") {
+        throw error;
+      }
     }
 
     //This part returns the actual widget, along with a pointer to the tap function

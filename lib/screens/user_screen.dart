@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'package:ema/screens/projects_screen.dart';
 import 'package:ema/utils/global_funcs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';

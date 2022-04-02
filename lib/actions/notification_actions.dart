@@ -157,11 +157,12 @@ Future<Timestamp> getUsersStreakDate(String username) async {
       data = documentSnapshot.get("streakDate");
     } else {
       data = null;
-        }
+    }
   });
 
   return data;
 }
+
 Future<int> getCount(String? email) async {
   int data = -1;
 
