@@ -52,7 +52,7 @@
                                         </div>
                                     {% endif %}
                                     {% if message_error %}
-                                        <div class="alert alert-success animate_fade_in" role="alert" id="message">
+                                        <div class="alert alert-danger animate_fade_in" role="alert" id="message">
                                             {{ message_error }}
                                             <button type="button" class="close close_button" aria-label="Close">
                                                 <span aria-hidden="true">&times;</span>
@@ -93,7 +93,7 @@
                                                     <input type="email" class="form-control"
                                                            id="addParticipantInput-editProject"
                                                            placeholder="Email">
-                                                    <br>
+                                                    <br id="space-after-add-participant-input">
                                                     <button type="button" class="btn btn-primary"
                                                             id="addParticipant-editProject">Add Participant
                                                     </button>

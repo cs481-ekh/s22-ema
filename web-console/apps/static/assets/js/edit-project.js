@@ -67,6 +67,8 @@ $(document).ready(function () {
                 data: {'selected_project': selectVal},
             });
         }
+        // Clear the error messages
+        clearErrorMessages();
     })
 
     // Check if surveylink and description cookie is set every few seconds.
@@ -187,7 +189,6 @@ $(document).ready(function () {
                 data: {'new_participant_email': new_participant_email, 'proj_name': proj_name},
             });
         }
-
     });
 
     // enable update project and add participant buttons
@@ -196,6 +197,9 @@ $(document).ready(function () {
         document.getElementById("editProjectBtnId").disabled = false;
         $('#addParticipantInput-editProject').removeClass('error_class_input')
         $('#addParticipantLabelId-editProject').removeClass('error_class_label');
+
+        // Clear the error messages
+        clearErrorMessages();
     });
 
     // Check if non_participant cookie is set every few seconds. User will be notified with an error that
@@ -205,6 +209,30 @@ $(document).ready(function () {
         if (typeof non_participant !== "undefined") {
             $('#addParticipantInput-editProject').addClass('error_class_input');
             $('#addParticipantLabelId-editProject').addClass('error_class_label');
+
+            // <---------------- participant does not exist error message START --------------->
+            // Get the parent element
+            let parent = document.getElementById("div");
+
+            // The error message will be added after blankSpace (<br> tag)
+            let blankSpace = document.getElementById("space-after-add-participant-input");
+
+            // Create the new element to be added
+            const div = document.createElement("div")
+
+            // The following html will be inserted in the div (friend error message)
+            div.innerHTML = "<div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message\">\n" +
+                "                                            Participant does not exist!\n" +
+                "                                            <button type=\"button\" class=\"close close_button\" aria-label=\"Close\">\n" +
+                "                                                <span aria-hidden=\"true\">&times;</span>\n" +
+                "                                            </button>\n" +
+                "                                        </div>"
+
+            // Insert the created element
+            blankSpace.after(div)
+            // <---------------- participant does not exist error message END --------------->
+
+
             Cookies.remove("user_does_not_exist");
         }
     }, 10);
@@ -248,6 +276,29 @@ $(document).ready(function () {
         if (typeof participant_is_member !== "undefined") {
             $('#addParticipantInput-editProject').addClass('error_class_input');
             $('#addParticipantLabelId-editProject').addClass('error_class_label');
+
+            // <---------------- participant already in list error message START --------------->
+            // Get the parent element
+            let parent = document.getElementById("div");
+
+            // The error message will be added after blankSpace (<br> tag)
+            let blankSpace = document.getElementById("space-after-add-participant-input");
+
+            // Create the new element to be added
+            const div = document.createElement("div")
+
+            // The following html will be inserted in the div (friend error message)
+            div.innerHTML = "<div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message\">\n" +
+                "                                            Participant is already in the list!\n" +
+                "                                            <button type=\"button\" class=\"close close_button\" aria-label=\"Close\">\n" +
+                "                                                <span aria-hidden=\"true\">&times;</span>\n" +
+                "                                            </button>\n" +
+                "                                        </div>"
+
+            // Insert the created element
+            blankSpace.after(div)
+            // <---------------- participant already in list error message END --------------->
+
             Cookies.remove("user_is_member_of_project");
         }
     }, 10);
@@ -312,4 +363,14 @@ $(document).ready(function () {
         document.getElementById("bg-modal-id").remove();
     });
 
+    // Clear all error message that are displayed to the admin user
+    function clearErrorMessages() {
+        // clear red text and border
+        $('#addParticipantInput-editProject').removeClass('error_class_input')
+        $('#addParticipantLabelId-editProject').removeClass('error_class_label');
+
+        // Clear the add participant error message
+        let addParticipantErrorMessage = document.querySelector('#message');
+        addParticipantErrorMessage.parentNode.removeChild(addParticipantErrorMessage);
+    }
 });
