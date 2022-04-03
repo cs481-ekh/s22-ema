@@ -23,6 +23,7 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   late SharedPreferences _SharedPrefs;
   List<String> MissedNotifs = [];
+  List<String> toRemove = [];
   int notifAmount = 0;
 
   void initializeMessageHandler() async {
@@ -40,6 +41,15 @@ class _UserPageState extends State<UserPage> {
   void updateMissedNotifs() {
     setState(() {
       MissedNotifs = _SharedPrefs.getStringList("missedNotifs") ?? [];
+      for (final notif in MissedNotifs) {
+        final nObject = jsonDecode(notif);
+        final dateReceivedCheck = DateTime.parse(nObject['received']);
+        final expireTime = dateReceivedCheck.add(const Duration(minutes: 30));
+        var timeNow = DateTime.now();
+        if (timeNow.isAfter(expireTime)) {
+          toRemove.add(notif);
+        }
+      }
     });
     setState(() {
       notifAmount = MissedNotifs.length;
@@ -70,6 +80,18 @@ class _UserPageState extends State<UserPage> {
     final url = nObject['url'];
     final dateString = DateFormat('yyyy-MM-dd – h:mm a').format(dateReceived);
     final projectID = '${nObject['projectID']}';
+
+    for (final notif in MissedNotifs) {
+      final nObject = jsonDecode(notif);
+      final dateReceivedCheck = DateTime.parse(nObject['received']);
+      final expireTime = dateReceivedCheck.add(const Duration(minutes: 30));
+      var timeNow = DateTime.now();
+      if (timeNow.isAfter(expireTime)) {
+        toRemove.add(notif);
+      }
+    }
+    MissedNotifs.removeWhere((notif) => toRemove.contains(notif));
+    notifAmount = MissedNotifs.length;
     //In order to properly access the url object, this needs to be initialized here unfortunately
     //Against everything I understand about Dart, it works so I'm not too worried
     //If you can find another way to do it let me know
@@ -100,7 +122,6 @@ class _UserPageState extends State<UserPage> {
           await checkDate(FirebaseAuth.instance.currentUser?.email);
       //check for the click happening between 12-24 hours from the last click,
       //then update the clicked bool
-
 
       if (streakCheck == 1) {
         //clicked between 12-24 hours after the previous click
