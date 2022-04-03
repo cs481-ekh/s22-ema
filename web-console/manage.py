@@ -47,13 +47,14 @@ def main():
 
     run_continuously()
 
-    backups = firebase.getAllBackUps()
-    for backup in backups:
-        print(f'{backup.id} => {backup.to_dict()}')
+#    backups = firebase.getAllBackUps()
+#    for backup in backups:
+#        print(f'{backup.id} => {backup.to_dict()}')
 
+    print(schedule.get_jobs())
     Schedule.firebase_DueDate_Perge()
-
-
+    Schedule.dabatBaseReload()
+    print(schedule.get_jobs())
     execute_from_command_line(sys.argv)
 
 

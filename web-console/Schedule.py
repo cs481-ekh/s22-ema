@@ -167,7 +167,7 @@ def firebase_DueDate_Perge():
         expirationDate = dict['expirationDate']
         expirationTime = dict['expirationTime']
 
-        print(expirationDate)
+
         if expirationDate == '':
             continue
 
@@ -178,3 +178,25 @@ def firebase_DueDate_Perge():
             print('Removing : '+id+" from database backup")
             tag = backup.uuid
             removeReminder(tag)
+
+def dabatBaseReload():
+    backups = firebase.getAllBackUps()
+    for backup in backups:
+        id = backup.id
+        dict = backup.to_dict()
+        expirationDate = dict['expirationDate']
+        expirationTime = dict['expirationTime']
+        repeating = dict['repeating']
+        reminderTime = dict['reminderTime']
+        projectName = dict['projectName']
+        startDate =  dict['startDate']
+
+        if repeating == "Once":
+            add_reminder_once(startDate, reminderTime, projectName, id)
+            continue
+        if repeating == "Daily":
+            add_reminder_daily(startDate, reminderTime, expirationDate, expirationTime, projectName, id)
+            continue
+        if repeating == "Weekly":
+            add_reminder_weekly(startDate, reminderTime, expirationDate, expirationTime, projectName, id)
+            continue
