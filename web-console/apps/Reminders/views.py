@@ -22,11 +22,10 @@ def index(request):
         selection = request.POST.get('selection')
         endDate = request.POST.get('endDate')
         endTime = request.POST.get('endTime')
-
-        # Setting cookie on client end for the data to be represented:
-        response = HttpResponse("Cookie Set")
         print(selectedProject)
 
+        # *** During our last sprint, as we are cleaning up files, we can possibly remove this check since
+        # our input check has been strengthened with javascript and html ***
         # Checks to ensure there is a end date/time if the program does not run once
         if selection != 'Once':
             if endDate == '' or endTime == '':
