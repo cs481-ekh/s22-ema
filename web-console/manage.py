@@ -51,8 +51,8 @@ def main():
 #    for backup in backups:
 #        print(f'{backup.id} => {backup.to_dict()}')
 
-    Schedule.firebase_DueDate_Perge()
-    Schedule.dabatBaseReload()
+    #Schedule.firebase_DueDate_Perge()
+    #Schedule.dabatBaseReload()
 
 
 
