@@ -50,6 +50,8 @@ class _UserPageState extends State<UserPage> {
           toRemove.add(notif);
         }
       }
+      MissedNotifs.removeWhere((notif) => toRemove.contains(notif));
+      notifAmount = MissedNotifs.length;
     });
     setState(() {
       notifAmount = MissedNotifs.length;
@@ -92,6 +94,13 @@ class _UserPageState extends State<UserPage> {
     }
     MissedNotifs.removeWhere((notif) => toRemove.contains(notif));
     notifAmount = MissedNotifs.length;
+    if (notifAmount == 0) {
+      return Container(
+        height: 50,
+        color: Colors.amber[600],
+        child: const Center(child: Text('No Notifications')),
+      );
+    }
     //In order to properly access the url object, this needs to be initialized here unfortunately
     //Against everything I understand about Dart, it works so I'm not too worried
     //If you can find another way to do it let me know
