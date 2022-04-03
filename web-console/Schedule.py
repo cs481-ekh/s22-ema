@@ -167,6 +167,10 @@ def firebase_DueDate_Perge():
         expirationDate = dict['expirationDate']
         expirationTime = dict['expirationTime']
 
+        print(expirationDate)
+        if expirationDate == '':
+            continue
+
         current_time = date.today()
         current_time = current_time.strftime("%Y-%m-%d %H:%M")
         parsed_end_date = datetime.strptime(expirationDate+' '+expirationTime, "%Y-%m-%d %H:%M").date()
