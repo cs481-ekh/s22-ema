@@ -114,7 +114,7 @@ void _handleMessage(RemoteMessage message) async {
   if (message.data['url'] != null) {
     final url = message.data['url'];
     if (await canLaunch(url)) {
-      await launch(url);
+      await launch(url, forceWebView: true);
     } else
       throw "Could not launch $url";
   }

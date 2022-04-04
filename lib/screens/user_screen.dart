@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ema/screens/projects_screen.dart';
 import 'package:ema/utils/global_funcs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -78,10 +79,13 @@ class _UserPageState extends State<UserPage> {
 
     //["id":idnumber,"received":time,"title":"Test","body":"This is a test notification","url":"test.com",]
     final dateReceived = DateTime.parse(nObject['received']);
+
     final notifInfo = '${nObject['title']} : ${nObject['body']}';
     final url = nObject['url'];
     final dateString = DateFormat('yyyy-MM-dd – h:mm a').format(dateReceived);
     final projectID = '${nObject['projectID']}';
+    final expiration = '${nObject['expiration']}';
+
 
     for (final notif in MissedNotifs) {
       final nObject = jsonDecode(notif);
@@ -101,6 +105,7 @@ class _UserPageState extends State<UserPage> {
         child: const Center(child: Text('No Notifications')),
       );
     }
+
     //In order to properly access the url object, this needs to be initialized here unfortunately
     //Against everything I understand about Dart, it works so I'm not too worried
     //If you can find another way to do it let me know
@@ -166,6 +171,9 @@ class _UserPageState extends State<UserPage> {
             TextSpan(
                 text: "\n" + projectID,
                 style: const TextStyle(fontWeight: FontWeight.bold)),
+            TextSpan(
+              text: "\n" + expiration,
+            ),
           ],
         ),
       ),
@@ -233,15 +241,45 @@ class _UserPageState extends State<UserPage> {
                   },
                   child: const Text('Dismiss All'),
                 )),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: TextButton(
-                onPressed: () {
-                  signOut();
-                },
-                child: const Text('Logout'),
+          ],
+        ),
+      ),
+      drawer: Drawer(
+        // Add a ListView to the drawer. This ensures the user can scroll
+        // through the options in the drawer if there isn't enough vertical
+        // space to fit everything.
+        child: ListView(
+          // Important: Remove any padding from the ListView.
+          padding: EdgeInsets.zero,
+          children: [
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                image: DecorationImage(
+                    image: AssetImage('assets/images/sdp-logo-infinity.png')),
               ),
-            )
+              child: Text('Menu',
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold, color: Colors.white)),
+            ),
+            ListTile(
+              title: const Text('Projects'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ProjectsPage()));
+              },
+            ),
+            ListTile(
+              title: const Text('Sign Out'),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                signOut();
+              },
+            ),
           ],
         ),
       ),
