@@ -376,8 +376,7 @@ $(document).ready(function () {
 
         // When the user triggers the error, the message will be displayed on the front end. Therefore, the message will
         // be removed only when the element (error) exists.
-        if(addParticipantErrorMessage != null)
-        {
+        if (addParticipantErrorMessage != null) {
             addParticipantErrorMessage.parentNode.removeChild(addParticipantErrorMessage);
         }
     }
