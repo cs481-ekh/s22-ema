@@ -208,15 +208,6 @@ class _UserPageState extends State<UserPage> {
                   },
                   child: const Text('Dismiss All'),
                 )),
-            Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: TextButton(
-                onPressed: () {
-                  signOut();
-                },
-                child: const Text('Logout'),
-              ),
-            )
           ],
         ),
       ),
