@@ -369,8 +369,16 @@ $(document).ready(function () {
         $('#addParticipantInput-editProject').removeClass('error_class_input')
         $('#addParticipantLabelId-editProject').removeClass('error_class_label');
 
-        // Clear the add participant error message
+        // Clear the add participant error message. When the error is not occurring, the value of
+        // addParticipantErrorMessage is null which will throw an error in the browser console. Therefore, the
+        // check for the null value is necessary below.
         let addParticipantErrorMessage = document.querySelector('#message');
-        addParticipantErrorMessage.parentNode.removeChild(addParticipantErrorMessage);
+
+        // When the user triggers the error, the message will be displayed on the front end. Therefore, the message will
+        // be removed only when the element (error) exists.
+        if(addParticipantErrorMessage != null)
+        {
+            addParticipantErrorMessage.parentNode.removeChild(addParticipantErrorMessage);
+        }
     }
 });
