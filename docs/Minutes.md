@@ -95,6 +95,26 @@
 
 ## Mobile
 
+### 3/31/22
+
+*Scribe:* Jason
+
+*Present:* Jason, Jeff, Jon
+
+*Absent:* N/A
+
+*Items:* We continued working individually on our parts of the app. Jeff finished up adding the logo to the app, Jon was finishing adding the app to TestFlight and working on the redesigned notification menu, and I was continuing my work on the projects page.
+
+### 3/29/22
+
+*Scribe:* Jason
+
+*Present:* Jason, Jeff, Jon
+
+*Absent:* N/A
+
+*Items:* We quickly caught up with what each of us were working on, and how our break was. Then we individually worked on our parts of the project and bounced ideas off of each other. Jeff was working on adding the logo, Jon was getting the app on TestFlight for iOS, and I was working on the project page.
+
 ### 3/16/22
 
 *Scribe:* Jason
@@ -154,7 +174,18 @@
 *Absent:* N/A
 
 *Items:* We met for Sprint 1 planning where we created the sprint goal, user stories, tasks and assigned them. We decided that for Sprint 1 we would focus on removing the admin side form the mobile app while improving user notifications by including the expiration time for the survey in their information. We also decided to add a user password reset for the case that a user forgets their login information.
+
 ## Full Team
+
+### 4/2/22
+
+*Scribe:* Jason
+
+*Present:* Alejandro, Andrew, Jason, Jeff, Jon
+
+*Absent:* Daniel (let us know he couldn't make it), Brandon
+
+*Items:* We all got caught up on where we were with the development of our projects. We started planning another date to try and meet with our sponsor. Agreed to give the notification system a thorough test for next week's meeting.
 
 ### 3/12/22
 
