@@ -7,6 +7,7 @@ from django.urls import reverse
 from django.utils.translation import template
 from django.http import JsonResponse
 from datetime import datetime
+import pendulum
 import os
 
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
@@ -78,18 +79,30 @@ def index(request):
     for reminder_collection in firebase.getAllBackUps():
         notification_data_list.append(reminder_collection.to_dict())
 
-    print(notification_data_list)
-
     # send current date and time to the template
     # current date and time
     now = datetime.now()
     current_date = now.strftime("%Y-%m-%d")
     current_time = now.strftime("%H:%M")
 
-    return render(request, 'home/index.html',
-                  {'list_of_projects_dict': list_of_projects, 'list_of_projects_count': list_of_projects_count,
-                   'list_of_users_count': list_of_users_count, 'notification_data_list': notification_data_list,
-                   'curr_date': current_date, 'curr_time': current_time})
+    # get start of week and get end of week. This data goes in the
+    today = pendulum.now()
+
+    start_of_week = today.start_of('week').to_date_string()
+    end_of_week = today.end_of('week').to_date_string()
+
+    context = {
+        'list_of_projects_dict': list_of_projects,
+        'list_of_projects_count': list_of_projects_count,
+        'list_of_users_count': list_of_users_count,
+        'notification_data_list': notification_data_list,
+        'curr_date': current_date,
+        'curr_time': current_time,
+        'start_of_week': start_of_week,
+        'end_of_week': end_of_week
+    }
+
+    return render(request, 'home/index.html', context)
 
 
 @login_required(login_url="/login/")
