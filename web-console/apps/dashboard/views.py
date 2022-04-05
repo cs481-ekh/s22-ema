@@ -1,5 +1,4 @@
 from importlib.machinery import SourceFileLoader
-from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
@@ -7,6 +6,7 @@ from django.template import loader
 from django.urls import reverse
 from django.utils.translation import template
 from django.http import JsonResponse
+from datetime import datetime
 import os
 
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
@@ -73,9 +73,23 @@ def index(request):
     # total users present on firebase
     list_of_users_count = len(firebase.get_all_users_names())
 
+    notification_data_list = []
+    # send Notification data to the template
+    for reminder_collection in firebase.getAllBackUps():
+        notification_data_list.append(reminder_collection.to_dict())
+
+    print(notification_data_list)
+
+    # send current date and time to the template
+    # current date and time
+    now = datetime.now()
+    current_date = now.strftime("%Y-%m-%d")
+    current_time = now.strftime("%H:%M")
+
     return render(request, 'home/index.html',
                   {'list_of_projects_dict': list_of_projects, 'list_of_projects_count': list_of_projects_count,
-                   'list_of_users_count': list_of_users_count})
+                   'list_of_users_count': list_of_users_count, 'notification_data_list': notification_data_list,
+                   'curr_date': current_date, 'curr_time': current_time})
 
 
 @login_required(login_url="/login/")
