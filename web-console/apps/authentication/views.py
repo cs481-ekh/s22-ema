@@ -4,13 +4,15 @@ Copyright (c) 2019 - present AppSeed.us
 """
 
 import re
-
-# Create your views here.
-from django.http import HttpResponse, HttpResponseRedirect
+import random
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, SignUpForm
+from .forms import LoginForm
 from django.contrib.auth import get_user_model
+
+# email_found
+email_found = False
 
 
 def login_view(request):
@@ -43,33 +45,6 @@ def login_view(request):
 def logout_view(request):
     logout(request)
     return render(request, "home/login.html")
-
-
-# def register_user(request):
-#     msg = None
-#     success = False
-#
-#     if request.method == "POST":
-#         form = SignUpForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get("username")
-#             raw_password = form.cleaned_data.get("password1")
-#             user = authenticate(username=username, password=raw_password)
-#
-#             msg = 'User created - please <a href="/login">login</a>.'
-#             success = True
-#             login(request, user)
-#
-#             # return redirect("/login/")
-#             return redirect("/")
-#
-#         else:
-#             msg = 'Form is not valid'
-#     else:
-#         form = SignUpForm()
-#
-#     return render(request, "accounts/reset_password.html", {"form": form, "msg": msg, "success": success})
 
 
 def reset_password(request):
@@ -124,7 +99,36 @@ def recover_password(request):
     # checks if the user is  authenticated than redirect to dashboard.
     if request.user.is_authenticated:
         return redirect("/")
+    else:
+        if request.method == 'POST':
+            # get recover email upon post
+            recover_email = request.POST.get("recover_email")
+
+            if recover_email is not None:
+                # get super user emails
+                superusers_emails = User.objects.filter(is_superuser=True).values_list('email').all()
+                for email_tuples in superusers_emails:
+                    for email in email_tuples:
+                        if email == recover_email:
+                            global email_found
+                            email_found = True
+                            break
+
+            print(generate_random_password())
     return render(request, "home/recover_password.html")
+
+
+# generates random password
+def generate_random_password():
+    lower_case = "abcdefghijklmnopqrstuvwxyz"
+    upper_case = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    numbers = "0123456789"
+    symbols = "@3$&*/\?"
+
+    use_for = lower_case + upper_case + numbers + symbols
+    length_for_password = 8
+    password = "".join(random.sample(use_for, length_for_password))
+    return password
 
 
 # Function will check if the string is at least 8 characters with at least one uppercase letter, one lowercase letter,
