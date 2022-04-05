@@ -38,7 +38,13 @@ Future<void> storeMessage(RemoteMessage message) async {
       '"url":"${url}",'
       '"expiration":"${expiration}",'
       '"projectID":"${projectID}"}';
-  notifs.insert(0, newNotif);
+  final nObject = jsonDecode(newNotif);
+  final dateReceived = DateTime.parse(nObject['received']);
+  final expireTime = dateReceived.add(const Duration(minutes: 30));
+  if (DateTime.now().isAfter(expireTime)) {
+  } else {
+    notifs.insert(0, newNotif);
+  }
 
   //Limit list to 5 most recent notifications
   if (notifs.length > 5) {

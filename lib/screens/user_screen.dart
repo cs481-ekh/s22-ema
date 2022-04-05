@@ -24,6 +24,7 @@ class UserPage extends StatefulWidget {
 class _UserPageState extends State<UserPage> {
   late SharedPreferences _SharedPrefs;
   List<String> MissedNotifs = [];
+  List<String> toRemove = [];
   int notifAmount = 0;
 
   void initializeMessageHandler() async {
@@ -41,6 +42,17 @@ class _UserPageState extends State<UserPage> {
   void updateMissedNotifs() {
     setState(() {
       MissedNotifs = _SharedPrefs.getStringList("missedNotifs") ?? [];
+      for (final notif in MissedNotifs) {
+        final nObject = jsonDecode(notif);
+        final dateReceivedCheck = DateTime.parse(nObject['received']);
+        final expireTime = dateReceivedCheck.add(const Duration(minutes: 30));
+        var timeNow = DateTime.now();
+        if (timeNow.isAfter(expireTime)) {
+          toRemove.add(notif);
+        }
+      }
+      MissedNotifs.removeWhere((notif) => toRemove.contains(notif));
+      notifAmount = MissedNotifs.length;
     });
     setState(() {
       notifAmount = MissedNotifs.length;
@@ -73,6 +85,27 @@ class _UserPageState extends State<UserPage> {
     final dateString = DateFormat('yyyy-MM-dd – h:mm a').format(dateReceived);
     final projectID = '${nObject['projectID']}';
     final expiration = '${nObject['expiration']}';
+
+
+    for (final notif in MissedNotifs) {
+      final nObject = jsonDecode(notif);
+      final dateReceivedCheck = DateTime.parse(nObject['received']);
+      final expireTime = dateReceivedCheck.add(const Duration(minutes: 30));
+      var timeNow = DateTime.now();
+      if (timeNow.isAfter(expireTime)) {
+        toRemove.add(notif);
+      }
+    }
+    MissedNotifs.removeWhere((notif) => toRemove.contains(notif));
+    notifAmount = MissedNotifs.length;
+    if (notifAmount == 0) {
+      return Container(
+        height: 50,
+        color: Colors.amber[600],
+        child: const Center(child: Text('No Notifications')),
+      );
+    }
+
     //In order to properly access the url object, this needs to be initialized here unfortunately
     //Against everything I understand about Dart, it works so I'm not too worried
     //If you can find another way to do it let me know
