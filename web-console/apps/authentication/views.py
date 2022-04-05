@@ -14,6 +14,10 @@ from django.contrib.auth import get_user_model
 
 
 def login_view(request):
+    # checks if the user is authenticated than redirect to home.
+    if request.user.is_authenticated:
+        return redirect("/")
+
     form = LoginForm(request.POST or None)
 
     msg = None
@@ -69,6 +73,9 @@ def logout_view(request):
 
 
 def reset_password(request):
+    # checks if the user is not authenticated than redirect to login.
+    if not request.user.is_authenticated:
+        return redirect("/login")
     # Grabbing the value of our input fields
     username = request.POST.get('user_name')
     user_password = request.POST.get('user-password')
@@ -111,6 +118,13 @@ def reset_password(request):
                               "home/login.html")  # Needs to be changed later to direct to dashboard/  once dashboard is implemented
 
     return render(request, "home/auth-reset-pass.html")
+
+
+def recover_password(request):
+    # checks if the user is  authenticated than redirect to dashboard.
+    if request.user.is_authenticated:
+        return redirect("/")
+    return render(request, "home/recover_password.html")
 
 
 # Function will check if the string is at least 8 characters with at least one uppercase letter, one lowercase letter,
