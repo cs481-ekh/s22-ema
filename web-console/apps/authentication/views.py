@@ -2,18 +2,28 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-
+import os
 import re
-
-# Create your views here.
-from django.http import HttpResponse, HttpResponseRedirect
+import random
+from importlib.machinery import SourceFileLoader
+from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-from .forms import LoginForm, SignUpForm
+from .forms import LoginForm
 from django.contrib.auth import get_user_model
+
+google_emailer = SourceFileLoader("google_emailer", os.getcwd() + "/google_emailer.py").load_module()
+
+# email_found
+email_found = False
 
 
 def login_view(request):
+    # checks if the user is authenticated than redirect to home.
+    if request.user.is_authenticated:
+        return redirect("/")
+
     form = LoginForm(request.POST or None)
 
     msg = None
@@ -41,34 +51,10 @@ def logout_view(request):
     return render(request, "home/login.html")
 
 
-# def register_user(request):
-#     msg = None
-#     success = False
-#
-#     if request.method == "POST":
-#         form = SignUpForm(request.POST)
-#         if form.is_valid():
-#             form.save()
-#             username = form.cleaned_data.get("username")
-#             raw_password = form.cleaned_data.get("password1")
-#             user = authenticate(username=username, password=raw_password)
-#
-#             msg = 'User created - please <a href="/login">login</a>.'
-#             success = True
-#             login(request, user)
-#
-#             # return redirect("/login/")
-#             return redirect("/")
-#
-#         else:
-#             msg = 'Form is not valid'
-#     else:
-#         form = SignUpForm()
-#
-#     return render(request, "accounts/reset_password.html", {"form": form, "msg": msg, "success": success})
-
-
 def reset_password(request):
+    # checks if the user is not authenticated than redirect to login.
+    if not request.user.is_authenticated:
+        return redirect("/login")
     # Grabbing the value of our input fields
     username = request.POST.get('user_name')
     user_password = request.POST.get('user-password')
@@ -111,6 +97,68 @@ def reset_password(request):
                               "home/login.html")  # Needs to be changed later to direct to dashboard/  once dashboard is implemented
 
     return render(request, "home/auth-reset-pass.html")
+
+
+def recover_password(request):
+    # checks if the user is  authenticated than redirect to dashboard.
+    if request.user.is_authenticated:
+        return redirect("/")
+    else:
+        if request.method == 'POST':
+            # get recover email upon post
+            recover_email = request.POST.get("recover_email")
+
+            if recover_email is not None:
+                # get super user emails
+                superusers_emails = User.objects.filter(is_superuser=True).values_list('email').all()
+                for email_tuples in superusers_emails:
+                    for email in email_tuples:
+                        if email == recover_email:
+                            global email_found
+                            email_found = True
+                            break
+                if email_found:
+                    user_model = get_user_model()
+                    user = user_model.objects.get(email=recover_email)
+                    # generate password and set the password to that user password
+                    new_password = generate_random_password()
+                    user.set_password(new_password)
+                    # Save the query
+                    user.save()
+                    # send user and password to the given email address.
+                    email_pass_dict = read_google_email_cred_file()
+                    message = "Dear " + str(user) + ",\n" + "Here is your user admin: " + str(
+                        user) + "\nHere is your password: " + new_password
+                    # send email
+                    google_emailer.emailProcessor(email_pass_dict['email'], email_pass_dict['pass'], recover_email,
+                                                  "EMA - [Admin - password]",
+                                                  message)
+
+                    # Inform the user that email was sent
+                    return render(request, "home/login.html", {'email_sent': 'Email Sent!'})
+
+    return render(request, "home/recover_password.html")
+
+
+def read_google_email_cred_file():
+    f = open(os.environ['GOOGLE_EMAIL_CREDENTIALS'], "r")
+    email = f.readline().split(" ")[1]
+    password = f.readline().split(" ")[1]
+    email_pass_dict = {'email': email, 'pass': password}
+    return email_pass_dict
+
+
+# generates random password
+def generate_random_password():
+    lower_case = "abcdefghijklmnopqrstuvwxyz"
+    upper_case = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+    numbers = "0123456789"
+    symbols = "@3$&*/\?"
+
+    use_for = lower_case + upper_case + numbers + symbols
+    length_for_password = 8
+    password = "".join(random.sample(use_for, length_for_password))
+    return password
 
 
 # Function will check if the string is at least 8 characters with at least one uppercase letter, one lowercase letter,

@@ -2,7 +2,7 @@
 
 {% block title %} Login {% endblock %}
 
-{% block content %}   
+{% block content %}
 
     <div class="auth-wrapper">
         <div class="auth-content">
@@ -22,22 +22,25 @@
                     </h3>
 
                     <span class="mb-0 text-muted">
+                        {% if email_sent %}
+                            {{ email_sent }}<br>
+                        {% endif %}
                         Add your credentials
                     </span>
 
-                    <br />
-                    <br />
-                    
+                    <br/>
+                    <br/>
+
                     <form role="form" action="/">
 
                         <div class="input-group mb-3">
                             <input class="form-control" placeholder="Username">
                         </div>
-                        
+
                         <div class="input-group mb-4">
                             <input type="password" class="form-control" placeholder="password">
                         </div>
-                        
+
                         <div class="form-group text-left">
                             <div class="checkbox checkbox-fill d-inline">
                                 <input type="checkbox" name="checkbox-fill-1" id="checkbox-fill-a1" checked="">
@@ -48,7 +51,7 @@
 
                     </form>
 
-                    <p class="mb-0 text-muted"><a href="{% url 'ema_reset_password' %}" >Forgot password?</a></p>
+                    <p class="mb-0 text-muted"><a href="{% url 'ema_recover_password' %}">Forgot password?</a></p>
                     <br>
                 </div>
             </div>
