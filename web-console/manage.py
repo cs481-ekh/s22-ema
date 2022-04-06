@@ -40,6 +40,7 @@ def main():
         "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/danielrao/Desktop/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
 
     # # initializing app using credentials
+    os.environ["GOOGLE_EMAIL_CREDENTIALS"] = "/Users/danielrao/Desktop/google_email_creds.txt"
     firebase_admin.initialize_app(credentials.Certificate(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")))
     ##################################################################################################################
 

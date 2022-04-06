@@ -2,14 +2,17 @@
 """
 Copyright (c) 2019 - present AppSeed.us
 """
-
+import os
 import re
 import random
+from importlib.machinery import SourceFileLoader
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm
 from django.contrib.auth import get_user_model
+
+google_emailer = SourceFileLoader("google_emailer", os.getcwd() + "/google_emailer.py").load_module()
 
 # email_found
 email_found = False
@@ -113,9 +116,34 @@ def recover_password(request):
                             global email_found
                             email_found = True
                             break
+                if email_found:
+                    user_model = get_user_model()
+                    user = user_model.objects.get(email=recover_email)
+                    # generate password and set the password to that user password
+                    new_password = generate_random_password()
+                    user.set_password(new_password)
+                    # Save the query
+                    user.save()
+                    # send user and password to the given email address.
+                    email_pass_dict = read_google_email_cred_file()
+                    message = "Dear " + str(user) + ",\n" + "Here is your user admin: " + str(
+                        user) + "\nHere is your password: " + new_password
+                    # send email
+                    google_emailer.emailProcessor(email_pass_dict['email'], email_pass_dict['pass'], recover_email,
+                                                  "EMA - [Admin - password]",
+                                                  message)
+                    # Inform user that email was sent using a Cookie
 
-            print(generate_random_password())
+
     return render(request, "home/recover_password.html")
+
+
+def read_google_email_cred_file():
+    f = open(os.environ['GOOGLE_EMAIL_CREDENTIALS'], "r")
+    email = f.readline().split(" ")[1]
+    password = f.readline().split(" ")[1]
+    email_pass_dict = {'email': email, 'pass': password}
+    return email_pass_dict
 
 
 # generates random password
