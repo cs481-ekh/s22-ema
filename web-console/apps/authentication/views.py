@@ -7,6 +7,7 @@ import re
 import random
 from importlib.machinery import SourceFileLoader
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from .forms import LoginForm
@@ -132,8 +133,9 @@ def recover_password(request):
                     google_emailer.emailProcessor(email_pass_dict['email'], email_pass_dict['pass'], recover_email,
                                                   "EMA - [Admin - password]",
                                                   message)
-                    # Inform user that email was sent using a Cookie
 
+                    # Inform the user that email was sent
+                    return render(request, "home/login.html", {'email_sent': 'Email Sent!'})
 
     return render(request, "home/recover_password.html")
 
