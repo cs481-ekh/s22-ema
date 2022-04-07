@@ -146,20 +146,14 @@ def add_participant_to_project(document_name, participant_email):
 
 
 # removing participants from project.
-def remove_participant_from_project(document_name, participant_email):
+def remove_participants_from_project(document_name, participant_email):
     # Connecting to Firebase
     db = db_connect_firebase()
     doc_ref = db.collection(u'projects').document(document_name)
-
     # Atomically remove given participant email from the 'participants' array field.
-    doc_ref.update({u'participants': firestore.ArrayRemove([participant_email])})
-
-
-# removes the list of participants from the project.
-def remove_participants_from_project(project_name, remove_participant_list):
-    # Looping through the list to remove participant from the remove_participants_list
-    for part in remove_participant_list:
-        remove_participant_from_project(project_name, part)
+    doc_ref.update({
+        u'participants': firestore.ArrayRemove(participant_email)
+    })
 
 
 # deletes the project given a document name (project name)

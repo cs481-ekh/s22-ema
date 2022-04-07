@@ -9,7 +9,6 @@
     {% load static %}
     <script src="{% static "assets/js/edit-project.js" %}" type="text/javascript"></script>
     <!-- Using functions and style from this file -->
-    <script src="{% static "assets/js/createproject.js" %}" type="text/javascript"></script>
     <div class="pcoded-content">
         <div class="pcoded-inner-content">
             <!-- [ breadcrumb ] start -->
@@ -87,11 +86,17 @@
                                                 <!-- [ Enter link ] end -->
                                                 <!-- [ Enter participants ] start -->
                                                 <div class="form-group">
-                                                    <label for="surveyLinkLabel" id="addParticipantLabelId-editProject">Enter
-                                                        participant(s)</label>
-                                                    <input type="email" class="form-control"
-                                                           id="addParticipantInput-editProject"
-                                                           placeholder="Email">
+                                                    <label for="selectParticipant"
+                                                           id="addParticipantLabelId-editProject">Select
+                                                        Participant(s)</label>
+                                                    <select class="form-control" id="addParticipantInput-editProject"
+                                                            name="selectedParticipant">
+                                                        <option selected=selected>Select</option>
+                                                        <!-- [ code to display projects ] -->
+                                                        {% for part in all_users_drop_down %}
+                                                            <option value="{{ part }}">{{ part }} </option>
+                                                        {% endfor %}
+                                                    </select>
                                                     <br id="space-after-add-participant-input">
                                                     <button type="button" class="btn btn-primary"
                                                             id="addParticipant-editProject">Add Participant

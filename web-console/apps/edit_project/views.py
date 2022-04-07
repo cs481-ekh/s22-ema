@@ -14,6 +14,8 @@ remove_participants_list = None
 
 @login_required(login_url="/login/")
 def edit_project(request):
+    print(firebase.get_all_users())
+    all_users_drop_down = firebase.get_all_users_names()
     if request.method == 'POST':
         global initial_survey_link, initial_description, initial_participants, remove_participants_list
 
@@ -100,8 +102,9 @@ def edit_project(request):
             project_name = request.POST.get('selectedProject')
 
             # This means that the participants list for the selected project needs to be updated on firebase
-            if remove_participants_list is not None and project_name is not None:
+            if remove_participants_list is not None and remove_participants_list != "" and project_name is not None:
                 firebase.remove_participants_from_project(project_name, email_processor(remove_participants_list))
+                firebase.remove_project_from_participants(project_name, email_processor(remove_participants_list))
 
             # if surveylink and description fields are populated according to project selected
             if initial_survey_link is not None and initial_description is not None:
@@ -125,11 +128,13 @@ def edit_project(request):
             list_of_projects = firebase.get_all_project_names()
             # Passing the context info to populate the dropdown option
             return render(request, 'home/edit-project.html', {'list_of_projects_dict': list_of_projects,
-                                                              'message_success': 'Project updated successfully!'})
+                                                              'message_success': 'Project updated successfully!',
+                                                              'all_users_drop_down': all_users_drop_down})
 
     if request.method == 'GET':
         list_of_projects = firebase.get_all_project_names()
-        return render(request, 'home/edit-project.html', {'list_of_projects_dict': list_of_projects})
+        return render(request, 'home/edit-project.html',
+                      {'list_of_projects_dict': list_of_projects, 'all_users_drop_down': all_users_drop_down})
 
 
 # When we receive the list of participants, it is a string. Therefore we need to split it at ','

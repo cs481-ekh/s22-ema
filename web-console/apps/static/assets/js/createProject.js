@@ -5,6 +5,32 @@ $(document).ready(function () {
     let project_name;
     let surveyLink;
 
+    // drop down is disabled by default
+    $('#participantEmailInput').attr('disabled', true);
+    // disable create button
+     $('#createProject').attr('disabled', true);
+
+    // Check if Project Name input box and survey Link input box are not empty
+    $(document).on("keyup", function (e) {
+        project_name = $("#projectNameInput").val();
+        surveyLink = $("#surveyLinkInput").val();
+        if (project_name != "" && surveyLink != "") {
+            // disable participant dropdown
+            $('#participantEmailInput').attr('disabled', false);
+            // disable create button
+            document.getElementById("createProject").disabled = false;
+
+
+        } else {
+            // enable participant dropdown
+            $('#participantEmailInput').attr('disabled', true);
+            // enable button
+            document.getElementById("createProject").disabled = true;
+
+        }
+    });
+
+
     // setting up ajax header
     $.ajaxSetup({
         headers: {"X-CSRFToken": Cookies.get("csrftoken")}
@@ -72,28 +98,35 @@ $(document).ready(function () {
     // Targeting Add Participant button
     $("#submitParticipant").click(function () {
 
-        participant_email = $("#participantEmailInput").val();
+        participant_email = document.getElementById("participantEmailInput").value
         project_name = $("#projectNameInput").val();
         surveyLink = $("#surveyLinkInput").val();
 
         if (participant_email != "" && project_name != "" && surveyLink != "") {
-            //check if the email already exist in the list, if it does than inform the user else add it to the list.
-            if (!check_if_value_exist_in_participant_list(participant_email)) {
-                // push the email to the list.
-                participant_list.push(participant_email);
-                // Post the email to get it checked if it exits in the project
-                $.ajax({
-                    url: '',
-                    method: 'POST', // This is the default though, you don't actually need to always mention it
-                    data: {'participantEmail': participant_email, 'project_Id': project_name},
-                });
+            if (participant_email != "Select") {
+                //check if the email already exist in the list, if it does than inform the user else add it to the list.
+                if (!check_if_value_exist_in_participant_list(participant_email)) {
+                    // push the email to the list.
+                    participant_list.push(participant_email);
+                    // Post the email to get it checked if it exits in the project
+                    $.ajax({
+                        url: '',
+                        method: 'POST', // This is the default though, you don't actually need to always mention it
+                        data: {'participantEmail': participant_email, 'project_Id': project_name},
+                    });
+                }
+
+            } else {
+                    $('#participantEmailInput').addClass('error_class_input');
+                    $('#email_label').addClass('error_class_label');
             }
+
 
         } else {
 
             // Set input field, label to red color depending on which one is empty
             if (project_name == "" && surveyLink != "") {
-                $('#projectLabel').addClass('error_class_label')
+                $('#projectLabel').addClass('error_class_label');
                 $('#projectNameInput').addClass('error_class_input');
             } else if (project_name != "" && surveyLink == "") {
                 $('#surveyLinkLabel').addClass('error_class_label')
@@ -101,8 +134,8 @@ $(document).ready(function () {
             } else if (project_name == "" && surveyLink == "") {
                 $('#projectNameInput').addClass('error_class_input');
                 $('#surveyLinkInput').addClass('error_class_input');
-                $('#projectLabel').addClass('error_class_label')
-                $('#surveyLinkLabel').addClass('error_class_label')
+                $('#projectLabel').addClass('error_class_label');
+                $('#surveyLinkLabel').addClass('error_class_label');
 
             }
 
