@@ -14,6 +14,10 @@ non_participants = []
 
 @login_required(login_url="/login/")
 def create_project(request):
+
+    # all the users to display on drop down for add participant
+    all_users_drop_down = firebase.get_all_users_names()
+
     if request.method == 'POST':
 
         project_id = request.POST.get('projectId')  # This field on front end is required.
@@ -78,7 +82,7 @@ def create_project(request):
                               {'message_error': 'Project name exists! Please choose a different name'})
 
     # html_template = loader.get_template('home/create-project.html')
-    return render(request, 'home/create-project.html')
+    return render(request, 'home/create-project.html', {'all_users_drop_down': all_users_drop_down})
 
 
 # Custom method to remove duplicates from the list.

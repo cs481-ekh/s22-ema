@@ -78,11 +78,17 @@
                                                            placeholder="Link" name="surveyLink" required>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="surveyLinkLabel" id="email_label">Enter
-                                                        participant(s)</label>
-                                                    <input type="email" class="form-control" id="participantEmailInput"
-                                                           placeholder="Email">
-                                                    <br>
+                                                     <div class="form-group">
+                                                    <label for="selectParticipant">Select Participant(s)</label>
+                                                    <select class="form-control" id="selectParticipant"
+                                                            name="selectedProject">
+                                                        <option selected=selected>Select</option>
+                                                        <!-- [ code to display projects ] -->
+                                                        {% for part in all_users_drop_down %}
+                                                            <option value="{{ part }}">{{ part }} </option>
+                                                        {% endfor %}
+                                                    </select>
+                                                </div>
                                                     <button type="button" class="btn btn-success"
                                                             id="submitParticipant">Add
                                                         Participant
