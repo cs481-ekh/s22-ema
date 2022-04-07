@@ -1,5 +1,13 @@
 $(document).ready(function () {
 
+        let survey_link_initial;
+        let description_initial;
+        let participants_initial_list;
+        let survey_link_post;
+        let description_post;
+        let removed_participants_list = [];
+        let add_new_participant_list = []; // List that will contain all the emails of participants to be added to the project.
+
     // When the page is rendered at the beginning, the dropdown selection for the project is
     // by default equal to Select Project. Therefore, all selection fields and button need to be
     // disabled
@@ -19,9 +27,9 @@ $(document).ready(function () {
     });
 
     // When the drop down value is "Select Project"
-    $(document).on('change', '#selectedProjectId', function () {
+    $(document).on('change', '#selectedProjectIdNotif', function () {
         // if no project is selected
-        if (document.getElementById("selectedProjectId").value == "Select Project") {
+        if (document.getElementById("selectedProjectIdNotif").value == "Select Project") {
 
             // Clear all error messages
             clearNotificationPageErrorMessages();
@@ -134,4 +142,67 @@ $(document).ready(function () {
         $('#scheduleReminderTimeId').removeClass('error_class_label');
         $('#scheduleSendDateTimeInput').removeClass('error_class_input');
     }
+
+    // When a project is selected
+    $('#selectedProjectIdNotif').change(function () {
+
+        // Change participant list when a new project is selected
+        $("#participantsTableId > tbody").html("");
+
+        let selectVal = $(this).val()
+        // if value of dropdown is "Select" don't POST
+        if (selectVal != "Select") {
+            $.ajax({
+                type: "POST",
+                url: '',
+                data: {'selected_project': selectVal},
+            });
+        }
+    })
+
+        // Check if surveylink cookie is set every few seconds.
+    setInterval(function () {
+        //this code runs every few seconds
+        let participants = Cookies.get("participants"); // * Note -> the type of this variable is a string
+        if (typeof participants !== "undefined") {
+            // Setting the participants cookie variable as a global variable
+            participants_initial_list = participants;
+            // A regular expression scans the 'participants_initial_list' to extract emails only and add them in an array
+            participants_initial_list = participants_initial_list.match(/(?<=')[^' \054]+(?=')/g); // Note -> this will be null if there are no participants in selected project
+
+            // The selected project contains participants
+            if (participants_initial_list != null) {
+                for (let i = 0; i < participants_initial_list.length; i++) {
+
+                    // the username and email domain are split and are separately stored in its own location in the array
+                    let split_array = participants_initial_list[i].split("@");
+
+                    // location 0 returns the username
+                    let userName = split_array[0];
+
+                    // Adding a participant card to the right
+                    $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + participants_initial_list[i] + ">\n" +
+                        "                                                            <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
+                        "                                                                     src=\"/static/assets/images/user/user-3.png\"\n" +
+                        "                                                                     alt=\"activity-user\">\n" +
+                        "                                                            <td>\n" +
+                        "                                                                <h6 class=\"mb-1\">" + participants_initial_list[i] + "</h6>\n" +
+                        "                                                                <p class=\"m-0\">" + userName + "</p>\n" +
+                        "                                                            </td>\n" +
+                        "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 remove_card_edit_project removeButton\" name=\"editProjectBtn\" id=\"editProjectBtnId\">Remove</button>\n" +
+                        "                                                            </td>\n" +
+                        "                                                        </tr>");
+                }
+            }
+
+            // Delete the cookie after usage.
+            Cookies.remove("participants");
+        }
+    }, 10);
+
+
+
+
+
+
 });

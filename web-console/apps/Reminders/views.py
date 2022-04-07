@@ -12,6 +12,7 @@ Schedule = SourceFileLoader("Schedule", os.getcwd() + "/Schedule.py").load_modul
 @login_required(login_url="/login/")
 def index(request):
     list_of_projects = firebase.get_all_project_names()
+    project_id = request.POST.get('selected_project')
     error = []
     flag = False
     if request.method == 'POST':
@@ -22,7 +23,6 @@ def index(request):
         selection = request.POST.get('selection')
         endDate = request.POST.get('endDate')
         endTime = request.POST.get('endTime')
-        print(selectedProject)
 
         # *** During our last sprint, as we are cleaning up files, we can possibly remove this check since
         # our input check has been strengthened with javascript and html ***
@@ -45,6 +45,21 @@ def index(request):
             print(error)
             return render(request, 'home/notification-settings.html',
                           {'list_of_projects_dict': list_of_projects, 'error_code': error})
+
+        print(project_id)
+        if project_id is not None:
+            # Document data of all projects in a dict
+            project_dict = firebase.get_project_document_data(project_id)
+
+            # List of participants of selected project
+            initial_participants = project_dict['participants']
+
+            # Setting cookies so that javascript can grab them to populate
+            # input text fields
+            response = HttpResponse("Cookie Set")
+            response.set_cookie('participants', initial_participants)
+            print(response)
+            return response
 
         # A unique id is generated and will be tagged to the reminder, and it will be backed up to our backup
         # reminder collection

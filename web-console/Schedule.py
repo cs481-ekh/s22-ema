@@ -176,7 +176,7 @@ def firebase_DueDate_Perge():
         parsed_end_date = datetime.strptime(expirationDate+' '+expirationTime, "%Y-%m-%d %H:%M").date()
         if str(parsed_end_date) <= str(current_time):
             print('Removing : '+id+" from database backup")
-            tag = backup.uuid
+            tag = dict['uuid']
             removeReminder(tag)
 
 def dabatBaseReload():
