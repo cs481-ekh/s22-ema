@@ -115,15 +115,15 @@ class LoginPage extends StatelessWidget {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Padding(
                     padding: EdgeInsets.only(
-                        top: screenSize.height * 0.015,
-                        bottom: screenSize.height * 0.015,
-                        left: screenSize.width * 0.07,
-                        right: screenSize.width * 0.07),
+                        top: screenSize.height * 0.02,
+                        bottom: screenSize.height * 0.02,
+                        left: screenSize.width * 0.05,
+                        right: screenSize.width * 0.05),
                     child: TextButton(
                       key: const Key("login-button"),
                       style: TextButton.styleFrom(
                           padding: const EdgeInsets.only(
-                              top: 10.0, bottom: 10.0, left: 10.0, right: 10.0),
+                              top: 13.5, bottom: 13.5, left: 30.0, right: 30.0),
                           primary: Colors.white,
                           textStyle: const TextStyle(fontSize: 20),
                           backgroundColor: Colors.blue),
