@@ -83,7 +83,25 @@ class _ProjectsPageState extends State<ProjectsPage> {
                 ],
               ),
             ),
-            //subtitle: Text(dateString),
+            onTap: () => showDialog(
+                context: context,
+                builder: (BuildContext context) {
+                  return AlertDialog(
+                      title: const Text("Project description"),
+                      content: SingleChildScrollView(
+                        child: ListBody(children: const <Widget>[
+                          Text("Project description goes hhere")
+                        ]),
+                      ),
+                      actions: <Widget>[
+                        TextButton(
+                          child: const Text('Ok'),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        )
+                      ]);
+                }),
             trailing: IconButton(
                 icon: const Icon(
                   Icons.delete,
@@ -126,7 +144,6 @@ class _ProjectsPageState extends State<ProjectsPage> {
   @override
   void initState() {
     initializeSharedPrefs();
-    //initializeMessageHandler();
     super.initState();
   }
 
