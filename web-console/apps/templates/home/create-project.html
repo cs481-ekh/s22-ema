@@ -78,17 +78,17 @@
                                                            placeholder="Link" name="surveyLink" required>
                                                 </div>
                                                 <div class="form-group">
-                                                     <div class="form-group">
-                                                    <label for="selectParticipant" id="email_label">Select Participant(s)</label>
-                                                    <select class="form-control" id="participantEmailInput"
-                                                            name="selectedProject">
-                                                        <option selected=selected>Select</option>
-                                                        <!-- [ code to display projects ] -->
-                                                        {% for part in all_users_drop_down %}
-                                                            <option value="{{ part }}">{{ part }} </option>
-                                                        {% endfor %}
-                                                    </select>
-                                                </div>
+                                                     <label for="selectParticipant" id="email_label">Select
+                                                            Participant(s)</label>
+                                                        <select class="form-control" id="participantEmailInput"
+                                                                name="selectedProject">
+                                                            <option selected=selected>Select</option>
+                                                            <!-- [ code to display projects ] -->
+                                                            {% for part in all_users_drop_down %}
+                                                                <option value="{{ part }}">{{ part }} </option>
+                                                            {% endfor %}
+                                                        </select>
+                                                    <br>
                                                     <button type="button" class="btn btn-success"
                                                             id="submitParticipant">Add
                                                         Participant

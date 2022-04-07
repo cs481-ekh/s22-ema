@@ -8,7 +8,7 @@ $(document).ready(function () {
     // drop down is disabled by default
     $('#participantEmailInput').attr('disabled', true);
     // disable create button
-    document.getElementById("createProject").disabled = true;
+     $('#createProject').attr('disabled', true);
 
     // Check if Project Name input box and survey Link input box are not empty
     $(document).on("keyup", function (e) {

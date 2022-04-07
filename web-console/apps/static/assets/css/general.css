@@ -171,3 +171,7 @@
 .disabled-link {
   pointer-events: none;
 }
+
+#participantsTableId{
+    margin-left: 15%;
+}
