@@ -191,6 +191,8 @@ def dabatBaseReload():
         projectName = dict['projectName']
         startDate =  dict['startDate']
 
+        print(id +" "+ projectName)
+
         if repeating == "Once":
             add_reminder_once(startDate, reminderTime, projectName, id)
             continue

@@ -13,6 +13,8 @@ Schedule = SourceFileLoader("Schedule", os.getcwd() + "/Schedule.py").load_modul
 def index(request):
     list_of_projects = firebase.get_all_project_names()
     project_id = request.POST.get('selected_project')
+    removelist = request.POST.get('removed_participants_list')
+    print(removelist)
     error = []
     flag = False
     if request.method == 'POST':
@@ -46,19 +48,33 @@ def index(request):
             return render(request, 'home/notification-settings.html',
                           {'list_of_projects_dict': list_of_projects, 'error_code': error})
 
-        print(project_id)
+        if removelist is not None:
+            Schedule.removeReminder(removelist)
+
         if project_id is not None:
             # Document data of all projects in a dict
-            project_dict = firebase.get_project_document_data(project_id)
+            project_dict = firebase.getAllBackUps()
 
-            # List of participants of selected project
-            initial_participants = project_dict['participants']
+            uuid = []
+            reminderTime = []
+            startDate = []
+            startDateDate = []
+
+            for reminder in project_dict:
+                dict = reminder.to_dict()
+                if project_id == dict['projectName']:
+                    uuid.append(dict['uuid'])
+                    reminderTime.append(dict['reminderTime'])
+                    startDate.append(Schedule.get_day_of_week(dict['startDate']))
+                    startDateDate.append(dict['startDate'])
 
             # Setting cookies so that javascript can grab them to populate
             # input text fields
             response = HttpResponse("Cookie Set")
-            response.set_cookie('participants', initial_participants)
-            print(response)
+            response.set_cookie('uuid', uuid)
+            response.set_cookie('reminderTime', reminderTime)
+            response.set_cookie('startDate', startDate)
+            response.set_cookie('startDateDate', startDateDate)
             return response
 
         # A unique id is generated and will be tagged to the reminder, and it will be backed up to our backup

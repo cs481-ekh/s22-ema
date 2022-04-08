@@ -1,12 +1,7 @@
 $(document).ready(function () {
 
-        let survey_link_initial;
-        let description_initial;
-        let participants_initial_list;
-        let survey_link_post;
-        let description_post;
+        let uuid_list;
         let removed_participants_list = [];
-        let add_new_participant_list = []; // List that will contain all the emails of participants to be added to the project.
 
     // When the page is rendered at the beginning, the dropdown selection for the project is
     // by default equal to Select Project. Therefore, all selection fields and button need to be
@@ -163,31 +158,38 @@ $(document).ready(function () {
         // Check if surveylink cookie is set every few seconds.
     setInterval(function () {
         //this code runs every few seconds
-        let participants = Cookies.get("participants"); // * Note -> the type of this variable is a string
-        if (typeof participants !== "undefined") {
+        let uuid_list = Cookies.get("uuid"); // * Note -> the type of this variable is a string
+        let time_list = Cookies.get("reminderTime");
+        let date_list = Cookies.get("startDate");
+        let datedate_list = Cookies.get("startDateDate");
+        if (typeof uuid_list !== "uuid") {
             // Setting the participants cookie variable as a global variable
-            participants_initial_list = participants;
-            // A regular expression scans the 'participants_initial_list' to extract emails only and add them in an array
-            participants_initial_list = participants_initial_list.match(/(?<=')[^' \054]+(?=')/g); // Note -> this will be null if there are no participants in selected project
-
             // The selected project contains participants
-            if (participants_initial_list != null) {
-                for (let i = 0; i < participants_initial_list.length; i++) {
+            uuid_list = uuid_list.replace('[','');
+            uuid_list = uuid_list.replace(']','');
+            uuid_list = uuid_list.split("\\054");
+            time_list = time_list.replace('[','');
+            time_list = time_list.replace(']','');
+            time_list = time_list.split("\\054");
+            date_list = date_list.replace('[','');
+            date_list = date_list.replace(']','');
+            date_list = date_list.split("\\054");
+            datedate_list = datedate_list.replace('[','');
+            datedate_list = datedate_list.replace(']','');
+            datedate_list = datedate_list.split("\\054");
 
-                    // the username and email domain are split and are separately stored in its own location in the array
-                    let split_array = participants_initial_list[i].split("@");
-
-                    // location 0 returns the username
-                    let userName = split_array[0];
+            console.log(uuid_list)
+            if (uuid_list[0] != "") {
+                for (let i = 0; i < uuid_list.length; i++) {
 
                     // Adding a participant card to the right
-                    $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + participants_initial_list[i] + ">\n" +
+                    $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + uuid_list[i] + ">\n" +
                         "                                                            <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
                         "                                                                     src=\"/static/assets/images/user/user-3.png\"\n" +
                         "                                                                     alt=\"activity-user\">\n" +
                         "                                                            <td>\n" +
-                        "                                                                <h6 class=\"mb-1\">" + participants_initial_list[i] + "</h6>\n" +
-                        "                                                                <p class=\"m-0\">" + userName + "</p>\n" +
+                        "                                                                <h6 class=\"mb-1\">" + time_list[i] +" "+date_list[i] +" Starting " +datedate_list[i] + "</h6>\n" +
+                        "                                                                <p class=\"m-0\">" + uuid_list[i] + "</p>\n" +
                         "                                                            </td>\n" +
                         "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 remove_card_edit_project removeButton\" name=\"editProjectBtn\" id=\"editProjectBtnId\">Remove</button>\n" +
                         "                                                            </td>\n" +
@@ -196,12 +198,37 @@ $(document).ready(function () {
             }
 
             // Delete the cookie after usage.
-            Cookies.remove("participants");
+            Cookies.remove("uuid");
+            Cookies.remove("reminderTime");
+            Cookies.remove("startDate");
+            Cookies.remove("datedate_list");
         }
     }, 10);
 
+    //When the "remove" button is clicked, remove the participant card
+    $(document).on('click', '.remove_card_edit_project', function () {
+        // Enabling the "Update Project" button
+        let uuid = $(this).closest('tr').attr('id');
 
-
+        // Before removing the div remove the animate class from the div
+        document.getElementById(uuid).classList.remove("animate_fade_in")
+        // fadeout the element first
+        document.getElementById(uuid).classList.add("animate_fade_out");
+        // //remove the parent element
+        setTimeout(function () {
+            // Wait for the element to exist
+            if ($(document.getElementById(uuid)).length > 0) {
+                $(document.getElementById(uuid)).remove();
+            }
+        }, 1000)
+        Cookies.set("removed_participants_list",uuid,365)
+        console.log(removed_participants_list)
+        $.ajax({
+                type: "POST",
+                url: '',
+                data: {'removed_participants_list': uuid},
+        });
+    });
 
 
 
