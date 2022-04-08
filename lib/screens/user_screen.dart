@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:ema/screens/profile_page.dart';
 import 'package:ema/screens/projects_screen.dart';
 import 'package:ema/utils/global_funcs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -85,7 +86,6 @@ class _UserPageState extends State<UserPage> {
     final dateString = DateFormat('yyyy-MM-dd – h:mm a').format(dateReceived);
     final projectID = '${nObject['projectID']}';
     final expiration = '${nObject['expiration']}';
-
 
     for (final notif in MissedNotifs) {
       final nObject = jsonDecode(notif);
@@ -255,11 +255,25 @@ class _UserPageState extends State<UserPage> {
             const DrawerHeader(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                    image: AssetImage('assets/images/sdp-logo-infinity.png')),
+                    fit: BoxFit.fill,
+                    image: AssetImage(
+                      'assets/images/sdp-logo-infinity.png',
+                    )),
               ),
               child: Text('Menu',
                   style: TextStyle(
                       fontWeight: FontWeight.bold, color: Colors.white)),
+            ),
+            ListTile(
+              title: const Text('Account',
+                  style: TextStyle(fontWeight: FontWeight.bold)),
+              onTap: () {
+                // Update the state of the app
+                // ...
+                // Then close the drawer
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => ProfilePage()));
+              },
             ),
             ListTile(
               title: const Text('Projects'),
@@ -272,7 +286,8 @@ class _UserPageState extends State<UserPage> {
               },
             ),
             ListTile(
-              title: const Text('Sign Out'),
+              title:
+                  const Text('Sign Out', style: TextStyle(color: Colors.red)),
               onTap: () {
                 // Update the state of the app
                 // ...

@@ -1,3 +1,4 @@
+import 'package:ema/screens/user_project_id_screen.dart';
 import 'package:ema/utils/global_funcs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -137,6 +138,16 @@ class _ProjectsPageState extends State<ProjectsPage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Your Projects'),
+        actions: <Widget>[
+          Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                  onTap: () {
+                    // TODO: navigate to new page where you can subscribe to new topic
+                    //Navigator.push(context, MaterialPageRoute(builder: (context) => projectpagehere()))
+                  },
+                  child: const Icon(Icons.add)))
+        ],
       ),
 
       // body is majority of the screen
