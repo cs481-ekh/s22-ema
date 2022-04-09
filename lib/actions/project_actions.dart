@@ -46,8 +46,9 @@ Future<dynamic> getProjectDescription(String project) async {
     } else {
       data = "failed";
     }
-    // ignore: invalid_return_type_for_catch_error
-  }).catchError((err) => {data = "failed"});
+  }).catchError((err) {
+    data = "failed";
+  });
   return data;
 }
 

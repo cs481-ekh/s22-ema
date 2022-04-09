@@ -69,8 +69,7 @@ class _ProjectsPageState extends State<ProjectsPage> {
     }
 
     Future<String> getProjectDesc() async {
-      dynamic descDyn = await getProjectDescription(project);
-      String desc = descDyn as String;
+      String desc = await getProjectDescription(project) as String;
       if (desc == "failed") {
         throw "Failed to retrieve project description.";
       }
