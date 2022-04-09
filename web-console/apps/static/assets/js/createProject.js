@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    // prevent empty form submission on refresh
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+
     let participant_list = []; // List that will contain all the emails of participants to be added to the project.
     let participant_email;
     let project_name;

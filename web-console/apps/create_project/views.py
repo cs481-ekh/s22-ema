@@ -14,7 +14,6 @@ non_participants = []
 
 @login_required(login_url="/login/")
 def create_project(request):
-
     # all the users to display on drop down for add participant
     all_users_drop_down = firebase.get_all_users_names()
 
@@ -76,10 +75,12 @@ def create_project(request):
                 # clearing the global non-participants list [to carry out new instance of project.]
                 non_participants.clear()
 
-                return render(request, 'home/create-project.html', {'message_success': 'Project created Successfully!'})
+                return render(request, 'home/create-project.html', {'message_success': 'Project created Successfully!',
+                                                                    'all_users_drop_down': all_users_drop_down})
             else:
                 return render(request, 'home/create-project.html',
-                              {'message_error': 'Project name exists! Please choose a different name'})
+                              {'message_error': 'Project name exists! Please choose a different name',
+                               'all_users_drop_down': all_users_drop_down})
 
     # html_template = loader.get_template('home/create-project.html')
     return render(request, 'home/create-project.html', {'all_users_drop_down': all_users_drop_down})

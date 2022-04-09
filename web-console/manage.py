@@ -30,7 +30,7 @@ def main():
     # Firebase
     ##################################################################################################################
     # provide file path for firebase credentials (Needs to be taken out during build [CI])
-    #os.environ[
+    # os.environ[
 
         # "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/rogue/Downloads/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
 
