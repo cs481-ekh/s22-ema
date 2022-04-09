@@ -3,6 +3,16 @@
 # Meeting Minutes: EMA
 ## Web
 
+### 4/7/22
+
+*Scribe:* Alejandro
+
+*Present:* Andrew, Alejandro, Daniel
+
+*Absent:* Brandon
+
+*Items:* We did our Sprint 4 planning. We discussed that we need to improve the user interface design on certain pages. There are a few minor bugs that need to be resolved, and we plan to do a strict test to attempt to break any feature to ensure that we have caught all the cases. This sprint will involve deploying the webiste on the BSU server. Our plan also consists of making sure our input fields are functioning and displaying the appropriate error messages when appropriate. Lastly, we touched on what assignments are left that need to be completed and how showcase will look like in our case.
+
 ### 3/29/22
 
 *Scribe:* Alejandro (Added minutes for the web team since Brandon was absent)
