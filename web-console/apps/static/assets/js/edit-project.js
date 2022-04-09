@@ -32,7 +32,7 @@ $(document).ready(function () {
     let description_post;
     let removed_participants_list = [];
     let add_new_participant_list = []; // List that will contain all the emails of participants to be added to the project.
-
+    let participantCardTracker = []; // This will keep track of the participant cards displayed on the front end for the admin user
 
     // "Update Project" button disabled at the beginning
     document.getElementById("editProjectBtnId").disabled = true;
@@ -108,6 +108,8 @@ $(document).ready(function () {
             description_initial = document.getElementById("notesInput").value = description;
             // Setting the participants cookie variable as a global variable
             participants_initial_list = participants;
+            // Getting a copy of the cards (participants) that are displayed on the front end (member of the project).
+            participantCardTracker = participants_initial_list.match(/(?<=')[^' \054]+(?=')/g);
             // A regular expression scans the 'participants_initial_list' to extract emails only and add them in an array
             participants_initial_list = participants_initial_list.match(/(?<=')[^' \054]+(?=')/g); // Note -> this will be null if there are no participants in selected project
 
@@ -190,6 +192,8 @@ $(document).ready(function () {
         // Store the participant to be removed in a separate list
         removed_participants_list.push(participant_removed_email);
 
+        // Update card tracker of the card removed (participant removed)
+        removeElementFromArr(participantCardTracker, participant_removed_email);
     });
 
     // When the "Update Project" button is clicked
@@ -246,7 +250,7 @@ $(document).ready(function () {
             const div = document.createElement("div")
 
             // The following html will be inserted in the div (friend error message)
-            div.innerHTML = "<div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message\">\n" +
+            div.innerHTML = "<div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
                 "                                            Participant does not exist!\n" +
                 "                                            <button type=\"button\" class=\"close close_button\" aria-label=\"Close\">\n" +
                 "                                                <span aria-hidden=\"true\">&times;</span>\n" +
@@ -270,6 +274,8 @@ $(document).ready(function () {
         if (typeof newParticipant !== "undefined") {
             // Adding our newParticipant to the new participant list
             add_new_participant_list.push(newParticipant);
+            // A new participant card has been added, therefore we need to add it to our card tracker
+            participantCardTracker.push(newParticipant);
             // the username and email domain are split and are separately stored in its own location in the array
             let new_split_array = newParticipant.split("@");
 
@@ -282,7 +288,7 @@ $(document).ready(function () {
                 "                                                                     src=\"/static/assets/images/user/user-3.png\"\n" +
                 "                                                                     alt=\"activity-user\">\n" +
                 "                                                            <td>\n" +
-                "                                                                <h6 class=\"mb-1\">" + newParticipant + "</h6>\n" +
+                "                                                                <h6 class=\"mb-1\" >" + newParticipant + "</h6>\n" +
                 "                                                                <p class=\"m-0\">" + newParticipantUsername + "</p>\n" +
                 "                                                            </td>\n" +
                 "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 remove_card_edit_project removeButton\" name=\"editProjectBtn\" id=\"editProjectBtnId\">Remove</button>\n" +
@@ -299,31 +305,57 @@ $(document).ready(function () {
         // the participant_is_member contains the email of a user who is a member of the project
         let participant_is_member = Cookies.get("user_is_member_of_project");
         if (typeof participant_is_member !== "undefined") {
-            $('#addParticipantInput-editProject').addClass('error_class_input');
-            $('#addParticipantLabelId-editProject').addClass('error_class_label');
-
-            // <---------------- participant already in list error message START --------------->
-            // Get the parent element
-            let parent = document.getElementById("div");
 
             // The error message will be added after blankSpace (<br> tag)
             let blankSpace = document.getElementById("space-after-add-participant-input");
 
             // Create the new element to be added
-            const div = document.createElement("div")
+            const div = document.createElement("div");
 
-            // The following html will be inserted in the div (friend error message)
-            div.innerHTML = "<div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
-                "                                            Participant is already in the list!\n" +
-                "                                            <button type=\"button\" class=\"close close_button\" id=\"close_button_error\" aria-label=\"Close\">\n" +
-                "                                                <span aria-hidden=\"true\">&times;</span>\n" +
-                "                                            </button>\n" +
-                "                                        </div>"
+            // the participant card is not displayed but the participant is already a member of a project, add the card
+            // back since the admin user previously removed it
+            const result = participantCardTracker.includes(participant_is_member);
+            if (result == false) {
+                // Update our card tracker
+                participantCardTracker.push(participant_is_member);
 
-            // Insert the created element
-            blankSpace.after(div)
-            // <---------------- participant already in list error message END --------------->
+                // Remove participant from the array of participants that will be removed from the selected project
+                // when the "Update Project" is clicked
+                removeElementFromArr(removed_participants_list, participant_is_member);
 
+                // the username and email domain are split and are separately stored in its own location in the array
+                let new_split_array = participant_is_member.split("@");
+
+                // location 0 returns the username
+                let participant_is_member_Username = new_split_array[0];
+
+                // Adding a participant card to the right
+                $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + participant_is_member + ">\n" +
+                    "                                                            <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
+                    "                                                                     src=\"/static/assets/images/user/user-3.png\"\n" +
+                    "                                                                     alt=\"activity-user\">\n" +
+                    "                                                            <td>\n" +
+                    "                                                                <h6 class=\"mb-1\" >" + participant_is_member + "</h6>\n" +
+                    "                                                                <p class=\"m-0\">" + participant_is_member_Username + "</p>\n" +
+                    "                                                            </td>\n" +
+                    "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 remove_card_edit_project removeButton\" name=\"editProjectBtn\" id=\"editProjectBtnId\">Remove</button>\n" +
+                    "                                                            </td>\n" +
+                    "                                                        </tr>");
+            } else // the card is already in the participant list on the front end.
+            {
+                $('#addParticipantInput-editProject').addClass('error_class_input');
+                $('#addParticipantLabelId-editProject').addClass('error_class_label');
+
+                div.innerHTML = "<div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
+                    "                                            Participant is already in the list!\n" +
+                    "                                            <button type=\"button\" class=\"close close_button\" id=\"close_button_error\" aria-label=\"Close\">\n" +
+                    "                                                <span aria-hidden=\"true\">&times;</span>\n" +
+                    "                                            </button>\n" +
+                    "                                        </div>"
+
+                // Insert the created element
+                blankSpace.after(div);
+            }
             Cookies.remove("user_is_member_of_project");
         }
     }, 10);
@@ -397,12 +429,31 @@ $(document).ready(function () {
         // Clear the add participant error message. When the error is not occurring, the value of
         // addParticipantErrorMessage is null which will throw an error in the browser console. Therefore, the
         // check for the null value is necessary below.
-        let addParticipantErrorMessage = document.querySelector('#message');
+        let addParticipantErrorMessage = document.querySelector('#message_error');
+        let successMessage = document.getElementById('message_success');
 
         // When the user triggers the error, the message will be displayed on the front end. Therefore, the message will
         // be removed only when the element (error) exists.
         if (addParticipantErrorMessage != null) {
             addParticipantErrorMessage.parentNode.removeChild(addParticipantErrorMessage);
+        }
+
+        // Remove success message
+        $(successMessage).fadeOut("fast", function () {
+            // remove the element
+            $(this).remove();
+        });
+    }
+
+    // This function will take an array and a value. It will delete the value from the array.
+    // If the element does not exist in the array, it will just return the original array
+    function removeElementFromArr(arr, valueToBeRemoved) {
+        for (var i = 0; i < arr.length; i++) {
+
+            if (arr[i] === valueToBeRemoved) {
+                arr.splice(i, 1);
+                i--;
+            }
         }
     }
 });
