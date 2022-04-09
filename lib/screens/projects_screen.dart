@@ -68,6 +68,15 @@ class _ProjectsPageState extends State<ProjectsPage> {
       }
     }
 
+    Future<String> getProjectDesc() async {
+      dynamic descDyn = await getProjectDescription(project);
+      String desc = descDyn as String;
+      if (desc == "failed") {
+        throw "Failed to retrieve project description.";
+      }
+      return desc;
+    }
+
     //This part returns the actual widget, along with a pointer to the tap function
     return Card(
         child: ListTile(
@@ -83,25 +92,26 @@ class _ProjectsPageState extends State<ProjectsPage> {
                 ],
               ),
             ),
-            onTap: () => showDialog(
-                context: context,
-                builder: (BuildContext context) {
-                  return AlertDialog(
-                      title: const Text("Project description"),
-                      content: SingleChildScrollView(
-                        child: ListBody(children: const <Widget>[
-                          Text("Project description goes hhere")
-                        ]),
-                      ),
-                      actions: <Widget>[
-                        TextButton(
-                          child: const Text('Ok'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        )
-                      ]);
-                }),
+            onTap: () async {
+              String desc = await getProjectDesc();
+              showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                        title: const Text("Project description"),
+                        content: SingleChildScrollView(
+                          child: ListBody(children: <Widget>[Text(desc)]),
+                        ),
+                        actions: <Widget>[
+                          TextButton(
+                            child: const Text('Ok'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ]);
+                  });
+            },
             trailing: IconButton(
                 icon: const Icon(
                   Icons.delete,
