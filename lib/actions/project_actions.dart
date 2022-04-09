@@ -34,6 +34,24 @@ Future<List<dynamic>> getProjectParticipants(String project) async {
   return data;
 }
 
+Future<dynamic> getProjectDescription(String project) async {
+  dynamic data;
+  await FirebaseFirestore.instance
+      .collection('projects')
+      .doc(project)
+      .get()
+      .then((DocumentSnapshot documentSnapshot) {
+    if (documentSnapshot.exists) {
+      data = documentSnapshot.get("description");
+    } else {
+      data = "failed";
+    }
+  }).catchError((err) {
+    data = "failed";
+  });
+  return data;
+}
+
 Future<bool> checkProjectIdExists(String projectId) async {
   bool check = true;
 
