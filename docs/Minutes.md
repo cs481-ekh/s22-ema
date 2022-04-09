@@ -105,6 +105,26 @@
 
 ## Mobile
 
+### 4/07/22
+
+*Scribe:* Jeff
+
+*Present:* Jason, Jeff, Jon
+
+*Absent:* N/A
+
+*Items:* Began initial work on Sprint 4 tasks. Change password feature was added during this group meeting and the UI layout and project screen descriptions were worked on.
+
+### 4/06/22
+
+*Scribe:* Jeff
+
+*Present:* Jason, Jeff, Jon
+
+*Absent:* N/A
+
+*Items:* We finalized our Sprint 3 by adding the retrospective and closing it. We also created our Sprint 4 board, plan and tasks. These tasks were then assigned to each team member.
+
 ### 3/31/22
 
 *Scribe:* Jason
@@ -186,6 +206,16 @@
 *Items:* We met for Sprint 1 planning where we created the sprint goal, user stories, tasks and assigned them. We decided that for Sprint 1 we would focus on removing the admin side form the mobile app while improving user notifications by including the expiration time for the survey in their information. We also decided to add a user password reset for the case that a user forgets their login information.
 
 ## Full Team
+
+### 4/09/22
+
+*Scribe:* Jeff
+
+*Present:* Jeff, Andrew, Daniel, Alejandro
+
+*Absent:* Jon, Jason, Brandon
+
+*Items:* Tested scheduled notification and reminder interactions between mobile and website. Had a bug where reminders were sometimes not sent that is planned to be addressed. Planned to meet with web/mobile members throughout week to test bug fixes that are interrelated. Discussed creating a whentomeet for the project sponsor handoff on Tuesday, and finalizing it by our next team meeting of Saturday. Also discussed notifying Professor on Tuesday about the difficulties with contacting the sponsor that we've had to see if there are any contingencies or other avenues for the handoff if the sponsor continues to remain unresponsive.
 
 ### 4/2/22
 
