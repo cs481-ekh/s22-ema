@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    // prevent empty form submission on refresh
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+
     let survey_link_initial;
     let description_initial;
     let participants_initial_list;
