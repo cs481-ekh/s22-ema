@@ -14,8 +14,9 @@ remove_participants_list = None
 
 @login_required(login_url="/login/")
 def edit_project(request):
-    print(firebase.get_all_users())
+    # This data shows up on drop down for participants
     all_users_drop_down = firebase.get_all_users_names()
+
     if request.method == 'POST':
         global initial_survey_link, initial_description, initial_participants, remove_participants_list
 
@@ -43,7 +44,8 @@ def edit_project(request):
             list_of_projects = firebase.get_all_project_names()
 
             return render(request, 'home/edit-project.html', {'list_of_projects_dict': list_of_projects,
-                                                              'message_success': 'Project deleted successfully!'})
+                                                              'message_success': 'Project deleted successfully!',
+                                                              'all_users_drop_down': all_users_drop_down})
 
         # When the user clicks on new participant the participant email is taken from the input field on frontend
         if new_participant_email is not None and proj_name is not None:

@@ -1,8 +1,28 @@
 $(document).ready(function () {
 
+    // Targeting message that appears on submission of the form ()
+    $("#close_button_success").click(function () {
+        let element = document.getElementById("message_success");
+        // add fade out class
+        $(element).fadeOut("slow", function () {
+            // remove the element
+            $(this).remove();
+        });
+    })
+
+
+    $(document).on('click', '#close_button_error', function () {
+        let element = document.getElementById("message_error");
+        // add fade out class
+        $(element).fadeOut("slow", function () {
+            // remove the element
+            $(this).remove();
+        });
+    });
+
     // prevent empty form submission on refresh
-    if ( window.history.replaceState ) {
-        window.history.replaceState( null, null, window.location.href );
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
     }
 
     let survey_link_initial;
@@ -293,9 +313,9 @@ $(document).ready(function () {
             const div = document.createElement("div")
 
             // The following html will be inserted in the div (friend error message)
-            div.innerHTML = "<div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message\">\n" +
+            div.innerHTML = "<div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
                 "                                            Participant is already in the list!\n" +
-                "                                            <button type=\"button\" class=\"close close_button\" aria-label=\"Close\">\n" +
+                "                                            <button type=\"button\" class=\"close close_button\" id=\"close_button_error\" aria-label=\"Close\">\n" +
                 "                                                <span aria-hidden=\"true\">&times;</span>\n" +
                 "                                            </button>\n" +
                 "                                        </div>"
