@@ -106,14 +106,16 @@ Future<dynamic> removeUserFromParticipants(
   data = await getProjectParticipants(projectId);
   if (data.contains(email)) {
     data.remove(email);
+    CollectionReference projects =
+        FirebaseFirestore.instance.collection('projects');
+    projects
+        .doc(projectId)
+        .update({"participants": data})
+        .then((_) => {ret = ""})
+        .catchError((error) => {ret = error.toString()});
+  } else {
+    ret = "User was not found in the project's participants list in Firebase.";
   }
-  CollectionReference projects =
-      FirebaseFirestore.instance.collection('projects');
-  projects
-      .doc(projectId)
-      .update({"participants": data})
-      .then((_) => {ret = ""})
-      .catchError((error) => {ret = error.toString()});
 
   return ret;
 }
@@ -122,12 +124,17 @@ Future<dynamic> removeProjectIdFromUser(String email, String projectId) async {
   dynamic ret = "";
   List<dynamic> data;
   data = await getUsersProjectList(email);
-  data.remove(projectId);
-  CollectionReference projects = FirebaseFirestore.instance.collection('users');
-  projects
-      .doc(email)
-      .update({"projectId": data})
-      .then((_) => {ret = ""})
-      .catchError((error) => {ret = error.toString()});
+  if (data.contains(projectId)) {
+    data.remove(projectId);
+    CollectionReference projects =
+        FirebaseFirestore.instance.collection('users');
+    projects
+        .doc(email)
+        .update({"projectId": data})
+        .then((_) => {ret = ""})
+        .catchError((error) => {ret = error.toString()});
+  } else {
+    ret = "Project ID was not found in the user's project list in Firebase.";
+  }
   return ret;
 }
