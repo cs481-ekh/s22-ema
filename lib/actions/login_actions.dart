@@ -9,6 +9,8 @@ FirebaseAuth auth = FirebaseAuth.instance;
 ///
 /// Project/subscription
 ///
+
+/*
 Future<bool> subscribeToProjectTopic(List<dynamic> projectId) async {
   bool check = true;
   for (var element in projectId) {
@@ -18,6 +20,7 @@ Future<bool> subscribeToProjectTopic(List<dynamic> projectId) async {
   }
   return check;
 }
+*/
 
 ///
 /// Users
@@ -167,12 +170,14 @@ Future<String> signinUser(username, password) async {
   }
 
   //subscribe user to project
+  /*
   bool subscribeCheck = await subscribeToProjectTopic(userProjects);
   if (!subscribeCheck) {
     errorMessage =
         "Could not subscribe user to project using ID(s) in database.";
     return errorMessage;
   }
+  */
 
   //Update the user's token if it is new
   String token = await getUsersToken(username);
