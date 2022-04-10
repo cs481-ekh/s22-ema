@@ -76,27 +76,24 @@ Future<bool> addUserToParticipants(String email, List<String> projList) async {
       FirebaseFirestore.instance.collection('projects');
   for (String project in projList) {
     List<dynamic> participants = await getProjectParticipants(project);
-    if (participants.isEmpty) {
-      return false;
-    }
     participants.add(email);
     projects
         .doc(project)
-        .update({"participants": participants})
-        .then((passed) => true)
-        .catchError((passed) => false);
+        .update({"participants": participants}).catchError((err) {
+      passed = false;
+    });
   }
   return passed;
 }
 
 Future<String> removeUserFromProject(String email, String projectId) async {
-  String error = "";
-  if (await removeProjectIdFromUser(email, projectId) == "failed") {
-    error = "Could not remove the projectId from the user collection.";
+  String error;
+  error = await removeProjectIdFromUser(email, projectId);
+  if (error != "") {
     return error;
   }
-  if (await removeUserFromParticipants(email, projectId) == "failed") {
-    error = "Could not remove the user from the project participants list.";
+  error = await removeUserFromParticipants(email, projectId);
+  if (error != "") {
     return error;
   }
   return error;
@@ -104,27 +101,25 @@ Future<String> removeUserFromProject(String email, String projectId) async {
 
 Future<dynamic> removeUserFromParticipants(
     String email, String projectId) async {
-  dynamic ret;
+  dynamic ret = "";
   List<dynamic> data;
   data = await getProjectParticipants(projectId);
   if (data.contains(email)) {
     data.remove(email);
-  } else {
-    ret = "nothing";
   }
   CollectionReference projects =
       FirebaseFirestore.instance.collection('projects');
   projects
       .doc(projectId)
       .update({"participants": data})
-      .then((_) => {ret = "success"})
-      .catchError((_) => {ret = "failed"});
+      .then((_) => {ret = ""})
+      .catchError((error) => {ret = error.toString()});
 
   return ret;
 }
 
 Future<dynamic> removeProjectIdFromUser(String email, String projectId) async {
-  dynamic ret;
+  dynamic ret = "";
   List<dynamic> data;
   data = await getUsersProjectList(email);
   data.remove(projectId);
@@ -132,7 +127,7 @@ Future<dynamic> removeProjectIdFromUser(String email, String projectId) async {
   projects
       .doc(email)
       .update({"projectId": data})
-      .then((_) => {ret = "success"})
-      .catchError((_) => {ret = "failed"});
+      .then((_) => {ret = ""})
+      .catchError((error) => {ret = error.toString()});
   return ret;
 }

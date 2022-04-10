@@ -6,38 +6,15 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 
 FirebaseAuth auth = FirebaseAuth.instance;
 
-// TODO: delete/manage this (was just for testing)
-// Future<void> onActionSelected(String value) async {
-//   switch (value) {
-//     case 'subscribe':
-//       {
-//         print('Subscribing to test topic: notif_test');
-//         await FirebaseMessaging.instance.subscribeToTopic('notif_test');
-//         print('Subscription successful');
-//       }
-//       break;
-//     case 'unsubscribe':
-//       {
-//         print('Unsubscibing from test topic: notif_test');
-//         await FirebaseMessaging.instance.unsubscribeFromTopic('notif_test');
-//         print('Unsubscription successful');
-//       }
-//       break;
-//     default:
-//       break;
-//   }
-// }
-
 ///
 /// Project/subscription
 ///
 Future<bool> subscribeToProjectTopic(List<dynamic> projectId) async {
   bool check = true;
   for (var element in projectId) {
-    FirebaseMessaging.instance
-        .subscribeToTopic(element)
-        .then((value) => true)
-        .catchError((check) => false);
+    FirebaseMessaging.instance.subscribeToTopic(element).catchError((err) {
+      check = false;
+    });
   }
   return check;
 }
@@ -66,7 +43,6 @@ Future<String> addNewUser(
 
   // add user to database to save projectId and other data
   // but only if auth worked
-  // TODO: do we need to handle if auth succeeded but db add failed -- delete account and try again?
 
   List<String> projectList = <String>[];
   projectList.add(projectIdController.text);
@@ -120,6 +96,7 @@ Future<String> registerUser(String username, String password) {
       .catchError((error) => error.toString());
 }
 
+/*
 Future<dynamic> getUsersAdminPriv(String username) async {
   dynamic data;
 
@@ -137,6 +114,7 @@ Future<dynamic> getUsersAdminPriv(String username) async {
 
   return data;
 }
+*/
 
 Future<String> getUsersToken(String username) async {
   dynamic data;
