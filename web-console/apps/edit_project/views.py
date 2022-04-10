@@ -40,6 +40,14 @@ def edit_project(request):
             part_list = firebase.get_participant_list(selected_delete_project)
             firebase.remove_project_from_participants(selected_delete_project, part_list)
 
+            # get uuids associated with the project.
+            uuids = firebase.get_uuids(selected_delete_project)
+            # delete reminder info of the project/projects from firebase
+            if len(uuids) != 0:
+                for uuid in uuids:
+                    firebase.removeBackUp(uuid)
+
+            # deleting the project
             firebase.delete_project_document(selected_delete_project)
             list_of_projects = firebase.get_all_project_names()
 
