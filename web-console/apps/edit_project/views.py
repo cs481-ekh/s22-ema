@@ -4,6 +4,8 @@ from django.http import HttpResponse
 from importlib.machinery import SourceFileLoader
 import os
 
+from django.template import loader
+
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 
 initial_survey_link = None
@@ -51,9 +53,13 @@ def edit_project(request):
             firebase.delete_project_document(selected_delete_project)
             list_of_projects = firebase.get_all_project_names()
 
-            return render(request, 'home/edit-project.html', {'list_of_projects_dict': list_of_projects,
-                                                              'message_success': 'Project deleted successfully!',
-                                                              'all_users_drop_down': all_users_drop_down})
+            try:
+                return render(request, 'home/edit-project.html', {'list_of_projects_dict': list_of_projects,
+                                                                  'message_success': 'Project deleted successfully!',
+                                                                  'all_users_drop_down': all_users_drop_down})
+            except:
+                html_template = loader.get_template('home/page-500.html')
+                return HttpResponse(html_template.render({}, request))
 
         # When the user clicks on new participant the participant email is taken from the input field on frontend
         if new_participant_email is not None and proj_name is not None:
@@ -137,14 +143,22 @@ def edit_project(request):
             # Returning successful message and list of projects for dropdown to edit projects
             list_of_projects = firebase.get_all_project_names()
             # Passing the context info to populate the dropdown option
-            return render(request, 'home/edit-project.html', {'list_of_projects_dict': list_of_projects,
-                                                              'message_success': 'Project updated successfully!',
-                                                              'all_users_drop_down': all_users_drop_down})
+            try:
+                return render(request, 'home/edit-project.html', {'list_of_projects_dict': list_of_projects,
+                                                                  'message_success': 'Project updated successfully!',
+                                                                  'all_users_drop_down': all_users_drop_down})
+            except:
+                html_template = loader.get_template('home/page-500.html')
+                return HttpResponse(html_template.render({}, request))
 
     if request.method == 'GET':
         list_of_projects = firebase.get_all_project_names()
-        return render(request, 'home/edit-project.html',
-                      {'list_of_projects_dict': list_of_projects, 'all_users_drop_down': all_users_drop_down})
+        try:
+            return render(request, 'home/edit-project.html',
+                          {'list_of_projects_dict': list_of_projects, 'all_users_drop_down': all_users_drop_down})
+        except:
+            html_template = loader.get_template('home/page-500.html')
+            return HttpResponse(html_template.render({}, request))
 
 
 # When we receive the list of participants, it is a string. Therefore we need to split it at ','
