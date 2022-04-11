@@ -1,4 +1,6 @@
 from importlib.machinery import SourceFileLoader
+
+import pytz
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse
 from django.shortcuts import render, redirect
@@ -79,15 +81,15 @@ def index(request):
     for reminder_collection in firebase.getAllBackUps():
         notification_data_list.append(reminder_collection.to_dict())
 
-    # send current date and time to the template
-    # current date and time
-    now = datetime.now()
+    # setting time zone.
+    tz = pytz.timezone('America/Boise')
+    now = datetime.now(tz=tz)
+    # current date and time to be sent to template
     current_date = now.strftime("%Y-%m-%d")
     current_time = now.strftime("%H:%M")
 
     # get start of week and get end of week. This data goes in the
     today = pendulum.now()
-
     start_of_week = today.start_of('week').to_date_string()
     end_of_week = today.end_of('week').to_date_string()
 
@@ -102,7 +104,12 @@ def index(request):
         'end_of_week': end_of_week
     }
 
-    return render(request, 'home/index.html', context)
+    try:
+        return render(request, 'home/index.html', context)
+    # This loads if the index.html fails to render.
+    except:
+        html_template = loader.get_template('home/page-500.html')
+        return HttpResponse(html_template.render({}, request))
 
 
 @login_required(login_url="/login/")
@@ -121,28 +128,9 @@ def support_page(request):
     return render(request, 'home/support.html')
 
 
-# To be removed later
+# if page is not found
 @login_required(login_url="/login/")
-def pages(request):
+def page_not_found(request):
     context = {}
-    # All resource paths end in .html.
-    # Pick out the html file name from the url. And load that template.
-    try:
-
-        load_template = request.path.split('/')[-1]
-
-        if load_template == 'admin':
-            return HttpResponseRedirect(reverse('admin:index'))
-        context['segment'] = load_template
-
-        html_template = loader.get_template('home/' + load_template)
-        return HttpResponse(html_template.render(context, request))
-
-    except template.TemplateDoesNotExist:
-
-        html_template = loader.get_template('home/page-404.html')
-        return HttpResponse(html_template.render(context, request))
-
-    except:
-        html_template = loader.get_template('home/page-500.html')
-        return HttpResponse(html_template.render(context, request))
+    html_template = loader.get_template('home/page-404.html')
+    return HttpResponse(html_template.render(context, request))
