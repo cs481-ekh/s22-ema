@@ -131,7 +131,7 @@ def support_page(request):
 
 # To be removed later
 @login_required(login_url="/login/")
-def pages(request):
+def page_not_found(request):
     context = {}
     html_template = loader.get_template('home/page-404.html')
     return HttpResponse(html_template.render(context, request))

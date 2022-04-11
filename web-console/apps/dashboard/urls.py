@@ -6,5 +6,5 @@ urlpatterns = [
     path('support/', views.support_page, name='support'), # support page
     path('JSON/', views.send_json_to_client), # json
     # Matches any html file
-    re_path(r'^.*\.*', views.pages, name='pages')
+    re_path(r'^.*\.*', views.page_not_found, name='pages')
 ]
