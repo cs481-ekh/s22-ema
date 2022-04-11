@@ -128,8 +128,7 @@ def send_json_to_client(request):
 def support_page(request):
     return render(request, 'home/support.html')
 
-
-# To be removed later
+# if page is not found
 @login_required(login_url="/login/")
 def page_not_found(request):
     context = {}
