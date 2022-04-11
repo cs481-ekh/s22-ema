@@ -18,95 +18,94 @@ project_participants = []
 
 @login_required(login_url="/login/")
 def index(request):
-    try:
-        # POST only comes in if drop down is value is changed
-        if request.method == 'POST':
+    # POST only comes in if drop down is value is changed
+    if request.method == 'POST':
 
-            # Getting project name from POST
-            proj_name = request.POST.get("selectedProject")
+        # Getting project name from POST
+        proj_name = request.POST.get("selectedProject")
 
-            # helps clear project_participants list dictionary defined as global variable.
-            is_clear_list = request.POST.get("clear_list")
+        # helps clear project_participants list dictionary defined as global variable.
+        is_clear_list = request.POST.get("clear_list")
+        if is_clear_list is not None:
             if is_clear_list is not None:
-                if is_clear_list is not None:
-                    project_participants.clear()
+                project_participants.clear()
 
-            # Safe check for project name
-            if proj_name is not None and proj_name != 'Select':
+        # Safe check for project name
+        if proj_name is not None and proj_name != 'Select':
 
-                # Getting participant list from firebase present in the project
-                part_list = firebase.get_participant_list(proj_name)
+            # Getting participant list from firebase present in the project
+            part_list = firebase.get_participant_list(proj_name)
 
-                # build a list of dictionary to send a JSON response
-                for part in part_list:
-                    firebase_user_data = firebase.get_user_data(part)
-                    # this will populate the list with users dictionaries, to be sent to client end.
-                    project_participants.append(firebase_user_data)
+            # build a list of dictionary to send a JSON response
+            for part in part_list:
+                firebase_user_data = firebase.get_user_data(part)
+                # this will populate the list with users dictionaries, to be sent to client end.
+                project_participants.append(firebase_user_data)
 
-                # JSON response is sent from here
-                if len(project_participants) != 0:
-                    # This will send the JSON data to the client
-                    send_json_to_client(request)
-                    # After JSON data is sent than empty the list of dictionaries.
+            # JSON response is sent from here
+            if len(project_participants) != 0:
+                # This will send the JSON data to the client
+                send_json_to_client(request)
+                # After JSON data is sent than empty the list of dictionaries.
 
-                part_list_count = len(part_list)
+            part_list_count = len(part_list)
 
-                # percentage to be displayed on the card
-                participant_percentage = round((part_list_count / len(firebase.get_all_users_names())) * 100, 2)
+            # percentage to be displayed on the card
+            participant_percentage = round((part_list_count / len(firebase.get_all_users_names())) * 100, 2)
 
-                # Setting cookie on client end for the data to be represented:
-                response = HttpResponse("Cookie Set")
+            # Setting cookie on client end for the data to be represented:
+            response = HttpResponse("Cookie Set")
 
-                # set part_list_count on client end for the data to be represented
-                response.set_cookie('part_list_count', part_list_count)
+            # set part_list_count on client end for the data to be represented
+            response.set_cookie('part_list_count', part_list_count)
 
-                # setting percentage cookie to be displayed on card
-                response.set_cookie('participant_percentage', participant_percentage)
+            # setting percentage cookie to be displayed on card
+            response.set_cookie('participant_percentage', participant_percentage)
 
-                # JSON_set cookie
-                response.set_cookie('set_json', 'set_json')
+            # JSON_set cookie
+            response.set_cookie('set_json', 'set_json')
 
-                return response
+            return response
 
-        # Contains list of projects
-        list_of_projects = firebase.get_all_project_names()
+    # Contains list of projects
+    list_of_projects = firebase.get_all_project_names()
 
-        # total projects present on firebase
-        list_of_projects_count = len(list_of_projects)
+    # total projects present on firebase
+    list_of_projects_count = len(list_of_projects)
 
-        # total users present on firebase
-        list_of_users_count = len(firebase.get_all_users_names())
+    # total users present on firebase
+    list_of_users_count = len(firebase.get_all_users_names())
 
-        notification_data_list = []
-        # send Notification data to the template
-        for reminder_collection in firebase.getAllBackUps():
-            notification_data_list.append(reminder_collection.to_dict())
+    notification_data_list = []
+    # send Notification data to the template
+    for reminder_collection in firebase.getAllBackUps():
+        notification_data_list.append(reminder_collection.to_dict())
 
-        # setting time zone.
-        tz = pytz.timezone('America/Boise')
-        now = datetime.now(tz=tz)
-        # current date and time to be sent to template
-        current_date = now.strftime("%Y-%m-%d")
-        current_time = now.strftime("%H:%M")
+    # setting time zone.
+    tz = pytz.timezone('America/Boise')
+    now = datetime.now(tz=tz)
+    # current date and time to be sent to template
+    current_date = now.strftime("%Y-%m-%d")
+    current_time = now.strftime("%H:%M")
 
-        # get start of week and get end of week. This data goes in the
-        today = pendulum.now()
-        start_of_week = today.start_of('week').to_date_string()
-        end_of_week = today.end_of('week').to_date_string()
+    # get start of week and get end of week. This data goes in the
+    today = pendulum.now()
+    start_of_week = today.start_of('week').to_date_string()
+    end_of_week = today.end_of('week').to_date_string()
 
-        context = {
-            'list_of_projects_dict': list_of_projects,
-            'list_of_projects_count': list_of_projects_count,
-            'list_of_users_count': list_of_users_count,
-            'notification_data_list': notification_data_list,
-            'curr_date': current_date,
-            'curr_time': current_time,
-            'start_of_week': start_of_week,
-            'end_of_week': end_of_week
-        }
+    context = {
+        'list_of_projects_dict': list_of_projects,
+        'list_of_projects_count': list_of_projects_count,
+        'list_of_users_count': list_of_users_count,
+        'notification_data_list': notification_data_list,
+        'curr_date': current_date,
+        'curr_time': current_time,
+        'start_of_week': start_of_week,
+        'end_of_week': end_of_week
+    }
 
+    try:
         return render(request, 'home/index.html', context)
-
     # This loads if the index.html fails to render.
     except:
         html_template = loader.get_template('home/page-500.html')
