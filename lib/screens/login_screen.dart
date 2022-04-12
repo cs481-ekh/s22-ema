@@ -21,6 +21,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('EMA'),
         //This is just for testing and should be removed once a system is in
@@ -115,15 +116,18 @@ class LoginPage extends StatelessWidget {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   Padding(
                     padding: EdgeInsets.only(
-                        top: screenSize.height * 0.015,
-                        bottom: screenSize.height * 0.015,
-                        left: screenSize.width * 0.07,
-                        right: screenSize.width * 0.07),
+                        top: screenSize.height * 0.01,
+                        bottom: screenSize.height * 0.01,
+                        left: screenSize.width * 0.05,
+                        right: screenSize.width * 0.05),
                     child: TextButton(
                       key: const Key("login-button"),
                       style: TextButton.styleFrom(
-                          padding: const EdgeInsets.only(
-                              top: 10.0, bottom: 10.0, left: 10.0, right: 10.0),
+                          padding: EdgeInsets.only(
+                              top: screenSize.height * 0.02,
+                              bottom: screenSize.height * 0.02,
+                              left: screenSize.width * 0.06,
+                              right: screenSize.width * 0.06),
                           primary: Colors.white,
                           textStyle: const TextStyle(fontSize: 20),
                           backgroundColor: Colors.blue),
