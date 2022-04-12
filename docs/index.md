@@ -26,7 +26,7 @@ Login screen as viewed upon opening app for the first time:
 The app also has persistent login capabilities, so users only have to login once per device. 
 
 In the event that the user forgets their password, they can use the forgot password button on the login screen to be redirected to a new page where upon entering their email registered with the account, they will be emailed a link that allows the user to change their password
-![](images/new_Recover Email.png)
+![](images/new_Recover_Email.png)
 
 If the app is closed or in the background, the notification will appear as a regular push notification.   
   
