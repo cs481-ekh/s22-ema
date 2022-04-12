@@ -21,7 +21,7 @@ Users of the app are able to create accounts on the mobile application, reset th
   
 Login screen as viewed upon opening app for the first time:  
 
-![](images/login.png)  
+![](images/new_login_screen.png)  
   
 The app also has persistent login capabilities, so users only have to login once per device. 
 
