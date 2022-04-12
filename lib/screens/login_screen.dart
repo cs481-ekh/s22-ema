@@ -21,6 +21,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var screenSize = MediaQuery.of(context).size;
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         title: const Text('EMA'),
         //This is just for testing and should be removed once a system is in
