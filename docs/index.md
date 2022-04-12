@@ -1,7 +1,8 @@
+
 # Ecological Momentary Assessment (EMA) App
 ![EMA App Logo: simple graphic of person holding clipboard](../assets/images/logo.png)
 
-### Created by Paisley Davis, Chloe Johnson, and Mason Humpherys
+### Created by Paisley Davis, Chloe Johnson, Mason Humpherys, Jeff Kahn, Jason Kuphaldt, Jonathon Tipton 
 
 ## Abstract:
 
@@ -13,9 +14,10 @@ This app is currently a work-in-progress and does not fulfill all necessary func
 
 ## Project Description:
 
-Our app is built using [Flutter](https://flutter.dev/). Currently, we have only been able to test it on mobile Android devices, though Flutter is meant to allow cross-platform implementation. 
+### Mobile
 
-In its current state, users of the app can create an account, login, subscribe to projects, and receive notifications containing survey links once subscribed to a project. Opened notifications will direct the user to the specified Qualtrics survey.   
+Our app is built using [Flutter](https://flutter.dev/). Using flutter we have updated the compatibility of he app to now work with IoS when it previously only worked on Android. Administrative actions on the mobile application have been furloughed in favor of providing said functions on the web console.
+Users of the app are able to create accounts on the mobile application, reset their password if forgotten, view their streak of participation, receive notifications containing survey links that display their expiration times that are automatically removed upon expiration.  Users are also able to leave projects that they have been added to as well as change their password and view more information about the SDP process through a dialogue notification that appears when the SDP logo is tapped.
   
 Login screen as viewed upon opening app for the first time:  
 
@@ -23,15 +25,9 @@ Login screen as viewed upon opening app for the first time:
   
 The app also has persistent login capabilities, so users only have to login once per device. 
 
-When registering as a new user, users provide a "project ID" which is used to subscribe them to a previously-created Firebase notification list.  
-  
-The UI is currently set-up for admin users to send notifications and view and manage projects, but the functionality only supports new project creation.  
+In the event that the user forgets their password, they can use the forgot password button on the login screen to be redirected to a new page where upon entering their email registered with the account, they will be emailed a link that allows the user to change their password
+![](images/new_Recover Email.png)
 
-![](images/admin.png) 
-![](images/new-project.png)  
-  
-However, hardcoded device-to-server-to-device notification broadcasting has been successfully tested, and notifications can be sent immediately from the Firebase console for testing. 
-  
 If the app is closed or in the background, the notification will appear as a regular push notification.   
   
 ![](images/notif.png)
@@ -44,10 +40,11 @@ Selecting either notifications will open the notification's containing link in t
 
 ![](images/link-site.png)
 
-When a hard coded notification is scheduled from a device, an independent Node.js server captures these notifications and sends them to [Firebase](https://firebase.google.com/) to be distributed at the specified time. 
+Users that are logged in have access to a sidebar that contains Account and Project information as well as a sign out option
+![](images/new_login_sie_panel.png)
 
-Presently, notification management within the app itself is mostly non-existent; admin users don't have any management or control options once notifications are submitted. 
+The account option takes the user to a new screen where they are able to view their registered email and change their password
+![](images/new_account_screen.png)
 
-User management can also only be done through the Firebase console. More robust user and project management is planned for the future, with basic UI elements in place for coming implementations.
-  
-![](images/project-list.png)
+The project information option allows users to see the list of projects that they are subscribed to and unsubscribe
+![](images/new_manage_projects.png)
