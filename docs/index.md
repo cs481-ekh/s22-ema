@@ -41,7 +41,7 @@ Selecting either notifications will open the notification's containing link in t
 ![](images/link-site.png)
 
 Users that are logged in have access to a sidebar that contains Account and Project information as well as a sign out option
-![](images/new_login_sie_panel.png)
+![](images/new_login_side_panel.png)
 
 The account option takes the user to a new screen where they are able to view their registered email and change their password
 ![](images/new_account_screen.png)
