@@ -358,3 +358,15 @@ def uuid_document_exist(document_name):
     else:
         # the uuid is free
         return False
+
+
+# gets uuid's/uuid of all the documents provided a project name
+def get_uuids(project_name):
+    uuids = []
+    db = db_connect_firebase()
+    docs = db.collection(u'reminderBackUp').stream()
+    for doc in docs:
+        reminder_dict = doc.to_dict()
+        if reminder_dict["projectName"] == project_name:
+            uuids.append(reminder_dict["uuid"])
+    return uuids

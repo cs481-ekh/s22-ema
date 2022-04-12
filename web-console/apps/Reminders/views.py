@@ -4,6 +4,7 @@ import os
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.template import loader
 
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 Schedule = SourceFileLoader("Schedule", os.getcwd() + "/Schedule.py").load_module()
@@ -46,8 +47,12 @@ def index(request):
 
         if flag:
             print(error)
-            return render(request, 'home/notification-settings.html',
+            try:
+                return render(request, 'home/notification-settings.html',
                           {'list_of_projects_dict': list_of_projects, 'error_code': error})
+            except:
+                html_template = loader.get_template('home/page-500.html')
+                return HttpResponse(html_template.render({}, request))
 
         if removelist is not None:
             Schedule.removeReminder(removelist)
@@ -89,8 +94,12 @@ def index(request):
             Schedule.add_reminder_once(startDate, startTime, selectedProject, unique_id)
             # adding our notification to our backUp reminder table
             firebase.createNewBackUp(unique_id, selectedProject, startDate, startTime, selection, endDate, endTime)
-            return render(request, 'home/notification-settings.html',
+            try:
+                return render(request, 'home/notification-settings.html',
                           {'list_of_projects_dict': list_of_projects, 'error_code': error})
+            except:
+                html_template = loader.get_template('home/page-500.html')
+                return HttpResponse(html_template.render({}, request))
 
         # if the selection is weekly
         if selection == 'Weekly':
@@ -104,6 +113,10 @@ def index(request):
             # adding our notification to our backUp reminder table
             firebase.createNewBackUp(unique_id, selectedProject, startDate, startTime, selection, endDate, endTime)
 
-    # returns the same view of the notfication page no matter what
-    return render(request, 'home/notification-settings.html',
-                  {'list_of_projects_dict': list_of_projects, 'error_code': error})
+    try:
+        # returns the same view of the notfication page no matter what
+        return render(request, 'home/notification-settings.html',
+                      {'list_of_projects_dict': list_of_projects, 'error_code': error})
+    except:
+        html_template = loader.get_template('home/page-500.html')
+        return HttpResponse(html_template.render({}, request))

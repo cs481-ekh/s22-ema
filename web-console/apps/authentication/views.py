@@ -10,6 +10,8 @@ from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
+from django.template import loader
+
 from .forms import LoginForm
 from django.contrib.auth import get_user_model
 
@@ -25,9 +27,7 @@ def login_view(request):
         return redirect("/")
 
     form = LoginForm(request.POST or None)
-
     msg = None
-
     if request.method == "POST":
 
         if form.is_valid():
@@ -41,14 +41,21 @@ def login_view(request):
                 msg = 'Invalid credentials'
         else:
             msg = 'Error validating the form'
-
-    return render(request, "accounts/login.html", {"form": form, "msg": msg})
+    try:
+        return render(request, "accounts/login.html", {"form": form, "msg": msg})
+    except:
+        html_template = loader.get_template('home/page-500.html')
+        return HttpResponse(html_template.render({}, request))
 
 
 # logging user out
 def logout_view(request):
     logout(request)
-    return render(request, "home/login.html")
+    try:
+        return render(request, "home/login.html")
+    except:
+        html_template = loader.get_template('home/page-500.html')
+        return HttpResponse(html_template.render({}, request))
 
 
 def reset_password(request):
@@ -68,9 +75,13 @@ def reset_password(request):
         if validate_password(user_password) is None or validate_password(user_confirm_password) is None:
             # Populating fields with what the user had initially entered before submitting and notifying
             # them with the error message
-            return render(request, 'home/auth-reset-pass.html',
+            try:
+                return render(request, 'home/auth-reset-pass.html',
                           {'u_name': username, 'user_pw': user_password, 'user_confirm_pw': user_confirm_password,
                            'message_error': "turn message red"})
+            except:
+                html_template = loader.get_template('home/page-500.html')
+                return HttpResponse(html_template.render({}, request))
 
         # If the both password input fields match, then proceed with the password change
         if user_password == user_confirm_password:
@@ -81,7 +92,11 @@ def reset_password(request):
 
             # If count is 0, then the admin user does not exist
             if count == 0:
-                return render(request, "home/user-not-exist.html")
+                try:
+                    return render(request, "home/user-not-exist.html")
+                except:
+                    html_template = loader.get_template('home/page-400.html')
+                    return HttpResponse(html_template.render({}, request))
             # Admin user exists, proceed with updating password
             else:
                 # Grab the user if it exists
@@ -92,11 +107,17 @@ def reset_password(request):
                 # Authenticating user aka login user
                 user = authenticate(username=username, password=user_password)
                 login(request, user)
-
-                return render(request,
+                try:
+                    return render(request,
                               "home/login.html")  # Needs to be changed later to direct to dashboard/  once dashboard is implemented
-
-    return render(request, "home/auth-reset-pass.html")
+                except:
+                    html_template = loader.get_template('home/page-500.html')
+                    return HttpResponse(html_template.render({}, request))
+    try:
+        return render(request, "home/auth-reset-pass.html")
+    except:
+        html_template = loader.get_template('home/page-500.html')
+        return HttpResponse(html_template.render({}, request))
 
 
 def recover_password(request):
@@ -133,11 +154,17 @@ def recover_password(request):
                     google_emailer.emailProcessor(email_pass_dict['email'], email_pass_dict['pass'], recover_email,
                                                   "EMA - [Admin - password]",
                                                   message)
-
-                    # Inform the user that email was sent
-                    return render(request, "home/login.html", {'email_sent': 'Email Sent!'})
-
-    return render(request, "home/recover_password.html")
+                    try:
+                        # Inform the user that email was sent
+                        return render(request, "home/login.html", {'email_sent': 'Email Sent!'})
+                    except:
+                        html_template = loader.get_template('home/page-500.html')
+                        return HttpResponse(html_template.render({}, request))
+    try:
+        return render(request, "home/recover_password.html")
+    except:
+        html_template = loader.get_template('home/page-500.html')
+        return HttpResponse(html_template.render({}, request))
 
 
 def read_google_email_cred_file():
@@ -166,5 +193,4 @@ def generate_random_password():
 def validate_password(password_string):
     # if there is no match, x will equal None
     x = re.match(r"(?=^.{8,}$)(?=.*\d)(?=.*[!~@#\.()\$%^&*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$", password_string)
-
     return x

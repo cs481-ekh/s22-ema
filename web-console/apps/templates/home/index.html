@@ -152,7 +152,6 @@
                                         {% endfor %}
                                         </tbody>
                                     </table>
-
                                 </div>
                                 <div class="tab-pane fade active show" id="profile" role="tabpanel"
                                      aria-labelledby="profile-tab">
@@ -168,30 +167,55 @@
                                             <td><b>Status</b></td>
                                         </tr>
                                         {% for dict in notification_data_list %}
-                                            <tr>
-                                                {% if start_of_week <= dict.startDate and end_of_week >= dict.startDate %}
+                                            {% if start_of_week <= dict.startDate and end_of_week >= dict.startDate %}
+                                                <tr>
                                                     <td> {{ dict.projectName }} </td>
                                                     <td> {{ dict.startDate }} </td>
                                                     <td> {{ dict.expirationDate }} </td>
                                                     <td> {{ dict.reminderTime }} </td>
                                                     <td> {{ dict.expirationTime }} </td>
-                                                    <td> {{ dict.repeating }} </td>
+                                                    <td>
+                                                        {{ dict.repeating }}
+                                                    </td>
+                                                    {# check for upcoming based on date #}
                                                     {% if curr_date < dict.startDate %}
-                                                        <td><i class="fas fa-circle text-c-purple f-10"></i> Pending
+                                                        <td><i class="fas fa-circle text-c-yellow f-10"></i> Upcoming
                                                         </td>
-                                                    {% elif curr_date > dict.startDate %}
-                                                        <td><i class="fas fa-circle text-c-green f-10"></i> Done</td>
-                                                    {% elif curr_date == dict.startDate %}
-                                                        {% if curr_time < dict.expirationTime %}
-                                                            <td><i class="fas fa-circle text-c-purple f-10"></i> Pending
-                                                            </td>
-                                                        {% else %}
+                                                        {# check for passed based on date #}
+                                                    {% elif curr_date > dict.expirationDate %}
+                                                        <td><i class="fas fa-circle text-c-red f-10"></i> Passed
+                                                        </td>
+                                                        {# check in between start date and expiration date #}
+                                                    {% elif curr_date > dict.startDate and curr_date < dict.expirationDate %}
+                                                        {# check time #}
+                                                        {% if curr_time == dict.expirationTime %}#}
                                                             <td><i class="fas fa-circle text-c-green f-10"></i> Done
+                                                            </td>
+                                                        {% elif curr_time > dict.expirationTime %}
+                                                            <td><i class="fas fa-circle text-c-green f-10"></i> Done
+                                                            </td>
+                                                        {% elif curr_time < dict.expirationTime %}
+                                                            <td><i class="fas fa-circle text-c-yellow f-10"></i>
+                                                                Upcoming
+                                                            </td>
+                                                        {% endif %}
+                                                        {# check if current date is equal to start date or expiration date #}
+                                                    {% elif curr_date == dict.startDate or curr_date == dict.expirationDate %}
+                                                        {# check time #}
+                                                        {% if curr_time == dict.expirationTime %}#}
+                                                            <td><i class="fas fa-circle text-c-green f-10"></i> Done
+                                                            </td>
+                                                        {% elif curr_time > dict.expirationTime %}
+                                                            <td><i class="fas fa-circle text-c-green f-10"></i> Done
+                                                            </td>
+                                                        {% elif curr_time < dict.expirationTime %}
+                                                            <td><i class="fas fa-circle text-c-yellow f-10"></i>
+                                                                Upcoming
                                                             </td>
                                                         {% endif %}
                                                     {% endif %}
-                                                {% endif %}
-                                            </tr>
+                                                </tr>
+                                            {% endif %}
                                         {% endfor %}
                                         </tbody>
                                     </table>
@@ -219,16 +243,35 @@
                                                 <td>
                                                     {{ dict.repeating }}
                                                 </td>
+                                                {# check for upcoming based on date #}
                                                 {% if curr_date < dict.startDate %}
-                                                    <td><i class="fas fa-circle text-c-purple f-10"></i> Pending</td>
-                                                {% elif curr_date > dict.startDate %}
-                                                    <td><i class="fas fa-circle text-c-green f-10"></i> Done</td>
-                                                {% elif curr_date == dict.startDate %}
-                                                    {% if curr_time < dict.expirationTime %}
-                                                        <td><i class="fas fa-circle text-c-purple f-10"></i> Pending
-                                                        </td>
-                                                    {% else %}
+                                                    <td><i class="fas fa-circle text-c-yellow f-10"></i> Upcoming
+                                                    </td>
+                                                    {# check for passed based on date #}
+                                                {% elif curr_date > dict.expirationDate %}
+                                                    <td><i class="fas fa-circle text-c-red f-10"></i> Passed
+                                                    </td>
+                                                    {# check in between start date and expiration date #}
+                                                {% elif curr_date > dict.startDate and curr_date < dict.expirationDate %}
+                                                    {# check time #}
+                                                    {% if curr_time == dict.expirationTime %}#}
                                                         <td><i class="fas fa-circle text-c-green f-10"></i> Done</td>
+                                                    {% elif curr_time > dict.expirationTime %}
+                                                        <td><i class="fas fa-circle text-c-green f-10"></i> Done</td>
+                                                    {% elif curr_time < dict.expirationTime %}
+                                                        <td><i class="fas fa-circle text-c-yellow f-10"></i> Upcoming
+                                                        </td>
+                                                    {% endif %}
+                                                    {# check if current date is equal to start date or expiration date #}
+                                                {% elif curr_date == dict.startDate or curr_date == dict.expirationDate %}
+                                                    {# check time #}
+                                                    {% if curr_time == dict.expirationTime %}#}
+                                                        <td><i class="fas fa-circle text-c-green f-10"></i> Done</td>
+                                                    {% elif curr_time > dict.expirationTime %}
+                                                        <td><i class="fas fa-circle text-c-green f-10"></i> Done</td>
+                                                    {% elif curr_time < dict.expirationTime %}
+                                                        <td><i class="fas fa-circle text-c-yellow f-10"></i> Upcoming
+                                                        </td>
                                                     {% endif %}
                                                 {% endif %}
                                             </tr>
@@ -249,8 +292,8 @@
 
 <!-- Specific Page JS goes HERE  -->
 {% block javascripts %}
-{#    <script src="/static/assets/plugins/chart-morris/js/raphael.min.js"></script>#}
-{#    <script src="/static/assets/plugins/chart-morris/js/morris.min.js"></script>#}
-{#    <script src="/static/assets/js/pages/chart-morris-custom.js"></script>#}
+    {#    <script src="/static/assets/plugins/chart-morris/js/raphael.min.js"></script>#}
+    {#    <script src="/static/assets/plugins/chart-morris/js/morris.min.js"></script>#}
+    {#    <script src="/static/assets/js/pages/chart-morris-custom.js"></script>#}
     <script src="/static/assets/js/dashboard.js"></script>
 {% endblock javascripts %}
