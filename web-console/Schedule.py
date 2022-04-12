@@ -102,7 +102,6 @@ def run_single_reminder_job(start_date, project, tag):
     current_time = current_time.strftime("%Y-%m-%d")
     parsed_start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
     if str(current_time) == str(parsed_start_date):
-        print("running single job with ID: "+tag)
         # run the job to hit the API
         sendNotification(project)
         return schedule.clear(tag)
@@ -110,12 +109,11 @@ def run_single_reminder_job(start_date, project, tag):
 
 # Job for weekly and daily reminders check if is start date or past start date then sends reminder
 def run_standard_reminder_job(start_date,project,tag):
-    print('Attempting Standard job ID: '+tag)
     current_time = date.today()
     current_time = current_time.strftime("%Y-%m-%d")
     parsed_start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
     if str(current_time) >= str(parsed_start_date):
-        print("running standard job with ID: " + tag)
+        sendNotification(project)
 
 
 def sendNotification(project):
@@ -175,8 +173,7 @@ def firebase_DueDate_Perge():
         current_time = current_time.strftime("%Y-%m-%d %H:%M")
         parsed_end_date = datetime.strptime(expirationDate+' '+expirationTime, "%Y-%m-%d %H:%M").date()
         if str(parsed_end_date) <= str(current_time):
-            print('Removing : '+id+" from database backup")
-            tag = backup.uuid
+            tag = dict['uuid']
             removeReminder(tag)
 
 def dabatBaseReload():
@@ -191,6 +188,8 @@ def dabatBaseReload():
         projectName = dict['projectName']
         startDate =  dict['startDate']
 
+        print(id +" "+ projectName)
+
         if repeating == "Once":
             add_reminder_once(startDate, reminderTime, projectName, id)
             continue
@@ -200,3 +199,5 @@ def dabatBaseReload():
         if repeating == "Weekly":
             add_reminder_weekly(startDate, reminderTime, expirationDate, expirationTime, projectName, id)
             continue
+
+    schedule.every().day.at('00:10').do(firebase_DueDate_Perge)

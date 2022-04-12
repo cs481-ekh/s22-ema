@@ -1,3 +1,4 @@
+from datetime import datetime
 from importlib.machinery import SourceFileLoader
 import os
 from django.contrib.auth.decorators import login_required
@@ -13,6 +14,9 @@ Schedule = SourceFileLoader("Schedule", os.getcwd() + "/Schedule.py").load_modul
 @login_required(login_url="/login/")
 def index(request):
     list_of_projects = firebase.get_all_project_names()
+    project_id = request.POST.get('selected_project')
+    removelist = request.POST.get('removed_participants_list')
+    print(removelist)
     error = []
     flag = False
     if request.method == 'POST':
@@ -23,7 +27,6 @@ def index(request):
         selection = request.POST.get('selection')
         endDate = request.POST.get('endDate')
         endTime = request.POST.get('endTime')
-        print(selectedProject)
 
         # *** During our last sprint, as we are cleaning up files, we can possibly remove this check since
         # our input check has been strengthened with javascript and html ***
@@ -50,6 +53,37 @@ def index(request):
             except:
                 html_template = loader.get_template('home/page-500.html')
                 return HttpResponse(html_template.render({}, request))
+
+        if removelist is not None:
+            Schedule.removeReminder(removelist)
+
+        if project_id is not None:
+            # Document data of all projects in a dict
+            project_dict = firebase.getAllBackUps()
+
+            uuid = []
+            reminderTime = []
+            startDate = []
+            startDateDate = []
+
+            for reminder in project_dict:
+                dict = reminder.to_dict()
+                if project_id == dict['projectName']:
+                    uuid.append(dict['uuid'])
+                    dateOBJ = datetime.strptime(dict['reminderTime'], "%H:%M")
+                    dateOut = dateOBJ.strftime("%I:%M %p")
+                    reminderTime.append(dateOut)
+                    startDate.append(Schedule.get_day_of_week(dict['startDate']))
+                    startDateDate.append(dict['startDate'])
+
+            # Setting cookies so that javascript can grab them to populate
+            # input text fields
+            response = HttpResponse("Cookie Set")
+            response.set_cookie('uuid', uuid)
+            response.set_cookie('reminderTime', reminderTime)
+            response.set_cookie('startDate', startDate)
+            response.set_cookie('startDateDate', startDateDate)
+            return response
 
         # A unique id is generated and will be tagged to the reminder, and it will be backed up to our backup
         # reminder collection

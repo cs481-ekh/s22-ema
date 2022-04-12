@@ -340,6 +340,12 @@ def getAllBackUps():
     return docs
 
 
+def getAllBackUpsForProjectID(ProjectID):
+    db = db_connect_firebase()
+    docs = db.collection(u'reminderBackUp').where(u'ProjectName', u'==', ProjectID).stream()
+    return docs
+
+
 # check if uuid document (uuid) exists in "reminderBackUp" collection
 def uuid_document_exist(document_name):
     # Connecting to Firebase

@@ -41,9 +41,11 @@ def main():
         "GOOGLE_APPLICATION_CREDENTIALS"] = "/Users/danielrao/Desktop/ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json"
 
     # # initializing app using credentials
+
     # firebase_admin.initialize_app(credentials.Certificate(os.environ.get("GOOGLE_APPLICATION_CREDENTIALS")))
     # # google mail .txt file
-    os.environ["GOOGLE_EMAIL_CREDENTIALS"] = "/Users/danielrao/Desktop/google_email_creds.txt"
+
+    # os.environ["GOOGLE_EMAIL_CREDENTIALS"] = "/Users/danielrao/Desktop/google_email_creds.txt"
     ##################################################################################################################
 
     # Starts the background deamon thread the runs the sceduling system
@@ -54,8 +56,8 @@ def main():
     #    for backup in backups:
     #        print(f'{backup.id} => {backup.to_dict()}')
 
-    # Schedule.firebase_DueDate_Perge()
-    # Schedule.dabatBaseReload()
+    #Schedule.firebase_DueDate_Perge()
+    #Schedule.dabatBaseReload()
 
     execute_from_command_line(sys.argv)
 
