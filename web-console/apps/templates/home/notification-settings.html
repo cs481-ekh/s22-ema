@@ -45,8 +45,10 @@
                                         <h4 style="color:#d92424">{{ error }} </h4>
                                     {% endfor %}
                                     <hr>
+                                    <div class="row">
+                                    <div class="col-md-6">
                                     <form action="" method="post">
-                                        <div class="col-md-6">
+
                                             {% csrf_token %}
                                             <div class="form-group">
                                                 <label for="whenToNotifyLabel">Select a project</label>
@@ -87,10 +89,7 @@
                                                     <option>Weekly</option>
 
                                                 </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <h5>Set a date and time to stop notifications</h5>
+                                                                                            <h5>Set a date and time to stop notifications</h5>
                                             <hr>
                                             <div class="form-group">
                                                 <label for="expirationDate" id="expirationDateLabelId">Expiration
@@ -112,6 +111,10 @@
                                             <button type="submit" class="btn btn-primary" id="setNotificationBtnId">Set
                                                 Notification
                                             </button>
+
+                                        <div class="col-md-6">
+
+                                        </div>
                                         </div>
                                     </form>
                                 </div>
@@ -132,6 +135,7 @@
                                                 </div>
                                                 <!-- [ List of participants to be added ] end -->
                                             </form>
+                                            </div>
                                         </div>
                             </div>
                         </div>

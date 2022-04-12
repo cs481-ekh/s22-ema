@@ -1,3 +1,4 @@
+from datetime import datetime
 from importlib.machinery import SourceFileLoader
 import os
 from django.contrib.auth.decorators import login_required
@@ -64,7 +65,9 @@ def index(request):
                 dict = reminder.to_dict()
                 if project_id == dict['projectName']:
                     uuid.append(dict['uuid'])
-                    reminderTime.append(dict['reminderTime'])
+                    dateOBJ = datetime.strptime(dict['reminderTime'], "%H:%M")
+                    dateOut = dateOBJ.strftime("%I:%M %p")
+                    reminderTime.append(dateOut)
                     startDate.append(Schedule.get_day_of_week(dict['startDate']))
                     startDateDate.append(dict['startDate'])
 

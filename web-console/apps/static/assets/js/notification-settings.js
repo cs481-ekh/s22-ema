@@ -167,18 +167,21 @@ $(document).ready(function () {
             // The selected project contains participants
             uuid_list = uuid_list.replace('[','');
             uuid_list = uuid_list.replace(']','');
+            uuid_list = uuid_list.replaceAll('\'','');
             uuid_list = uuid_list.split("\\054");
             time_list = time_list.replace('[','');
             time_list = time_list.replace(']','');
+            time_list = time_list.replaceAll('\'','');
             time_list = time_list.split("\\054");
             date_list = date_list.replace('[','');
             date_list = date_list.replace(']','');
+            date_list = date_list.replaceAll('\'','');
             date_list = date_list.split("\\054");
             datedate_list = datedate_list.replace('[','');
             datedate_list = datedate_list.replace(']','');
+            datedate_list = datedate_list.replaceAll('\'','');
             datedate_list = datedate_list.split("\\054");
 
-            console.log(uuid_list)
             if (uuid_list[0] != "") {
                 for (let i = 0; i < uuid_list.length; i++) {
 
@@ -188,7 +191,7 @@ $(document).ready(function () {
                         "                                                                     src=\"/static/assets/images/user/user-3.png\"\n" +
                         "                                                                     alt=\"activity-user\">\n" +
                         "                                                            <td>\n" +
-                        "                                                                <h6 class=\"mb-1\">" + time_list[i] +" "+date_list[i] +" Starting " +datedate_list[i] + "</h6>\n" +
+                        "                                                                <h6 class=\"mb-1\">" + time_list[i] +" "+date_list[i] +", Starting " +datedate_list[i] + "</h6>\n" +
                         "                                                                <p class=\"m-0\">" + uuid_list[i] + "</p>\n" +
                         "                                                            </td>\n" +
                         "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 remove_card_edit_project removeButton\" name=\"editProjectBtn\" id=\"editProjectBtnId\">Remove</button>\n" +
