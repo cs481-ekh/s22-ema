@@ -8,7 +8,7 @@
 
 Ecological Momentary Assessment (EMA) is a data collection approach which requires participants to answer very brief surveys at specific moments in their daily lives. The goal of this project is to create a mobile app that will make the survey collection process easier and more efficient for both researchers and participants. 
 
-Our app is meant to act as an interface between surveys hosted on Qualtrics and participants' smartphones. It facilitates the collection of EMA data while providing customization options for both parties, such as researcher-scheduled reminders, notification muting, and a visual streak system that provides psychological rewards for completing surveys. We hope this app can improve the survey-taking process, both increasing participants’ satisfaction with it and the quantity and quality of the data collected.  
+Our app is meant to act as an interface between surveys hosted on Qualtrics and participants' smartphones. It facilitates the collection of EMA data while providing customization options for both parties, such as researcher-scheduled reminders and a visual streak system that provides psychological rewards for completing surveys. We hope this app can improve the survey-taking process, both increasing participants’ satisfaction with it and the quantity and quality of the data collected.  
   
 This app is currently a work-in-progress and does not fulfill all necessary functionality. 
 
