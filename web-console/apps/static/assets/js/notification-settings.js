@@ -24,7 +24,7 @@ $(document).ready(function () {
     // When the drop down value is "Select Project"
     $(document).on('change', '#selectedProjectIdNotif', function () {
         // if no project is selected
-        if (document.getElementById("selectedProjectIdNotif").value == "Select Project") {
+        if (document.getElementById("selectedProjectIdNotif").value == "Select") {
 
             // Clear all error messages
             clearNotificationPageErrorMessages();
@@ -136,6 +136,16 @@ $(document).ready(function () {
         $('#scheduleSendDateInput').removeClass('error_class_input');
         $('#scheduleReminderTimeId').removeClass('error_class_label');
         $('#scheduleSendDateTimeInput').removeClass('error_class_input');
+
+        // Remove the error message that appears only when the user triggers the error
+        let msg_err = document.querySelector('#message_error');
+        if (msg_err != null) {
+            msg_err.parentNode.removeChild(msg_err);
+        }
+
+        // Clear temp variables
+        sDateTemp = "";
+        eDateTemp = "";
     }
 
     // When a project is selected
@@ -235,4 +245,118 @@ $(document).ready(function () {
 
 
 
+
+    // These variables are for the validate functions
+    const form = document.querySelector('#notificationFormId'); // Grab the form needing validation
+    let sDate = form.elements.namedItem("startDate"); // Grab the reminder start date input
+    let eDate = form.elements.namedItem("endDate"); // Grab the expiration date input
+
+    // these temp variables will be used to validate temporary selected date/times
+    let sDateTemp = "";
+    let eDateTemp = "";
+
+    // add an event listener to validate input everytime an event occurs
+    sDate.addEventListener('input', validate);
+    eDate.addEventListener('input', validate);
+
+    function validate(e) {
+        // if the event (e) occurred on the reminder startDate input
+        if (e.target.name == "startDate") {
+
+            // convert date string to Date object
+            sDateTemp = new Date(e.target.value.split('-'));
+
+            // if the start date is greater than end date and the expiration date selection is not empty
+            if (sDateTemp > eDateTemp && eDateTemp != "") {
+
+                // disable set notification btn
+                document.getElementById("setNotificationBtnId").disabled = true;
+
+                // The error message will be added after scheduleSendDateInput (<input> tag)
+                let targetTag = document.getElementById("scheduleSendDateInput");
+
+                // Create the new div tag to be added
+                const div = document.createElement("div")
+
+                // The following html will be inserted in the div (friendly error message)
+                div.innerHTML = "<br><div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
+                    "                                            Reminder start date must be before expiration date!\n" +
+                    "                                        </div>"
+
+                // Insert the created element
+                targetTag.after(div)
+
+
+            }
+            else // valid start Date input selection
+            {
+                // enable set notification btn
+                document.getElementById("setNotificationBtnId").disabled = false;
+
+                // Remove the error message that appears only when the user triggers the error
+                let msg_err = document.querySelector('#message_error');
+                if (msg_err != null) {
+                    msg_err.parentNode.removeChild(msg_err);
+                }
+            }
+        }
+
+        // if the event (e) occurred on the expiration date input
+        if (e.target.name == "endDate") {
+
+            // convert date string to Date object
+            eDateTemp = new Date(e.target.value.split('-'));
+
+            // if end date is less than start date and reminder start date input selection is not empty
+            if (eDateTemp < sDateTemp && sDateTemp != "") {
+
+                // disable set notification btn
+                document.getElementById("setNotificationBtnId").disabled = true;
+
+                // The error message will be added after expirationDateInput (<input> tag)
+                let targetTag2 = document.getElementById("expirationDateInput");
+
+                // Create the new element to be added
+                const div = document.createElement("div")
+
+                // The following html will be inserted in the div (friendly error message)
+                div.innerHTML = "<br><div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
+                    "                                            Expiration date must be after start date!\n" +
+                    "                                        </div>"
+
+                // Insert the created element
+                targetTag2.after(div)
+            }
+            else // valid start Date input selection
+            {
+                // enable set notification btn
+                document.getElementById("setNotificationBtnId").disabled = false;
+
+                // Remove the error message that appears only when the user triggers the error
+                let msg_err = document.querySelector('#message_error');
+                if (msg_err != null) {
+                    msg_err.parentNode.removeChild(msg_err);
+                }
+            }
+        }
+
+        // if check - if any temp variables are empty, then keep the btn disabled
+    }
+
+    // removes the error/success card upon submission
+    $(document).on('click', '.close_button', function () {
+        // remove fade_in class from the element
+        document.getElementById("message_error").classList.remove("animate_fade_in");
+        // add fade_out class to the element
+        document.getElementById("message_error").classList.add("animate_fade_out");
+
+        // delete the element after 1 second
+        // //remove the parent element
+        setTimeout(function () {
+            // Wait for the element to exist
+            if ($(document.getElementById("message_error")).length > 0) {
+                $(document.getElementById("message_error")).remove();
+            }
+        }, 1000)
+    });
 });
