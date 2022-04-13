@@ -481,6 +481,19 @@ $(document).ready(function () {
         return parseInt(d.split(':')[1].split(' ')[0]);
     }
 
+    // Disable all date selections before current date
+    $(document).ready(function () {
+        var todaysDate = new Date();
+        var yr = todaysDate.getFullYear();
+        var mon = ("0" + (todaysDate.getMonth() + 1)).slice(-2);
+        var day = ("0" + todaysDate.getDate()).slice(-2);
+        var maxDate = (yr + "-" + mon + "-" + day);
+
+        // apply it to the reminder start date and expiration date
+        $('#scheduleSendDateInput').attr('min', maxDate);
+        $('#expirationDateInput').attr('min', maxDate);
+    });
+
     // removes the error/success card upon submission
     $(document).on('click', '.close_button', function () {
         // remove fade_in class from the element
