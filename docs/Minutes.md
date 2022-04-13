@@ -1,7 +1,18 @@
 
 
 # Meeting Minutes: EMA
+
 ## Web
+
+### 4/12/22
+
+*Scribe:* Alejandro
+
+*Present:* Andrew, Alejandro, Daniel
+
+*Absent:* Brandon
+
+*Items:* Each memeber on the team gave a status update. The updates were mainly on wrapping up UI clean up on the Dashboard page and Notification settings page. We discussed how we plan to do some testing with with the mobile team to ensure the notifications are sending properly. We also discussed that it is time to deploy the application on the BSU server so we reached out to the professor to get more information on how to set this up properly. We also touched on the kind of information to include in the project handoff, GitHub page and video
 
 ### 4/7/22
 
