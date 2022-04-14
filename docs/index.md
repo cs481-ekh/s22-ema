@@ -57,6 +57,8 @@ The project information option allows users to see the list of projects that the
 
 ### Web-Console
 
+Our app was built using Django framework that primraily uses python as the main language. It also uses some javascript for the front end manipulation and sometime for form submission. Other than that it also uses HTML and CSS for the front end content that is shown to the admin. The admin will be able to login, recover their account, reset their password, view metrics of different projects and notifications on dashboard. Other than that the admin will also be able to create and update and delete projects, add or remove participants from the project, and finally be able to scheduele reminders for the surveys along with being able to log out safely. Once logged in the admin may also choose to reset their password.
+
 Login for Admin
 ![](images/ema_login.png) 
 
