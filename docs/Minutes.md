@@ -116,6 +116,16 @@
 
 ## Mobile
 
+### 4/12/22
+
+*Scribe:* Jeff
+
+*Present:* Jason, Jeff, Jon
+
+*Absent:* N/A
+
+*Items:* The github page was enabled and new screenshots for the page were created and added in a seperate branch as was the added functionality and changes made since the last group. The project handoff was also created in the shared EMA drive and had the cover page and some work done from the mobile team side. We also created a whentomeet for wednesday in order to prepare for the sponsor meeting that was just accepted by the sponsor for Thursday.
+
 ### 4/07/22
 
 *Scribe:* Jeff
@@ -217,6 +227,16 @@
 *Items:* We met for Sprint 1 planning where we created the sprint goal, user stories, tasks and assigned them. We decided that for Sprint 1 we would focus on removing the admin side form the mobile app while improving user notifications by including the expiration time for the survey in their information. We also decided to add a user password reset for the case that a user forgets their login information.
 
 ## Full Team
+
+### 4/13/22
+
+*Scribe:* Jeff
+
+*Present:* Jason, Jeff, Jon, Andrew, Daniel, Alejandro
+
+*Absent:* Brandon
+
+*Items:* This meeting was to prepare for the sponsor showcase on 4/14/22. In this meeting we spent a while working on integration testing between mobile and website. During this meeting we were able to fix the website scheduling where notifications weren't being sent despite working in the past due to authentication code that had accidently been commented out. We also made progress by getting titles in the notification to send from the website which allowed for notifications to be received while the app was in the background. We were also able to add code to inform a user if the url in the notification didn't work and more clearly label and format expiration and arrival time of notificaitons.
 
 ### 4/09/22
 
