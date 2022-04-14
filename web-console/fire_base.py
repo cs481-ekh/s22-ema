@@ -287,7 +287,11 @@ def send_group_notification(registration_token_list, expire_time, survey_link, p
 
     # send expiration date/time, surveyLink to data, projectId to the mobile app.
     message = messaging.MulticastMessage(
-        data={'expiration': str(expire_time), 'surveyLink': str(survey_link), 'projectID': str(project_id)},
+        notification=messaging.Notification(
+            title='New Notification!',
+            body='Please Fill out This Form',
+        ),
+        data={'expiration': str(expire_time), 'url': str(survey_link), 'projectID': str(project_id)},
         tokens=registration_token_list,
     )
 
