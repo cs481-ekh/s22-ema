@@ -155,11 +155,11 @@ class _UserPageState extends State<UserPage> {
             barrierDismissible: false, // user must tap button!
             builder: (BuildContext context) {
               return AlertDialog(
-                title: const Text('Congratulations!'),
+                title: const Text('Error'),
                 content: SingleChildScrollView(
                   child: ListBody(
                     children: <Widget>[
-                      Text('ERROR: Could not open url: ' + url),
+                      Text('Could not open url: ' + url),
                     ],
                   ),
                 ),
