@@ -54,3 +54,31 @@ The account option takes the user to a new screen where they are able to view th
 
 The project information option allows users to see the list of projects that they are subscribed to and unsubscribe
 ![](images/new_manage_projects.png)
+
+### Web-Console
+
+Login for Admin
+![](images/ema_login.png) 
+
+In the event if the user forgets the password than django-server generates the new random password and updates it on its end and send the password to the admins email. After that the admin will be directed to login page.
+![](images/ema_reset_password.png) 
+
+Once the admin is able to login successfully than the user will be directed to the dashboard where they will be able to peek at some of the basic metrics.
+![](images/ema_dashboard.png) 
+
+On this page admin will be able to create project and participants to it.
+![](images/ema_create_project.png) 
+
+
+On this page the admin will be able to edit basic details of the project such as update survey link, project description, or add or remove participants. The admin may also choose to delete the proeject as per their needs.
+![](images/ema_edit_project.png) 
+
+On this page the admin will be able to create a notification for particular dates (period) or Time (period). One can create one or more than one instance of reminders from the same project.
+![](images/ema_notifications.png) 
+
+This page contains basic details about the creators - sponsored by BSU (Class: Senior design project)
+![](images/ema_support.png) 
+
+This page will allow the admin to update their password.
+![](images/ema_change_paswword.png) 
+
