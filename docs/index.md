@@ -66,7 +66,7 @@ In the event if the user forgets the password than django-server generates the n
 ![](images/ema_reset_password.png) 
 
 Once the admin is able to login successfully than the user will be directed to the dashboard where they will be able to peek at some of the basic metrics.
-![](images/ema_dashboard.png) 
+![](images/ema_dashbaord.png) 
 
 On this page admin will be able to create project and participants to it.
 ![](images/ema_create_project.png) 
