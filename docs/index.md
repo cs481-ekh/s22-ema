@@ -77,7 +77,7 @@ On this page the admin will be able to create a notification for particular date
 ![](images/ema_notifications.png) 
 
 This page contains basic details about the creators - sponsored by BSU (Class: Senior design project)
-![](images/ema_support.png) 
+![](images/ema_support.PNG) 
 
 This page will allow the admin to update their password.
 ![](images/ema_change_paswword.png) 
