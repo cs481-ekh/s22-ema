@@ -2,7 +2,11 @@
 # Ecological Momentary Assessment (EMA) App
 ![EMA App Logo: simple graphic of person holding clipboard](../assets/images/logo.png)
 
-### Created by Paisley Davis, Chloe Johnson, Mason Humpherys, Jeff Kahn, Jason Kuphaldt, Jonathon Tipton 
+## Creators: 
+
+**Mobile App:** Paisley Davis, Chloe Johnson, Mason Humpherys, Jeff Kahn, Jason Kuphaldt, Jonathon Tipton <br>
+
+**Web Console:** Andrew Haddon, Alejandro Macias, Daniel Rao, Brandon Boys
 
 ## Abstract:
 
