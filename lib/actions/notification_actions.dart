@@ -130,17 +130,13 @@ void incrementCount(String? email) {
 void resetCount(String? email) {
   final DocumentReference docRef =
       FirebaseFirestore.instance.collection("users").doc(email);
-  docRef.update({"streak": 0, "streakDate": DateTime.now()});
+  docRef.update({"streak": 1, "streakDate": DateTime.now()});
 }
 
 Future<int> checkDate(String? email) async {
   Timestamp lastTime = await getUsersStreakDate(email!);
-  final DocumentReference docRef =
-      FirebaseFirestore.instance.collection("users").doc(email);
 
-  print(lastTime);
   DateTime lastDate = lastTime.toDate();
-  const NUMBER_OF_SECONDS = 86400;
   DateTime cutOff = lastDate.add(const Duration(hours: 24));
   DateTime newCycle = lastDate.add(const Duration(hours: 12));
   if ((DateTime.now().isAfter(cutOff))) {

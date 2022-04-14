@@ -150,7 +150,30 @@ class _UserPageState extends State<UserPage> {
         if (await canLaunch(url)) {
           await launch(url);
         } else {
-          throw "Could not launch $url";
+          return showDialog<void>(
+            context: context,
+            barrierDismissible: false, // user must tap button!
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: const Text('Congratulations!'),
+                content: SingleChildScrollView(
+                  child: ListBody(
+                    children: <Widget>[
+                      Text('ERROR: Could not open url: ' + url),
+                    ],
+                  ),
+                ),
+                actions: <Widget>[
+                  TextButton(
+                    child: const Text('Dismiss'),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                  ),
+                ],
+              );
+            },
+          );
         }
       }
     }

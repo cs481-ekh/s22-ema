@@ -84,7 +84,7 @@ Future<String> addUserToDatabase(
         'projectId': projectId,
         'dateCreated': DateTime.now(),
         'token': await FirebaseMessaging.instance.getToken(),
-        'streak': 0,
+        'streak': 1,
         'streakDate': DateTime.now()
       })
       .then((value) => "")
