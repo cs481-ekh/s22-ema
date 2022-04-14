@@ -7376,6 +7376,11 @@ select.form-control-lg:not([size]):not([multiple]) {
   padding-left: 15em;
 }
 
+/* reminders label for the participant list in notification Settings */
+#participantsLabelId-notification{
+  padding-left: 15em;
+}
+
 /* participants label for the participant list in create project*/
 #participantsLabelId-createProject{
   padding-left: 15em;

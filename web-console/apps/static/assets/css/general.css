@@ -164,14 +164,24 @@
     overflow-y: scroll;
     height: 235px;
 }
+
 #table_body_Dashboard tr {
     padding: 0;
 }
 
 .disabled-link {
-  pointer-events: none;
+    pointer-events: none;
 }
 
-#participantsTableId{
+#participantsTableId {
     margin-left: 15%;
 }
+
+#participantsLabelId-editProject {
+    margin-left: 15%;
+}
+
+#participantsLabelId-notification {
+    margin-left: 15%;
+}
+
