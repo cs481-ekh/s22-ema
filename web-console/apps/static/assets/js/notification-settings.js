@@ -494,6 +494,11 @@ $(document).ready(function () {
         $('#expirationDateInput').attr('min', maxDate);
     });
 
+    // prevent empty form submission on refresh
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+
     // removes the error/success card upon submission
     $(document).on('click', '.close_button', function () {
         // remove fade_in class from the element
