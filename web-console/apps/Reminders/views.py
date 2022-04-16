@@ -46,7 +46,6 @@ def index(request):
             flag = True
 
         if flag:
-            print(error)
             try:
                 return render(request, 'home/notification-settings.html',
                           {'list_of_projects_dict': list_of_projects, 'error_code': error})
@@ -96,7 +95,7 @@ def index(request):
             firebase.createNewBackUp(unique_id, selectedProject, startDate, startTime, selection, endDate, endTime)
             try:
                 return render(request, 'home/notification-settings.html',
-                          {'list_of_projects_dict': list_of_projects, 'error_code': error})
+                          {'list_of_projects_dict': list_of_projects, 'error_code': "The reminder has been scheduled successfully!"})
             except:
                 html_template = loader.get_template('home/page-500.html')
                 return HttpResponse(html_template.render({}, request))
@@ -106,12 +105,14 @@ def index(request):
             Schedule.add_reminder_weekly(startDate, startTime, endDate, endTime, selectedProject, unique_id)
             # adding our notification to our backUp reminder table
             firebase.createNewBackUp(unique_id, selectedProject, startDate, startTime, selection, endDate, endTime)
+            error = "The reminder has been scheduled successfully!"
 
         # if the selection is Daily
         if selection == 'Daily':
             Schedule.add_reminder_daily(startDate, startTime, endDate, endTime, selectedProject, unique_id)
             # adding our notification to our backUp reminder table
             firebase.createNewBackUp(unique_id, selectedProject, startDate, startTime, selection, endDate, endTime)
+            error = "The reminder has been scheduled successfully!"
 
     try:
         # returns the same view of the notfication page no matter what
