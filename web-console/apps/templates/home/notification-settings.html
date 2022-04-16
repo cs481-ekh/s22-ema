@@ -41,10 +41,15 @@
                                 </div>
                                 <div class="card-body">
                                     <h3>Project Notification Information</h3>
-                                    {% for error in error_code %}
-                                        <h4 style="color:#d92424">{{ error }} </h4>
-                                    {% endfor %}
                                     <hr>
+                                    {% if error_code %}
+                                        <div class="alert alert-success animate_fade_in" role="alert" id="message_success">
+                                            {{ error_code }}
+                                            <button type="button" class="close close_button" id=close_button_success aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    {% endif %}
                                     <form action="" method="post" id="notificationFormId">
                                         <div class="row">
                                             <div class="col-md-6">

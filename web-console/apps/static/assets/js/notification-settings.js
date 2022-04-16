@@ -140,7 +140,7 @@ $(document).ready(function () {
         // Remove the error message that appears only when the user triggers the error
         let msg_err = document.querySelector('#message_error');
         if (msg_err != null) {
-            msg_err.parentNode.removeChild(msg_err);
+            $(document.getElementById("message_error")).remove();
         }
 
         // Clear temp variables
@@ -300,19 +300,24 @@ $(document).ready(function () {
                     // disable set notification btn
                     document.getElementById("setNotificationBtnId").disabled = true;
 
-                    // The error message will be added after expirationTimeInput (<input> tag)
-                    let targetTag = document.getElementById("expirationTimeInput");
+                    // create the div tag
+                    var newErrorTag = document.createElement('div');
 
-                    // Create the new div tag to be added
-                    const div = document.createElement("div")
+                    // if the error message is already displayed, don't display another error message
+                    if ($(document.getElementById("message_error")).length != 1) {
+                        console.log("throw error");
 
-                    // The following html will be inserted in the div (friendly error message)
-                    div.innerHTML = "<br><div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
-                        "                                           Expiration time must be after reminder time!\n" +
-                        "                                        </div>"
+                        // The actual error message
+                        newErrorTag.innerHTML = "<br><div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
+                            "                                            Expiration time must be after reminder time!\n" +
+                            "                                        </div>";
 
-                    // Insert the created element
-                    targetTag.after(div)
+                        // The error message will be added after expirationDateInput (<input> tag)
+                        let targetTag2 = document.querySelector('#expirationTimeInput');
+
+                        // add the error message after the input field
+                        targetTag2.after(newErrorTag);
+                    }
                 }
             } else // valid start Date input selection
             {
@@ -322,7 +327,7 @@ $(document).ready(function () {
                 // Remove the error message that appears only when the user triggers the error
                 let msg_err = document.querySelector('#message_error');
                 if (msg_err != null) {
-                    msg_err.parentNode.removeChild(msg_err);
+                    $(document.getElementById("message_error")).remove();
                 }
             }
         }
@@ -339,19 +344,24 @@ $(document).ready(function () {
                 // disable set notification btn
                 document.getElementById("setNotificationBtnId").disabled = true;
 
-                // The error message will be added after expirationDateInput (<input> tag)
-                let targetTag2 = document.getElementById("expirationDateInput");
+                // create the div tag
+                var newErrorTag = document.createElement('div');
 
-                // Create the new element to be added
-                const div = document.createElement("div")
+                // if the error message is already displayed, don't display another error message
+                if ($(document.getElementById("message_error")).length != 1) {
+                    console.log("throw error");
 
-                // The following html will be inserted in the div (friendly error message)
-                div.innerHTML = "<br><div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
-                    "                                            Expiration date must be after start date!\n" +
-                    "                                        </div>"
+                    // The actual error message
+                    newErrorTag.innerHTML = "<br><div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
+                        "                                            Expiration date must be after start date!\n" +
+                        "                                        </div>";
 
-                // Insert the created element
-                targetTag2.after(div)
+                    // The error message will be added after expirationDateInput (<input> tag)
+                    let targetTag2 = document.querySelector('#expirationTimeInput');
+
+                    // add the error message after the input field
+                    targetTag2.after(newErrorTag);
+                }
             }
 
             // if the dates are equal
@@ -362,19 +372,24 @@ $(document).ready(function () {
                     // disable set notification btn
                     document.getElementById("setNotificationBtnId").disabled = true;
 
-                    // The error message will be added after expirationTimeInput (<input> tag)
-                    let targetTag = document.getElementById("expirationTimeInput");
+                    // create the div tag
+                    var newErrorTag = document.createElement('div');
 
-                    // Create the new div tag to be added
-                    const div = document.createElement("div")
+                    // if the error message is already displayed, don't display another error message
+                    if ($(document.getElementById("message_error")).length != 1) {
+                        console.log("throw error");
 
-                    // The following html will be inserted in the div (friendly error message)
-                    div.innerHTML = "<br><div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
-                        "                                           Expiration time must be after reminder time!\n" +
-                        "                                        </div>"
+                        // The actual error message
+                        newErrorTag.innerHTML = "<br><div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
+                            "                                            Expiration time must be after reminder time!\n" +
+                            "                                        </div>";
 
-                    // Insert the created element
-                    targetTag.after(div)
+                        // The error message will be added after expirationDateInput (<input> tag)
+                        let targetTag2 = document.querySelector('#expirationTimeInput');
+
+                        // add the error message after the input field
+                        targetTag2.after(newErrorTag);
+                    }
                 }
             } else // valid start Date input selection
             {
@@ -385,7 +400,7 @@ $(document).ready(function () {
                 // Remove the error message that appears only when the user triggers the error
                 let msg_err = document.querySelector('#message_error');
                 if (msg_err != null) {
-                    msg_err.parentNode.removeChild(msg_err);
+                    $(document.getElementById("message_error")).remove();
                 }
             }
         }
@@ -402,19 +417,24 @@ $(document).ready(function () {
                 // disable set notification btn
                 document.getElementById("setNotificationBtnId").disabled = true;
 
-                // The error message will be added after scheduleSendDateInput (<input> tag)
-                let targetTag = document.getElementById("scheduleSendDateTimeInput");
+                // create the div tag
+                var newErrorTag = document.createElement('div');
 
-                // Create the new div tag to be added
-                const div = document.createElement("div")
+                // if the error message is already displayed, don't display another error message
+                if ($(document.getElementById("message_error")).length != 1) {
+                    console.log("throw error");
 
-                // The following html will be inserted in the div (friendly error message)
-                div.innerHTML = "<br><div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
-                    "                                            Reminder Time must be before expiration time!\n" +
-                    "                                        </div>"
+                    // The actual error message
+                    newErrorTag.innerHTML = "<br><div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
+                        "                                            Reminder time must be before expiration time!\n" +
+                        "                                        </div>";
 
-                // Insert the created element
-                targetTag.after(div)
+                    // The error message will be added after expirationDateInput (<input> tag)
+                    let targetTag2 = document.querySelector('#expirationTimeInput');
+
+                    // add the error message after the input field
+                    targetTag2.after(newErrorTag);
+                }
             } else // valid start Date input selection
             {
                 // enable set notification btn
@@ -423,7 +443,7 @@ $(document).ready(function () {
                 // Remove the error message that appears only when the user triggers the error
                 let msg_err = document.querySelector('#message_error');
                 if (msg_err != null) {
-                    msg_err.parentNode.removeChild(msg_err);
+                    $(document.getElementById("message_error")).remove();
                 }
             }
         }
@@ -440,19 +460,23 @@ $(document).ready(function () {
                 // disable set notification btn
                 document.getElementById("setNotificationBtnId").disabled = true;
 
-                // The error message will be added after expirationDateInput (<input> tag)
-                let targetTag2 = document.getElementById("expirationTimeInput");
+                // create the div tag
+                var newErrorTag = document.createElement('div');
 
-                // Create the new element to be added
-                const div = document.createElement("div")
+                // if the error message is already displayed, don't display another error message
+                if ($(document.getElementById("message_error")).length != 1) {
 
-                // The following html will be inserted in the div (friendly error message)
-                div.innerHTML = "<br><div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
-                    "                                            Expiration time must be after reminder time!\n" +
-                    "                                        </div>"
+                    // The actual error message
+                    newErrorTag.innerHTML = "<br><div class=\"alert alert-danger animate_fade_in\" role=\"alert\" id=\"message_error\">\n" +
+                        "                                            Expiration time must be after reminder time!\n" +
+                        "                                        </div>";
 
-                // Insert the created element
-                targetTag2.after(div)
+                    // The error message will be added after expirationDateInput (<input> tag)
+                    let targetTag2 = document.querySelector('#expirationTimeInput');
+
+                    // add the error message after the input field
+                    targetTag2.after(newErrorTag);
+                }
             } else // valid start Date input selection
             {
                 // enable set notification btn
@@ -461,7 +485,7 @@ $(document).ready(function () {
                 // Remove the error message that appears only when the user triggers the error
                 let msg_err = document.querySelector('#message_error');
                 if (msg_err != null) {
-                    msg_err.parentNode.removeChild(msg_err);
+                    $(document.getElementById("message_error")).remove();
                 }
             }
         }
@@ -494,6 +518,11 @@ $(document).ready(function () {
         $('#expirationDateInput').attr('min', maxDate);
     });
 
+    // prevent empty form submission on refresh
+    if (window.history.replaceState) {
+        window.history.replaceState(null, null, window.location.href);
+    }
+
     // removes the error/success card upon submission
     $(document).on('click', '.close_button', function () {
         // remove fade_in class from the element
@@ -510,4 +539,14 @@ $(document).ready(function () {
             }
         }, 1000)
     });
+
+    // Targeting message that appears on submission of the form ()
+    $("#close_button_success").click(function () {
+        let element = document.getElementById("message_success");
+        // add fade out class
+        $(element).fadeOut("slow", function () {
+            // remove the element
+            $(this).remove();
+        });
+    })
 });
