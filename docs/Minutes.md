@@ -238,6 +238,16 @@
 
 ## Full Team
 
+### 4/16/22
+
+*Scribe:* Jeff
+
+*Present:* Jason, Jeff, Andrew, Daniel, Alejandro
+
+*Absent:* Brandon, Jon
+
+*Items:* During this meeting we recorded the 5 minute video demonstrating the functionality of the website/app. Afterward Jason and Jeff worked on generating the signed apk and distributing the mobile application to android devices via firebase. This was then tested using Jeff's android phone via an email sent from firebase containing the app. The app on Jeff's android phone worked in the same way we expected based on the simulated anroid phone.
+
 ### 4/13/22
 
 *Scribe:* Jeff
