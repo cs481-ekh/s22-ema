@@ -4,6 +4,16 @@
 
 ## Web
 
+### 4/14/22
+
+*Scribe:* Alejandro
+
+*Present:* Andrew, Alejandro, Daniel
+
+*Absent:* Brandon
+
+*Items:* Our sponser meeting was later that day, so we did some testing to ensure that the main functionality was functioning which it was functioning correctly. We took notes of minor UI modifications that need to be done before the sprint ends. We also finished adding to the GitHub page for the web team section, and we also added our slides to record the video for the Senior Design website. Lastly, we are almost done with our Docker file. We are in the works of updating the README to include more specific information on how to properly deploy it.
+
 ### 4/12/22
 
 *Scribe:* Alejandro
@@ -12,7 +22,7 @@
 
 *Absent:* Brandon
 
-*Items:* Each memeber on the team gave a status update. The updates were mainly on wrapping up UI clean up on the Dashboard page and Notification settings page. We discussed how we plan to do some testing with with the mobile team to ensure the notifications are sending properly. We also discussed that it is time to deploy the application on the BSU server so we reached out to the professor to get more information on how to set this up properly. We also touched on the kind of information to include in the project handoff, GitHub page and video
+*Items:* Each memeber on the team gave a status update. The updates were mainly on wrapping up UI clean up on the Dashboard page and Notification settings page. We discussed how we plan to do some testing with with the mobile team to ensure the notifications are sending properly. We also discussed that it is time to deploy the application on the BSU server so we reached out to the professor to get more information on how to set this up properly. We also touched on the kind of information to include in the project handoff, GitHub page and video.
 
 ### 4/7/22
 
