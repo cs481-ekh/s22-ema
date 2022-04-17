@@ -295,7 +295,6 @@ def send_group_notification(registration_token_list, expire_time, survey_link, p
         tokens=registration_token_list,
     )
 
-    print(registration_token_list)
     try:
         response = messaging.send_multicast(message)
         # See the BatchResponse reference documentation

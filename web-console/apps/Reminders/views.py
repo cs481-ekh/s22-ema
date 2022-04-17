@@ -16,7 +16,6 @@ def index(request):
     list_of_projects = firebase.get_all_project_names()
     project_id = request.POST.get('selected_project')
     removelist = request.POST.get('removed_participants_list')
-    print(removelist)
     error = []
     flag = False
     if request.method == 'POST':

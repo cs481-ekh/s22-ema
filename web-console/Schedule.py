@@ -40,11 +40,6 @@ def run_continuously(interval=10):
     continuous_thread.daemon = True
     continuous_thread.start()
 
-
-def background_job():
-    print('Hello from the background thread')
-
-
 # Gets the day of the week of the input date
 def get_day_of_week(date):
     dayofweek = datetime.strptime(date, '%Y-%m-%d').strftime('%A')
@@ -187,8 +182,6 @@ def dabatBaseReload():
         reminderTime = dict['reminderTime']
         projectName = dict['projectName']
         startDate =  dict['startDate']
-
-        print(id +" "+ projectName)
 
         if repeating == "Once":
             add_reminder_once(startDate, reminderTime, projectName, id)
