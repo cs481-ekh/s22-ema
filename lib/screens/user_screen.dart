@@ -90,7 +90,7 @@ class _UserPageState extends State<UserPage> {
     for (final notif in MissedNotifs) {
       final nObject = jsonDecode(notif);
       final dateReceivedCheck = DateTime.parse(nObject['received']);
-      final expireTime = dateReceivedCheck.add(const Duration(minutes: 30));
+      final expireTime = DateTime.parse(nObject['expiration']);
       var timeNow = DateTime.now();
       if (timeNow.isAfter(expireTime)) {
         toRemove.add(notif);
