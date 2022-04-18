@@ -46,8 +46,9 @@ $ docker-compose up --build
 $ docker ps
 ```
 
-> [This will give the container id for wsgi. Note: Don't pick the one that says nginx]
-```bash$ docker exec -it <container_id> python manage.py createsuperuser
+> This will give the container id for wsgi. Note: Don't pick the one that says nginx
+```bash
+$ docker exec -it [container_id] python manage.py createsuperuser
 ```
 [Note: Enter the username, email, password (make sure it has atleast one uppercase, one lowercase and a number along with a special character) and remember to take a note on this)
 
