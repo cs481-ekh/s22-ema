@@ -40,7 +40,8 @@ $ cd webconsole
 $ docker-compose up --build 
 ```
 <br />
-Inside another terminal (Create Django super user)
+
+> Inside another terminal (Create Django super user)
 ```bash
 $ docker ps
 ```
