@@ -42,9 +42,16 @@ $ docker-compose up --build
 <br />
 Inside another terminal (Create Django super user)
 ```bash
-$ docker ps => [This will give the container id for wsgi. Note: Don't pick the one that says nginx]
-$ docker exec -it <container_id> python manage.py createsuperuser => [Note: Enter the username, email, password (make sure it has atleast one uppercase, one lowercase and a number along with a special character) and remember to take a note on this)
+$ docker ps
 ```
+<br />
+=> [This will give the container id for wsgi. Note: Don't pick the one that says nginx]
+<br />
+```bash$ docker exec -it <container_id> python manage.py createsuperuser
+```
+<br />
+=> [Note: Enter the username, email, password (make sure it has atleast one uppercase, one lowercase and a number along with a special character) and remember to take a note on this)
+
 <br />
 Visit `http://localhost:85` in your browser. The app should be up & running.
 Enter the username and password that was entered above to be taken to Dashboard.
