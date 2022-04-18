@@ -219,7 +219,7 @@ $(document).ready(function () {
                         "                                                                     alt=\"activity-user\">\n" +
                         "                                                            <td>\n" +
                         "                                                                <h6 class=\"mb-1\">" + time_list[i] + " " + date_list[i] + ", Starting " + datedate_list[i] + "</h6>\n" +
-                        "                                                                <p class=\"m-0\">" + "Expires "+ expDate[i] + " at"+ expTime[i]+ "</p>\n" +
+                        "                                                                <p class=\"m-0\">" + "Expires "+ expDate[i] + " at "+ expTime[i]+ "</p>\n" +
                         "                                                            </td>\n" +
                         "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 remove_card_edit_project removeButton\" name=\"editProjectBtn\" id=\"editProjectBtnId\">Remove</button>\n" +
                         "                                                            </td>\n" +
