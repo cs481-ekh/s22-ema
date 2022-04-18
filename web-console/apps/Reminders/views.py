@@ -52,9 +52,11 @@ def index(request):
                 html_template = loader.get_template('home/page-500.html')
                 return HttpResponse(html_template.render({}, request))
 
+        # removes reminder
         if removelist is not None:
             Schedule.removeReminder(removelist)
 
+        # gets information about reminders assisted with a project for display
         if project_id is not None:
             # Document data of all projects in a dict
             project_dict = firebase.getAllBackUps()
@@ -63,6 +65,8 @@ def index(request):
             reminderTime = []
             startDate = []
             startDateDate = []
+            expirationTime = []
+            expirationDate = []
 
             for reminder in project_dict:
                 dict = reminder.to_dict()
@@ -74,6 +78,12 @@ def index(request):
                     startDate.append(Schedule.get_day_of_week(dict['startDate']))
                     startDateDate.append(dict['startDate'])
 
+                    dateOBJ = datetime.strptime(dict['expirationTime'], "%H:%M")
+                    dateOut = dateOBJ.strftime("%I:%M %p")
+
+                    expirationTime.append(dateOut)
+                    expirationDate.append(dict['expirationDate'])
+
             # Setting cookies so that javascript can grab them to populate
             # input text fields
             response = HttpResponse("Cookie Set")
@@ -81,6 +91,8 @@ def index(request):
             response.set_cookie('reminderTime', reminderTime)
             response.set_cookie('startDate', startDate)
             response.set_cookie('startDateDate', startDateDate)
+            response.set_cookie('expirationDate', expirationDate)
+            response.set_cookie('expirationTime', expirationTime)
             return response
 
         # A unique id is generated and will be tagged to the reminder, and it will be backed up to our backup

@@ -40,6 +40,7 @@ def run_continuously(interval=10):
     continuous_thread.daemon = True
     continuous_thread.start()
 
+
 # Gets the day of the week of the input date
 def get_day_of_week(date):
     dayofweek = datetime.strptime(date, '%Y-%m-%d').strftime('%A')
@@ -61,25 +62,39 @@ def add_reminder_weekly(startDate, startTime, endDate, endTime, selectedProject,
 
     if dayofWeek == 'Monday':
         schedule.every().monday.at(startTime).until(endDate + ' ' + endTime).do(run_standard_reminder_job,
-                                                                                start_date=startDate, project=selectedProject ,tag=tag).tag(tag)
+                                                                                start_date=startDate,
+                                                                                project=selectedProject, tag=tag).tag(
+            tag)
     elif dayofWeek == 'Tuesday':
         schedule.every().tuesday.at(startTime).until(endDate + ' ' + endTime).do(run_standard_reminder_job,
-                                                                                 start_date=startDate, project=selectedProject ,tag=tag).tag(tag)
+                                                                                 start_date=startDate,
+                                                                                 project=selectedProject, tag=tag).tag(
+            tag)
     elif dayofWeek == 'Wednesday':
         schedule.every().wednesday.at(startTime).until(endDate + ' ' + endTime).do(run_standard_reminder_job,
-                                                                                   start_date=startDate, project=selectedProject ,tag=tag).tag(tag)
+                                                                                   start_date=startDate,
+                                                                                   project=selectedProject,
+                                                                                   tag=tag).tag(tag)
     elif dayofWeek == 'Thursday':
         schedule.every().thursday.at(startTime).until(endDate + ' ' + endTime).do(run_standard_reminder_job,
-                                                                                  start_date=startDate, project=selectedProject ,tag=tag).tag(tag)
+                                                                                  start_date=startDate,
+                                                                                  project=selectedProject, tag=tag).tag(
+            tag)
     elif dayofWeek == 'Friday':
         schedule.every().friday.at(startTime).until(endDate + ' ' + endTime).do(run_standard_reminder_job,
-                                                                                start_date=startDate, project=selectedProject ,tag=tag).tag(tag)
+                                                                                start_date=startDate,
+                                                                                project=selectedProject, tag=tag).tag(
+            tag)
     elif dayofWeek == 'Saturday':
         schedule.every().saturday.at(startTime).until(endDate + ' ' + endTime).do(run_standard_reminder_job,
-                                                                                  start_date=startDate, project=selectedProject ,tag=tag).tag(tag)
+                                                                                  start_date=startDate,
+                                                                                  project=selectedProject, tag=tag).tag(
+            tag)
     elif dayofWeek == 'Sunday':
         schedule.every().sunday.at(startTime).until(endDate + ' ' + endTime).do(run_standard_reminder_job,
-                                                                                start_date=startDate, project=selectedProject ,tag=tag).tag(tag)
+                                                                                start_date=startDate,
+                                                                                project=selectedProject, tag=tag).tag(
+            tag)
     else:
         print('error')
 
@@ -88,7 +103,8 @@ def add_reminder_weekly(startDate, startTime, endDate, endTime, selectedProject,
 # all jobs should be tagged with a uuid
 def add_reminder_daily(startDate, startTime, endDate, endTime, selectedProject, tag):
     schedule.every().day.at(startTime).until(endDate + ' ' + endTime).do(run_standard_reminder_job,
-                                                                         start_date=startDate, project=selectedProject ,tag=tag).tag(tag)
+                                                                         start_date=startDate, project=selectedProject,
+                                                                         tag=tag).tag(tag)
 
 
 # The single run job this job checks if its the day and if so hits the firebase API then removes itself
@@ -96,6 +112,7 @@ def run_single_reminder_job(start_date, project, tag):
     current_time = date.today()
     current_time = current_time.strftime("%Y-%m-%d")
     parsed_start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
+    # check
     if str(current_time) == str(parsed_start_date):
         # run the job to hit the API
         sendNotification(project)
@@ -103,7 +120,7 @@ def run_single_reminder_job(start_date, project, tag):
 
 
 # Job for weekly and daily reminders check if is start date or past start date then sends reminder
-def run_standard_reminder_job(start_date,project,tag):
+def run_standard_reminder_job(start_date, project, tag):
     current_time = date.today()
     current_time = current_time.strftime("%Y-%m-%d")
     parsed_start_date = datetime.strptime(start_date, "%Y-%m-%d").date()
@@ -111,19 +128,23 @@ def run_standard_reminder_job(start_date,project,tag):
         sendNotification(project)
 
 
+# Takes in a project name to gather infomration about the project and send reminders
 def sendNotification(project):
     loaded_project = firebase.get_project_document_data(project)
     participants = loaded_project.get('participants')
     survey_link = loaded_project.get('surveyLink')
 
+    # collects the list of user tokens to send the messages
     user_token_list = []
     for user in participants:
         user_token_list.append(firebase.get_user_registration_token(user))
 
+    # gets the date for expire time, currently is hard loaded to 30 min
     now = datetime.now()
     temp = now.strftime("%Y-%m-%d %H:%M:%S")
-    expire_time = datetime.strptime(temp, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=5)
+    expire_time = datetime.strptime(temp, "%Y-%m-%d %H:%M:%S") + timedelta(minutes=30)
 
+    # reaches out to firebase to send notifications
     firebase.send_group_notification(user_token_list, expire_time, survey_link, project)
 
 
@@ -152,6 +173,7 @@ def generate_uuid():
 
     return id_string
 
+# Removes old reminders from the firebase backup
 def firebase_DueDate_Perge():
     backups = firebase.getAllBackUps()
     for backup in backups:
@@ -160,17 +182,18 @@ def firebase_DueDate_Perge():
         expirationDate = dict['expirationDate']
         expirationTime = dict['expirationTime']
 
-
         if expirationDate == '':
             continue
 
         current_time = date.today()
         current_time = current_time.strftime("%Y-%m-%d %H:%M")
-        parsed_end_date = datetime.strptime(expirationDate+' '+expirationTime, "%Y-%m-%d %H:%M").date()
+        parsed_end_date = datetime.strptime(expirationDate + ' ' + expirationTime, "%Y-%m-%d %H:%M").date()
+        # if the current date/time is greater then expreation time remove from firebase and attempt to remove from sceduling system
         if str(parsed_end_date) <= str(current_time):
             tag = dict['uuid']
             removeReminder(tag)
 
+# reload system
 def dabatBaseReload():
     backups = firebase.getAllBackUps()
     for backup in backups:
@@ -181,7 +204,7 @@ def dabatBaseReload():
         repeating = dict['repeating']
         reminderTime = dict['reminderTime']
         projectName = dict['projectName']
-        startDate =  dict['startDate']
+        startDate = dict['startDate']
 
         if repeating == "Once":
             add_reminder_once(startDate, reminderTime, projectName, id)
