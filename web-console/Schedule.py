@@ -40,6 +40,9 @@ def run_continuously(interval=10):
     continuous_thread.daemon = True
     continuous_thread.start()
 
+def background_job():
+    print('Hello from the background thread')
+
 
 # Gets the day of the week of the input date
 def get_day_of_week(date):
