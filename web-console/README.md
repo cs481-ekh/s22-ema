@@ -1,6 +1,7 @@
 # EMA - Web Deployment
 
-EMA is an admin site that helps create projects, edit projects and delete projects that may or may not contain participants. It helps the admin to set notification (date/time) to be scheduled and executed in timely manner which is sent to their andriod/IOS device.
+EMA is an admin site that helps create projects, edit projects and delete projects that may or may not contain participants. It helps the admin to set notification (date/time) to be scheduled and executed in a timely manner which is sent to their android/IOS device.
+
 
 <br />
 
