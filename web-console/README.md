@@ -50,7 +50,8 @@ $ docker-compose up --build
 $ docker ps
 ```
 
-> This will give the container id for wsgi. Note: Don't pick the one that says nginx
+> This will give the container id for wsgi. Note: Pick the container ID of web-console_appseed-app
+
 ```bash
 $ docker exec -it [container_id] python manage.py createsuperuser
 ```
