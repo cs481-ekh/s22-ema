@@ -80,7 +80,12 @@ class _UserPageState extends State<UserPage> {
 
     //["id":idnumber,"received":time,"title":"Test","body":"This is a test notification","url":"test.com",]
     final dateReceived = DateTime.parse(nObject['received']);
-    final expirationReceived = DateTime.parse(nObject['expiration']);
+    var expireTime;
+    try {
+      expireTime = DateTime.parse(nObject['expiration']);
+    } on FormatException {
+      expireTime = DateTime.now().add(const Duration(minutes: 30));
+    }
     final notifInfo = '${nObject['title']} : ${nObject['body']}';
     final url = nObject['url'];
     final dateString = DateFormat('yyyy-MM-dd – h:mm a').format(dateReceived);
@@ -88,11 +93,15 @@ class _UserPageState extends State<UserPage> {
 
     final expiration = '${nObject['expiration']}';
     final expirationString =
-        DateFormat('yyyy-MM-dd – h:mm a').format(expirationReceived);
+        DateFormat('yyyy-MM-dd – h:mm a').format(expireTime);
     for (final notif in MissedNotifs) {
       final nObject = jsonDecode(notif);
-      final dateReceivedCheck = DateTime.parse(nObject['received']);
-      final expireTime = DateTime.parse(nObject['expiration']);
+      var expireTime;
+      try {
+        expireTime = DateTime.parse(nObject['expiration']);
+      } on FormatException {
+        expireTime = DateTime.now().add(const Duration(minutes: 30));
+      }
       var timeNow = DateTime.now();
       if (timeNow.isAfter(expireTime)) {
         toRemove.add(notif);
