@@ -37,7 +37,10 @@ $ cd webconsole
 > Edit Dockerfile and Transfer credentials 
 
 - Uncomment line 17 and comment line 20 of the Docker File
-- Copy and paste credentials (Firebase and gmail) inside webconsole folder
+- Copy and paste the 2 files needed for credentials
+a) Ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json
+b) google_email_creds.txt
+
 
 > Start the app in Docker and create Django super user
 
