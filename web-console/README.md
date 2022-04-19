@@ -25,9 +25,10 @@ EMA is an admin site that helps create projects, edit projects and delete projec
 
 ```bash
 $ git clone https://github.com/cs481-ekh/s22-ema.git
+$ cd s22-ema
 ```
-Check out to remote webconsole branch 
-```bash$ cd s22-ema
+> Check out to remote webconsole branch 
+```bash
 $ cd webconsole
 ```
 
