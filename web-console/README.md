@@ -25,13 +25,17 @@ EMA is an admin site that helps create projects, edit projects and delete projec
 
 ```bash
 $ git clone https://github.com/cs481-ekh/s22-ema.git
-$ cd s22-ema
+```
+Check out to remote webconsole branch 
+```bash$ cd s22-ema
 $ cd webconsole
 ```
 
+
+
 > Edit Dockerfile and Transfer credentials 
 
-- Uncomment line 17 and comment line 20
+- Uncomment line 17 and comment line 20 of the Docker File
 - Copy and paste credentials (Firebase and gmail) inside webconsole folder
 
 > Start the app in Docker and create Django super user
