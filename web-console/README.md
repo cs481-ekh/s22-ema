@@ -17,7 +17,9 @@ EMA is an admin site that helps create projects, edit projects and delete projec
 - Recover Account
 
 <br />
+> Note: Make sure your browser is uptodate
 <br />
+
 
 ## ✨ Quick Start in `Docker`
 
