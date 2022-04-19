@@ -80,13 +80,15 @@ class _UserPageState extends State<UserPage> {
 
     //["id":idnumber,"received":time,"title":"Test","body":"This is a test notification","url":"test.com",]
     final dateReceived = DateTime.parse(nObject['received']);
-
+    final expirationReceived = DateTime.parse(nObject['expiration']);
     final notifInfo = '${nObject['title']} : ${nObject['body']}';
     final url = nObject['url'];
     final dateString = DateFormat('yyyy-MM-dd – h:mm a').format(dateReceived);
     final projectID = '${nObject['projectID']}';
-    final expiration = '${nObject['expiration']}';
 
+    final expiration = '${nObject['expiration']}';
+    final expirationString =
+        DateFormat('yyyy-MM-dd – h:mm a').format(expirationReceived);
     for (final notif in MissedNotifs) {
       final nObject = jsonDecode(notif);
       final dateReceivedCheck = DateTime.parse(nObject['received']);
@@ -195,12 +197,12 @@ class _UserPageState extends State<UserPage> {
                 text: "\n" + projectID,
                 style: const TextStyle(fontWeight: FontWeight.bold)),
             TextSpan(
-              text: "\n" + expiration,
+              text: "\n" + "Expires: " + expirationString,
             ),
           ],
         ),
       ),
-      subtitle: Text(dateString),
+      subtitle: Text("Received: " + dateString),
       onTap: openNotif,
     ));
   }
