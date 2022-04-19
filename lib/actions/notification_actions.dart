@@ -40,7 +40,12 @@ Future<void> storeMessage(RemoteMessage message) async {
       '"projectID":"${projectID}"}';
   final nObject = jsonDecode(newNotif);
   final dateReceived = DateTime.parse(nObject['received']);
-  final expireTime = DateTime.parse(nObject['expiration']);
+  var expireTime;
+  try {
+    expireTime = DateTime.parse(nObject['expiration']);
+  } on FormatException {
+    expireTime = DateTime.now().add(const Duration(minutes: 30));
+  }
   if (DateTime.now().isAfter(expireTime)) {
   } else {
     notifs.insert(0, newNotif);
