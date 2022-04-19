@@ -173,6 +173,8 @@ $(document).ready(function () {
         let uuid_list = Cookies.get("uuid"); // * Note -> the type of this variable is a string
         let time_list = Cookies.get("reminderTime");
         let date_list = Cookies.get("startDate");
+        let expDate = Cookies.get("expirationDate");
+        let expTime = Cookies.get("expirationTime");
         let datedate_list = Cookies.get("startDateDate");
         if (typeof uuid_list !== "uuid") {
             // Setting the participants cookie variable as a global variable
@@ -181,18 +183,31 @@ $(document).ready(function () {
             uuid_list = uuid_list.replace(']', '');
             uuid_list = uuid_list.replaceAll('\'', '');
             uuid_list = uuid_list.split("\\054");
+
             time_list = time_list.replace('[', '');
             time_list = time_list.replace(']', '');
             time_list = time_list.replaceAll('\'', '');
             time_list = time_list.split("\\054");
+
             date_list = date_list.replace('[', '');
             date_list = date_list.replace(']', '');
             date_list = date_list.replaceAll('\'', '');
             date_list = date_list.split("\\054");
+
             datedate_list = datedate_list.replace('[', '');
             datedate_list = datedate_list.replace(']', '');
             datedate_list = datedate_list.replaceAll('\'', '');
             datedate_list = datedate_list.split("\\054");
+
+            expDate = expDate.replace('[', '');
+            expDate = expDate.replace(']', '');
+            expDate = expDate.replaceAll('\'', '');
+            expDate = expDate.split("\\054");
+
+            expTime = expTime.replace('[', '');
+            expTime = expTime.replace(']', '');
+            expTime = expTime.replaceAll('\'', '');
+            expTime = expTime.split("\\054");
 
             if (uuid_list[0] != "") {
                 for (let i = 0; i < uuid_list.length; i++) {
@@ -204,7 +219,7 @@ $(document).ready(function () {
                         "                                                                     alt=\"activity-user\">\n" +
                         "                                                            <td>\n" +
                         "                                                                <h6 class=\"mb-1\">" + time_list[i] + " " + date_list[i] + ", Starting " + datedate_list[i] + "</h6>\n" +
-                        "                                                                <p class=\"m-0\">" + uuid_list[i] + "</p>\n" +
+                        "                                                                <p class=\"m-0\">" + "Expires "+ expDate[i] + " at "+ expTime[i]+ "</p>\n" +
                         "                                                            </td>\n" +
                         "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 remove_card_edit_project removeButton\" name=\"editProjectBtn\" id=\"editProjectBtnId\">Remove</button>\n" +
                         "                                                            </td>\n" +
@@ -217,6 +232,8 @@ $(document).ready(function () {
             Cookies.remove("reminderTime");
             Cookies.remove("startDate");
             Cookies.remove("datedate_list");
+            Cookies.remove("expirationDate");
+            Cookies.remove("expirationTime");
         }
     }, 10);
 
