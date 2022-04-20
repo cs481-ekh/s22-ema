@@ -4,6 +4,16 @@
 
 ## Web
 
+### 4/19/22
+
+*Scribe:* Alejandro
+
+*Present:* Andrew, Alejandro, Daniel
+
+*Absent:* Brandon
+
+*Items:* During this meeting, we were testing the docker container on our own machines to see if it was functioning. We also discussed that we need to create a manual on how to use the web console.
+
 ### 4/14/22
 
 *Scribe:* Alejandro
