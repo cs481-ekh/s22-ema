@@ -27,6 +27,7 @@ class _UserPageState extends State<UserPage> {
   List<String> MissedNotifs = [];
   List<String> toRemove = [];
   int notifAmount = 0;
+  bool empty = true;
 
   void initializeMessageHandler() async {
     FirebaseMessaging.onMessage.listen(handleForegroundNotif);
@@ -54,6 +55,11 @@ class _UserPageState extends State<UserPage> {
       }
       MissedNotifs.removeWhere((notif) => toRemove.contains(notif));
       notifAmount = MissedNotifs.length;
+      if (notifAmount == 0) {
+        empty = true;
+      } else {
+        empty = false;
+      }
     });
     setState(() {
       notifAmount = MissedNotifs.length;
@@ -252,12 +258,7 @@ class _UserPageState extends State<UserPage> {
                 flex: 5,
                 child: Padding(
                     padding: const EdgeInsets.all(5.0),
-                    child: ListView.builder(
-                        padding: const EdgeInsets.all(5),
-                        itemCount: notifAmount,
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemBuilder: listViewHelper))),
+                    child: showList(empty))),
             Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: TextButton(
@@ -363,5 +364,18 @@ class _UserPageState extends State<UserPage> {
         );
       },
     );
+  }
+
+  Widget showList(bool empty) {
+    if (!empty) {
+      return ListView.builder(
+          padding: const EdgeInsets.all(5),
+          itemCount: notifAmount,
+          scrollDirection: Axis.vertical,
+          shrinkWrap: true,
+          itemBuilder: listViewHelper);
+    } else {
+      return const Text("No Notifications");
+    }
   }
 }
