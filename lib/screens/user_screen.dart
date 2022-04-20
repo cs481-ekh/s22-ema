@@ -86,7 +86,7 @@ class _UserPageState extends State<UserPage> {
 
     //["id":idnumber,"received":time,"title":"Test","body":"This is a test notification","url":"test.com",]
     final dateReceived = DateTime.parse(nObject['received']);
-    var expireTime;
+    DateTime expireTime;
     try {
       expireTime = DateTime.parse(nObject['expiration']);
     } on FormatException {
@@ -96,13 +96,11 @@ class _UserPageState extends State<UserPage> {
     final url = nObject['url'];
     final dateString = DateFormat('yyyy-MM-dd – h:mm a').format(dateReceived);
     final projectID = '${nObject['projectID']}';
-
-    final expiration = '${nObject['expiration']}';
     final expirationString =
         DateFormat('yyyy-MM-dd – h:mm a').format(expireTime);
     for (final notif in MissedNotifs) {
       final nObject = jsonDecode(notif);
-      var expireTime;
+      DateTime expireTime;
       try {
         expireTime = DateTime.parse(nObject['expiration']);
       } on FormatException {
@@ -115,13 +113,6 @@ class _UserPageState extends State<UserPage> {
     }
     MissedNotifs.removeWhere((notif) => toRemove.contains(notif));
     notifAmount = MissedNotifs.length;
-    if (notifAmount == 0) {
-      return Container(
-        height: 50,
-        color: Colors.amber[600],
-        child: const Center(child: Text('No Notifications')),
-      );
-    }
 
     //In order to properly access the url object, this needs to be initialized here unfortunately
     //Against everything I understand about Dart, it works so I'm not too worried
@@ -375,7 +366,10 @@ class _UserPageState extends State<UserPage> {
           shrinkWrap: true,
           itemBuilder: listViewHelper);
     } else {
-      return const Text("No Notifications");
+      return Container(
+          height: 50,
+          color: Colors.amber[600],
+          child: const Center(child: Text('No Notifications')));
     }
   }
 }
