@@ -70,6 +70,22 @@ Future<bool> checkProjectIdExists(String projectId) async {
   return check;
 }
 
+Future<String> addProjectToUser(String username, String project) async {
+  CollectionReference users = FirebaseFirestore.instance.collection('users');
+  CollectionReference projects =
+      FirebaseFirestore.instance.collection('projects');
+  projects.doc(project).update({
+    'participants': FieldValue.arrayUnion([username])
+  });
+  return users
+      .doc(username)
+      .update({
+        'projectId': FieldValue.arrayUnion([project])
+      })
+      .then((value) => "")
+      .catchError((error) => error.toString());
+}
+
 Future<bool> addUserToParticipants(String email, List<String> projList) async {
   bool passed = true;
   CollectionReference projects =

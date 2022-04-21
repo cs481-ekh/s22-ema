@@ -10,7 +10,7 @@ class LoginPage extends StatelessWidget {
   final TextEditingController passwordController;
   final TextEditingController projectIdController;
 
-  LoginPage({
+  const LoginPage({
     Key? key,
     required this.usernameController,
     required this.passwordController,
@@ -299,13 +299,13 @@ class LoginPage extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          new MaterialPageRoute(
+                          MaterialPageRoute(
                             builder: (context) => MyStatefulWidget(
                                 usernameController: usernameController),
                           ),
                         );
                       },
-                      child: Text('Forgot Password'),
+                      child: const Text('Forgot Password'),
                     ),
                   ),
                 ]))

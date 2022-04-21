@@ -1,3 +1,4 @@
+import 'package:ema/screens/add_project.dart';
 import 'package:ema/screens/user_project_id_screen.dart';
 import 'package:ema/utils/global_funcs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -170,7 +171,10 @@ class _ProjectsPageState extends State<ProjectsPage> {
               child: GestureDetector(
                   onTap: () {
                     // TODO: navigate to new page where you can subscribe to new topic
-                    //Navigator.push(context, MaterialPageRoute(builder: (context) => projectpagehere()))
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AddProjectPage()));
                   },
                   child: const Icon(Icons.add)))
         ],
