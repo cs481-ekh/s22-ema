@@ -36,10 +36,9 @@ $ cd webconsole
 ```
 
 
+> Edit manage.py file and Transfer credentials 
 
-> Edit Dockerfile and Transfer credentials 
-
-- Uncomment line 17 and comment line 20 of the Docker File
+- Uncomment line 33, 44, 53, 58 and 59 in manage.py
 - Copy and paste the 2 files needed for credentials: 
 - Ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json
 - google_email_creds.txt
@@ -56,7 +55,7 @@ $ docker-compose up --build
 $ docker ps
 ```
 
-> This will give the container id for wsgi. Note: Pick the container ID of web-console_appseed-app
+> This will give the container id for wsgi. Note: Pick the container ID of  web-console_web_run 
 
 ```bash
 $ docker exec -it [container_id] python manage.py createsuperuser
