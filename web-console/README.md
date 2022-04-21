@@ -63,7 +63,7 @@ $ docker exec -it [container_id] python manage.py createsuperuser
 [Note: Enter the username, email, password (make sure it has atleast one uppercase, one lowercase and a number along with a special character) and remember to take a note on this)
 
 <br />
-Visit `http://localhost:85` in your browser. The app should be up & running.
+Visit `http://0.0.0.0:8000/` in your browser [Link may also be displayed in the terminal]. The app should be up & running.
 Enter the username and password that was entered above to be taken to Dashboard.
 <br />
 
