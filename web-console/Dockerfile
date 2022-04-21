@@ -1,21 +1,7 @@
-FROM python:3.9
-
-COPY . .
-
-# set environment variables
-ENV PYTHONDONTWRITEBYTECODE 1
+FROM python:3.8
 ENV PYTHONUNBUFFERED 1
-
-# install python dependencies
-RUN pip install --upgrade pip
-RUN pip install --no-cache-dir -r requirements.txt
-
-# running migrations
-RUN python manage.py migrate
-
-# gunicorn
-# CMD ["gunicorn", "--config", "gunicorn-cfg.py", "core.wsgi"]
-
-# This signifies that built was complete and that instead of running the server we will simply print "Project Built Successfully"
-CMD ["/bin/echo", "Project built successfully!"]
-
+RUN mkdir /code
+WORKDIR /code
+COPY requirements.txt /code/
+RUN pip install -r requirements.txt
+COPY . /code/
