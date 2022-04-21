@@ -136,6 +136,17 @@
 
 ## Mobile
 
+### 4/21/22
+
+*Scribe:* Jeff
+
+*Present:* Jason, Jeff, Jon
+
+*Absent:* N/A
+
+*Items:* Added functionality for users to subscribe to additional projects. Fixed firebase rules that were to restrictive for users to create an account. Updated the apk of the deployable firebase android build. Created user manual and android deployment instuctions. Sent an email to the sponsor for a when to meet time for the project signoff and emailed professor for sponsor firebase sign-in credentials.
+
+
 ### 4/12/22
 
 *Scribe:* Jeff
