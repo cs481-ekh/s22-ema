@@ -168,6 +168,7 @@ def email_processor(string):
     string_array = string.split(",")
     return string_array
 
+
 # shows exclamation through javascript to user
 @login_required(login_url="/login/")
 def delete(request):
@@ -175,9 +176,9 @@ def delete(request):
     response = FileResponse(img)
     return response
 
+
 @login_required(login_url="/login/")
 def adctivity_user(request):
     img = open(os.getcwd() + '/apps/static/assets/images/user/user-3.png', 'rb')
     response = FileResponse(img)
     return response
-

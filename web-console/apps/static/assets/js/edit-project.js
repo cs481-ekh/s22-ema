@@ -298,7 +298,7 @@ $(document).ready(function () {
                         $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + newParticipant + ">\n" +
                             "                                                            <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
                             "                                                                     src=" + user_pic_url + "\n" +
-                            "                                                                     alt=\"activity-user\">\n" +
+                            "                                                                     alt=\'activity-user\'>\n" +
                             "                                                            <td>\n" +
                             "                                                                <h6 class=\"mb-1\" >" + newParticipant + "</h6>\n" +
                             "                                                                <p class=\"m-0\">" + newParticipantUsername + "</p>\n" +

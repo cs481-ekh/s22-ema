@@ -2,7 +2,7 @@ from json import dumps
 
 from django.contrib.auth.decorators import login_required
 from importlib.machinery import SourceFileLoader
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.shortcuts import render
 import os
 
@@ -84,6 +84,13 @@ def create_project(request):
 
     # html_template = loader.get_template('home/create-project.html')
     return render(request, 'home/create-project.html', {'all_users_drop_down': all_users_drop_down})
+
+
+@login_required(login_url="/login/")
+def adctivity_user(request):
+    img = open(os.getcwd() + '/apps/static/assets/images/user/user-3.png', 'rb')
+    response = FileResponse(img)
+    return response
 
 
 # Custom method to remove duplicates from the list.
