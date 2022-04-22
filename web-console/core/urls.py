@@ -15,12 +15,12 @@ from core.settings import EMA_REL
 from apps.dashboard.views import index, page_not_found
 
 site_patterns = [
-    path('admin/', admin.site.urls),  # Django admin route
     path("", include("apps.authentication.urls")),  # Auth routes - login / register / forgot password
     path("", include("apps.dashboard.urls")),  # Dashboard routes - main / support
 ]
 
 urlpatterns = [
+   path('admin/', admin.site.urls),  # Django admin route
    path(f'', include(site_patterns)),
    path(f'{EMA_REL}', index, name='dashboard'),
    path(f'{EMA_REL}/', include(site_patterns)),

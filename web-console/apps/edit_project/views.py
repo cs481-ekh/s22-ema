@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from importlib.machinery import SourceFileLoader
 import os
 
 from django.template import loader
+from django.templatetags.static import static
 
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 
@@ -166,3 +167,17 @@ def edit_project(request):
 def email_processor(string):
     string_array = string.split(",")
     return string_array
+
+# shows exclamation through javascript to user
+@login_required(login_url="/login/")
+def delete(request):
+    img = open(os.getcwd() + '/apps/static/assets/images/exclamation-mark.png', 'rb')
+    response = FileResponse(img)
+    return response
+
+@login_required(login_url="/login/")
+def adctivity_user(request):
+    img = open(os.getcwd() + '/apps/static/assets/images/user/user-3.png', 'rb')
+    response = FileResponse(img)
+    return response
+
