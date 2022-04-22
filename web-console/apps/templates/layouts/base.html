@@ -27,17 +27,17 @@
     <meta name="author" content="CodedThemes"/>
 
     <!-- Favicon icon -->
-    <link rel="icon" href="/static/assets/images/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="{% static 'assets/images/favicon.ico' %}" type="image/x-icon">
     <!-- fontawesome icon -->
-    <link rel="stylesheet" href="/static/assets/fonts/fontawesome/css/fontawesome-all.min.css">
+    <link rel="stylesheet" href="{% static 'assets/fonts/fontawesome/css/fontawesome-all.min.css' %}">
     <!-- animation css -->
-    <link rel="stylesheet" href="/static/assets/plugins/animation/css/animate.min.css">
+    <link rel="stylesheet" href="{% static 'assets/plugins/animation/css/animate.min.css' %}">
     <!-- vendor css -->
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <!-- project and participant css -->
-    <link rel="stylesheet" href="/static/assets/css/general.css">
+    <link rel="stylesheet" href="{% static 'assets/css/general.css' %}">
     <!-- vendor css -->
-    <link rel="stylesheet" href="/static/assets/css/sdp-sticker.css">
+    <link rel="stylesheet" href="{% static 'assets/css/sdp-sticker.css' %}">
 
     <!-- Specific CSS goes HERE -->
     {% block stylesheets %}{% endblock stylesheets %}
