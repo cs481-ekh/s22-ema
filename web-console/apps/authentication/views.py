@@ -15,6 +15,8 @@ from django.template import loader
 from .forms import LoginForm
 from django.contrib.auth import get_user_model
 
+from core.settings import EMA_ROOT
+
 google_emailer = SourceFileLoader("google_emailer", os.getcwd() + "/google_emailer.py").load_module()
 
 # email_found
@@ -24,7 +26,7 @@ email_found = False
 def login_view(request):
     # checks if the user is authenticated than redirect to home.
     if request.user.is_authenticated:
-        return redirect("/")
+        return redirect(f'{EMA_ROOT}/')
 
     form = LoginForm(request.POST or None)
     msg = None
@@ -36,7 +38,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect("/")
+                return redirect(f'{EMA_ROOT}/')
             else:
                 msg = 'Invalid credentials'
         else:
@@ -61,7 +63,7 @@ def logout_view(request):
 def reset_password(request):
     # checks if the user is not authenticated than redirect to login.
     if not request.user.is_authenticated:
-        return redirect("/login")
+        return redirect(f"{EMA_ROOT}/login")
     # Grabbing the value of our input fields
     username = request.POST.get('user_name')
     user_password = request.POST.get('user-password')
@@ -123,7 +125,7 @@ def reset_password(request):
 def recover_password(request):
     # checks if the user is  authenticated than redirect to dashboard.
     if request.user.is_authenticated:
-        return redirect("/")
+        return redirect(f'{EMA_ROOT}/')
     else:
         if request.method == 'POST':
             # get recover email upon post

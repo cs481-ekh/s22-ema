@@ -12,11 +12,13 @@ from datetime import datetime
 import pendulum
 import os
 
+from core.settings import EMA_ROOT
+
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 project_participants = []
 
 
-@login_required(login_url="/login/")
+@login_required(login_url=f"{EMA_ROOT}/login/")
 def index(request):
     # POST only comes in if drop down is value is changed
     if request.method == 'POST':
@@ -112,24 +114,24 @@ def index(request):
         return HttpResponse(html_template.render({}, request))
 
 
-@login_required(login_url="/login/")
+@login_required(login_url=f"{EMA_ROOT}/login/")
 def send_json_to_client(request):
     global project_participants
     # Safety check if the list does not contain any dictionary
     if len(project_participants) == 0:
-        return redirect('/')
+        return redirect(f'{EMA_ROOT}/')
     else:
         return JsonResponse(project_participants, safe=False)
 
 
 # Rendering the support page
-@login_required(login_url="/login/")
+@login_required(login_url=f"{EMA_ROOT}/login/")
 def support_page(request):
     return render(request, 'home/support.html')
 
 
 # if page is not found
-@login_required(login_url="/login/")
+@login_required(login_url=f"{EMA_ROOT}/login/")
 def page_not_found(request):
     context = {}
     html_template = loader.get_template('home/page-404.html')
