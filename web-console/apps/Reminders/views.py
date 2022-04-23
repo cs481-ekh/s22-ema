@@ -2,7 +2,7 @@ from datetime import datetime
 from importlib.machinery import SourceFileLoader
 import os
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.shortcuts import render
 from django.template import loader
 from core.settings import EMA_ROOT
@@ -132,3 +132,11 @@ def index(request):
     except:
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render({}, request))
+
+
+
+@login_required(login_url=f"{EMA_ROOT}/login/")
+def adctivity_user(request):
+    img = open(os.getcwd() + '/apps/static/assets/images/user/user-3.png', 'rb')
+    response = FileResponse(img)
+    return response

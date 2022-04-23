@@ -211,21 +211,29 @@ $(document).ready(function () {
 
             if (uuid_list[0] != "") {
                 for (let i = 0; i < uuid_list.length; i++) {
-
-                    // Adding a participant card to the right
-                    $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + uuid_list[i] + ">\n" +
-                        "                                                            <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
-                        "                                                                     src=\"/static/assets/images/user/user-3.png\"\n" +
-                        "                                                                     alt=\"activity-user\">\n" +
-                        "                                                            <td>\n" +
-                        "                                                                <h6 class=\"mb-1\">" + time_list[i] + " " + date_list[i] + ", Starting " + datedate_list[i] + "</h6>\n" +
-                        "                                                                <p class=\"m-0\">" + "Expires "+ expDate[i] + " at "+ expTime[i]+ "</p>\n" +
-                        "                                                            </td>\n" +
-                        "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 remove_card_edit_project removeButton\" name=\"editProjectBtn\" id=\"editProjectBtnId\">Remove</button>\n" +
-                        "                                                            </td>\n" +
-                        "                                                        </tr>");
+                    // getting the activity_user image. Clean string than add. Due to bad user behaviour
+                    let user_pic_url = String(window.location.origin).replace("/ema/reminders/activity_user/", "").trim() + "/ema/reminders/activity_user/"
+                    $.ajax({
+                        url: user_pic_url,
+                        timeout: 300,
+                        success: function () {
+                            // Adding a participant card to the right
+                            $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + uuid_list[i] + ">\n" +
+                                "                                                            <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
+                                "                                                                     src=" + user_pic_url + "\n" +
+                                "                                                                     alt=\"activity-user\">\n" +
+                                "                                                            <td>\n" +
+                                "                                                                <h6 class=\"mb-1\">" + time_list[i] + " " + date_list[i] + ", Starting " + datedate_list[i] + "</h6>\n" +
+                                "                                                                <p class=\"m-0\">" + "Expires " + expDate[i] + " at " + expTime[i] + "</p>\n" +
+                                "                                                            </td>\n" +
+                                "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 remove_card_edit_project removeButton\" name=\"editProjectBtn\" id=\"editProjectBtnId\">Remove</button>\n" +
+                                "                                                            </td>\n" +
+                                "                                                        </tr>");
+                        }
+                    });
                 }
             }
+
 
             // Delete the cookie after usage.
             Cookies.remove("uuid");
@@ -235,7 +243,7 @@ $(document).ready(function () {
             Cookies.remove("expirationDate");
             Cookies.remove("expirationTime");
         }
-    }, 10);
+    }, 500);
 
     //When the "remove" button is clicked, remove the participant card
     $(document).on('click', '.remove_card_edit_project', function () {
