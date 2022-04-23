@@ -126,7 +126,7 @@ $(document).ready(function () {
                         let user_pic_url = String(window.location.origin).replace("/ema/editProject/activity_user/", "").trim() + "/ema/editProject/activity_user/"
                         $.ajax({
                             url: user_pic_url,
-                            timeout: 5000,
+                            timeout: 500,
                             success: function () {
                                 // Adding a participant card to the right
                                 $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + participants_initial_list[i] + ">\n" +
@@ -151,7 +151,7 @@ $(document).ready(function () {
                 }
 
             }
-        }, 10);
+        }, 1000);
 
         // If the surveylink field has been modified
         $("#surveyLinkInput").on("change keyup paste click", function () {
@@ -271,7 +271,7 @@ $(document).ready(function () {
 
                 Cookies.remove("user_does_not_exist");
             }
-        }, 10);
+        }, 1000);
 
         // Check if participant cookie is set every few seconds. User will see a new card confirming the participant
         // has been added
@@ -292,7 +292,7 @@ $(document).ready(function () {
                 let user_pic_url = String(window.location.origin).replace("/ema/editProject/activity_user/", "").trim() + "/ema/editProject/activity_user/"
                 $.ajax({
                     url: user_pic_url,
-                    timeout: 5000,
+                    timeout: 500,
                     success: function () {
                         // Adding a participant card to the right
                         $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + newParticipant + ">\n" +
@@ -311,7 +311,7 @@ $(document).ready(function () {
                     }
                 });
             }
-        }, 10);
+        }, 1000);
 
         // When client is adding a participant that is already a member of the project, the client will
         // get an error
@@ -347,7 +347,7 @@ $(document).ready(function () {
                         let user_pic_url = String(window.location.origin).replace("/ema/editProject/activity_user/", "").trim() + "/ema/editProject/activity_user/"
                         $.ajax({
                             url: user_pic_url,
-                            timeout: 5000,
+                            timeout: 500,
                             success: function () {
                                 // Adding a participant card to the right
                                 $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + participant_is_member + ">\n" +
@@ -384,7 +384,7 @@ $(document).ready(function () {
                 }
             }
             ,
-            10
+            1000
         )
         ;
 
@@ -412,7 +412,7 @@ $(document).ready(function () {
             let delete_exclam_url = String(window.location.origin).replace("/ema/editProject/delete/", "").trim() + "/ema/editProject/delete/"
             $.ajax({
                 url: delete_exclam_url,
-                timeout: 5000,
+                timeout: 500,
                 success: function () {
                     let super_modal = document.getElementById('super-modal');
                     super_modal.innerHTML += '<div class="bg-modal animate_fade_in" id="bg-modal-id">\n' +

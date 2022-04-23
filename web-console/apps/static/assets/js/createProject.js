@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
     // prevent empty form submission on refresh
-    if (window.history.replaceState) {
-        window.history.replaceState(null, null, window.location.href);
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
     }
 
     let participant_list = []; // List that will contain all the emails of participants to be added to the project.
@@ -13,7 +13,7 @@ $(document).ready(function () {
     // drop down is disabled by default
     $('#participantEmailInput').attr('disabled', true);
     // disable create button
-    $('#createProject').attr('disabled', true);
+     $('#createProject').attr('disabled', true);
 
     // Check if Project Name input box and survey Link input box are not empty
     $(document).on("keyup", function (e) {
@@ -66,30 +66,31 @@ $(document).ready(function () {
             let text = part;
             const myArray = text.split("@");
             let userName = myArray[0];
-            // getting the activity_user image. Clean string than add. Due to bad user behaviour
-            let user_pic_url = String(window.location.origin).replace("/ema/createProject/activity_user/", "").trim() + "/ema/createProject/activity_user/"
-            $.ajax({
-                url: user_pic_url,
-                timeout: 5000,
-                success: function () {
-                    // Adding a participant card to the right
-                    $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + part + ">\n" +
-                        "                                                            <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
-                        "                                                                     src=" + user_pic_url + "\n" +
-                        "                                                                     alt=\'activity-user\'>\n" +
-                        "                                                            <td>\n" +
-                        "                                                                <h6 class=\"mb-1\">" + part + "</h6>\n" +
-                        "                                                                <p class=\"m-0\">" + userName + "</p>\n" +
-                        "                                                            </td>\n" +
-                        "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 removeCard removeButton\">Remove</button>\n" +
-                        "                                                            </td>\n" +
-                        "                                                        </tr>");
-                    // Delete the cookie after usage.
-                    Cookies.remove("participant_email")
-                }
-            });
+
+             // getting the activity_user image. Clean string than add. Due to bad user behaviour
+                let user_pic_url = String(window.location.origin).replace("/ema/activity_user/", "").trim() + "/ema/activity_user/"
+                $.ajax({
+                    url: user_pic_url,
+                    timeout: 300,
+                    success: function () {
+                        // Adding a participant card to the right
+                        $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + part + ">\n" +
+                            "                                                            <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
+                            "                                                                     src=" + user_pic_url + "\n" +
+                            "                                                                     alt=\"activity-user\"></td>\n" +
+                            "                                                            <td>\n" +
+                            "                                                                <h6 class=\"mb-1\">" + part + "</h6>\n" +
+                            "                                                                <p class=\"m-0\">" + userName + "</p>\n" +
+                            "                                                            </td>\n" +
+                            "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 removeCard removeButton\">Remove</button>\n" +
+                            "                                                            </td>\n" +
+                            "                                                        </tr>");
+                        // Delete the cookie after usage.
+                        Cookies.remove("participant_email")
+                    }
+                });
         }
-    }, 10);
+    }, 500);
 
     function check_if_value_exist_in_participant_list(part_email) {
         let exist = false;
@@ -129,8 +130,8 @@ $(document).ready(function () {
                 }
 
             } else {
-                $('#participantEmailInput').addClass('error_class_input');
-                $('#email_label').addClass('error_class_label');
+                    $('#participantEmailInput').addClass('error_class_input');
+                    $('#email_label').addClass('error_class_label');
             }
 
 

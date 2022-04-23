@@ -69,7 +69,8 @@ $(document).ready(function () {
                             // Get data from JSON on client end
                             $.get("JSON/", function (data) {
                                 for (let i = 0; i < data.length; i++) {
-                                    if (data.length != 0) {
+                                    if (data[i].length !== 1 ) {
+                                        console.log(typeof data[i].length)
                                         let email = data[i].email;
                                         let dateCreated = data[i].dateCreated;
                                         let dateCreated_clean = dateCreated.split("T");
