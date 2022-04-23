@@ -67,22 +67,30 @@ $(document).ready(function () {
             const myArray = text.split("@");
             let userName = myArray[0];
 
-            // Adding a participant card to the right
-            $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + part + ">\n" +
-                "                                                            <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
-                "                                                                     src=\"/static/assets/images/user/user-3.png\"\n" +
-                "                                                                     alt=\"activity-user\"></td>\n" +
-                "                                                            <td>\n" +
-                "                                                                <h6 class=\"mb-1\">" + part + "</h6>\n" +
-                "                                                                <p class=\"m-0\">" + userName + "</p>\n" +
-                "                                                            </td>\n" +
-                "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 removeCard removeButton\">Remove</button>\n" +
-                "                                                            </td>\n" +
-                "                                                        </tr>");
-            // Delete the cookie after usage.
-            Cookies.remove("participant_email")
+             // getting the activity_user image. Clean string than add. Due to bad user behaviour
+                let user_pic_url = String(window.location.origin).replace("/ema/activity_user/", "").trim() + "/ema/activity_user/"
+                $.ajax({
+                    url: user_pic_url,
+                    timeout: 300,
+                    success: function () {
+                        // Adding a participant card to the right
+                        $("tbody").append(" <tr class=\"unread animate_fade_in\" id=" + part + ">\n" +
+                            "                                                            <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
+                            "                                                                     src=" + user_pic_url + "\n" +
+                            "                                                                     alt=\"activity-user\"></td>\n" +
+                            "                                                            <td>\n" +
+                            "                                                                <h6 class=\"mb-1\">" + part + "</h6>\n" +
+                            "                                                                <p class=\"m-0\">" + userName + "</p>\n" +
+                            "                                                            </td>\n" +
+                            "                                                            <td><button type=\"button\" class=\"label theme-bg2 text-white f-12 removeCard removeButton\">Remove</button>\n" +
+                            "                                                            </td>\n" +
+                            "                                                        </tr>");
+                        // Delete the cookie after usage.
+                        Cookies.remove("participant_email")
+                    }
+                });
         }
-    }, 10);
+    }, 500);
 
     function check_if_value_exist_in_participant_list(part_email) {
         let exist = false;

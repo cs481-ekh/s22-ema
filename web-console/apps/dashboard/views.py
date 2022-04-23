@@ -2,16 +2,13 @@ from importlib.machinery import SourceFileLoader
 
 import pytz
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.shortcuts import render, redirect
 from django.template import loader
-from django.urls import reverse
-from django.utils.translation import template
 from django.http import JsonResponse
 from datetime import datetime
 import pendulum
 import os
-
 from core.settings import EMA_ROOT
 
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
@@ -136,3 +133,10 @@ def page_not_found(request):
     context = {}
     html_template = loader.get_template('home/page-404.html')
     return HttpResponse(html_template.render(context, request))
+
+
+@login_required(login_url=f"{EMA_ROOT}/login/")
+def adctivity_user(request):
+    img = open(os.getcwd() + '/apps/static/assets/images/user/user-3.png', 'rb')
+    response = FileResponse(img)
+    return response

@@ -2,16 +2,16 @@ from datetime import datetime
 from importlib.machinery import SourceFileLoader
 import os
 from django.contrib.auth.decorators import login_required
-from django.http import HttpResponse
+from django.http import HttpResponse, FileResponse
 from django.shortcuts import render
 from django.template import loader
-
+from core.settings import EMA_ROOT
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 Schedule = SourceFileLoader("Schedule", os.getcwd() + "/Schedule.py").load_module()
 
 
 # view for Notfication setting
-@login_required(login_url="/login/")
+@login_required(login_url=f"{EMA_ROOT}/login/")
 def index(request):
     list_of_projects = firebase.get_all_project_names()
     project_id = request.POST.get('selected_project')
@@ -132,3 +132,11 @@ def index(request):
     except:
         html_template = loader.get_template('home/page-500.html')
         return HttpResponse(html_template.render({}, request))
+
+
+
+@login_required(login_url=f"{EMA_ROOT}/login/")
+def adctivity_user(request):
+    img = open(os.getcwd() + '/apps/static/assets/images/user/user-3.png', 'rb')
+    response = FileResponse(img)
+    return response

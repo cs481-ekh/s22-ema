@@ -4,7 +4,8 @@
 
 <!-- Specific CSS goes HERE -->
 {% block stylesheets %}
-    <link rel="stylesheet" href="/static/assets/plugins/chart-morris/css/morris.css">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'assets/plugins/chart-morris/css/morris.css' %}">
 {% endblock stylesheets %}
 
 {% block content %}
@@ -312,5 +313,6 @@
     {#    <script src="/static/assets/plugins/chart-morris/js/raphael.min.js"></script>#}
     {#    <script src="/static/assets/plugins/chart-morris/js/morris.min.js"></script>#}
     {#    <script src="/static/assets/js/pages/chart-morris-custom.js"></script>#}
-    <script src="/static/assets/js/dashboard.js"></script>
+    {% load static %}
+    <script src="{% static 'assets/js/dashboard.js' %}"></script>
 {% endblock javascripts %}

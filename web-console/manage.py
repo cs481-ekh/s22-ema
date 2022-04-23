@@ -54,7 +54,7 @@ def main():
     ####################################################################################################################
 
     # Starts the background deamon thread the runs the sceduling system
-    Schedule.run_continuously()
+    # Schedule.run_continuously()
     # Schedule.firebase_DueDate_Perge()
     # Schedule.dabatBaseReload()
 
