@@ -176,7 +176,7 @@ $(document).ready(function () {
         let expDate = Cookies.get("expirationDate");
         let expTime = Cookies.get("expirationTime");
         let datedate_list = Cookies.get("startDateDate");
-        if (typeof uuid_list !== "uuid") {
+        if ((typeof uuid_list !== "uuid") && (typeof uuid_list !== "undefined")) {
             // Setting the participants cookie variable as a global variable
             // The selected project contains participants
             uuid_list = uuid_list.replace('[', '');
