@@ -259,6 +259,16 @@
 
 ## Full Team
 
+### 4/23/22
+
+*Scribe:* Jeff
+
+*Present:* Jeff, Andrew, Daniel, Alejandro
+
+*Absent:* Brandon, Jon, Jason
+
+*Items:* During this meeting we submitted the github page and discussed the plan for finishing the project next week. We discussed how we still required the deployment and build from mobile and the project status from the web team for the Project Handoff. We also talked about the deploy instructions we still need for iOS for the sponsor handoff. Finally, we talked about meeting again to perform testing once the server has been fully deployed.
+
 ### 4/16/22
 
 *Scribe:* Jeff
