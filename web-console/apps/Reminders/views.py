@@ -5,13 +5,13 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.template import loader
-
+from core.settings import EMA_ROOT
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 Schedule = SourceFileLoader("Schedule", os.getcwd() + "/Schedule.py").load_module()
 
 
 # view for Notfication setting
-@login_required(login_url="/login/")
+@login_required(login_url=f"{EMA_ROOT}/login/")
 def index(request):
     list_of_projects = firebase.get_all_project_names()
     project_id = request.POST.get('selected_project')

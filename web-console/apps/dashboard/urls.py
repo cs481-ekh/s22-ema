@@ -8,4 +8,5 @@ urlpatterns = [
     path("createProject/", include("apps.create_project.urls")),
     path("editProject/", include("apps.edit_project.urls")),
     path("reminders/", include("apps.Reminders.urls")),
+    path('activity_user/', views.adctivity_user, name="activity_user")
 ]

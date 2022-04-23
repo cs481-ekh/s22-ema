@@ -6,7 +6,7 @@ import os
 
 from django.template import loader
 from django.templatetags.static import static
-
+from core.settings import EMA_ROOT
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 
 initial_survey_link = None
@@ -15,7 +15,7 @@ initial_participants = None
 remove_participants_list = None
 
 
-@login_required(login_url="/login/")
+@login_required(login_url=f"{EMA_ROOT}/login/")
 def edit_project(request):
     # This data shows up on drop down for participants
     all_users_drop_down = firebase.get_all_users_names()
@@ -170,14 +170,14 @@ def email_processor(string):
 
 
 # shows exclamation through javascript to user
-@login_required(login_url="/login/")
+@login_required(login_url=f"{EMA_ROOT}/login/")
 def delete(request):
     img = open(os.getcwd() + '/apps/static/assets/images/exclamation-mark.png', 'rb')
     response = FileResponse(img)
     return response
 
 
-@login_required(login_url="/login/")
+@login_required(login_url=f"{EMA_ROOT}/login/")
 def adctivity_user(request):
     img = open(os.getcwd() + '/apps/static/assets/images/user/user-3.png', 'rb')
     response = FileResponse(img)

@@ -5,14 +5,14 @@ from importlib.machinery import SourceFileLoader
 from django.http import HttpResponse, FileResponse
 from django.shortcuts import render
 import os
-
+from core.settings import EMA_ROOT
 firebase = SourceFileLoader("firebase", os.getcwd() + "/fire_base.py").load_module()
 
 # keeping track of non-participants.
 non_participants = []
 
 
-@login_required(login_url="/login/")
+@login_required(login_url=f"{EMA_ROOT}/login/")
 def create_project(request):
     # all the users to display on drop down for add participant
     all_users_drop_down = firebase.get_all_users_names()
@@ -86,7 +86,7 @@ def create_project(request):
     return render(request, 'home/create-project.html', {'all_users_drop_down': all_users_drop_down})
 
 
-@login_required(login_url="/login/")
+@login_required(login_url=f"{EMA_ROOT}/login/")
 def adctivity_user(request):
     img = open(os.getcwd() + '/apps/static/assets/images/user/user-3.png', 'rb')
     response = FileResponse(img)

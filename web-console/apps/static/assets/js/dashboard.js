@@ -69,54 +69,70 @@ $(document).ready(function () {
                             // Get data from JSON on client end
                             $.get("JSON/", function (data) {
                                 for (let i = 0; i < data.length; i++) {
-                                    let email = data[i].email;
-                                    let dateCreated = data[i].dateCreated;
-                                    let dateCreated_clean = dateCreated.split("T");
-                                    let username = email.split("@");
-                                    let totalProjects = (data[i].projectId)
-                                    if (data[i].streak < 1) {
-
-                                        $("#table_body_Dashboard").append("<tr class=\"animate_fade_in card_remove_on_select\"" + "id=" + data[i].email + ">\n" +
-                                            "                                                <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
-                                            "                                                         src=\"/static/assets/images/user/user-3.png\"\n" +
-                                            "                                                         alt=\"activity-user\"></td>\n" +
-                                            "                                                <td>\n" +
-                                            "                                                    <h6 class=\"mb-1\">" + username[0] + "</h6>\n" +
-                                            "                                                    <p class=\"m-0\">" + data[i].email + "</p>\n" +
-                                            "                                                </td>\n" +
-                                            "                                                <td>\n" +
-                                            "                                                    <h6 class=\"text-muted\"><i\n" +
-                                            "                                                            class=\"fas fa-circle text-c-red f-10 m-r-15\"></i>" + "Streaks: " + data[i].streak +
-                                            "                                                        </h6>\n" +
-                                            "                                                </td>\n" +
-                                            "                                                <td><a href=\"#!\" class=\"label theme-bg2 text-white f-12 disabled-link\">" + "Total Projects: " + totalProjects.length + "</a>\n" +
-                                            "                                                </td>\n" +
-                                            "                                                <td>" + "<a" +
-                                            "                                                        href=\"#!\" class=\"label theme-bg text-white f-12 disabled-link\">" + "Date Created: " + dateCreated_clean[0] + "</a>\n" +
-                                            "                                                </td>\n" +
-                                            "                                            </tr>")
-                                        cardCreated = true;
-                                    } else {
-                                        $("#table_body_Dashboard").append("<tr class=\"animate_fade_in card_remove_on_select\"" + "id=" + data[i].email + ">\n" +
-                                            "                                                <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
-                                            "                                                         src=\"/static/assets/images/user/user-3.png\"\n" +
-                                            "                                                         alt=\"activity-user\"></td>\n" +
-                                            "                                                <td>\n" +
-                                            "                                                    <h6 class=\"mb-1\">" + username[0] + "</h6>\n" +
-                                            "                                                    <p class=\"m-0\">" + data[i].email + "</p>\n" +
-                                            "                                                </td>\n" +
-                                            "                                                <td>\n" +
-                                            "                                                    <h6 class=\"text-muted\"><i\n" +
-                                            "                                                            class=\"fas fa-circle text-c-green f-10 m-r-15\"></i>" + "Streaks: " + data[i].streak +
-                                            "                                                        </h6>\n" +
-                                            "                                                </td>\n" +
-                                            "                                                <td><a href=\"#!\" class=\"label theme-bg2 text-white f-12 disabled-link\">" + "Total Projects: " + totalProjects.length + "</a>\n" +
-                                            "                                                </td>\n" +
-                                            "                                                <td>" + "<a" +
-                                            "                                                        href=\"#!\" class=\"label theme-bg text-white f-12 disabled-link\">" + "Date Created: " + dateCreated_clean[0] + "</a>\n" +
-                                            "                                                </td>\n" +
-                                            "                                            </tr>")
-
+                                    if (data.length != 0) {
+                                        let email = data[i].email;
+                                        let dateCreated = data[i].dateCreated;
+                                        let dateCreated_clean = dateCreated.split("T");
+                                        let username = email.split("@");
+                                        let totalProjects = (data[i].projectId)
+                                        if (data[i].streak < 1) {
+                                            // getting the activity_user image. Clean string than add. Due to bad user behaviour
+                                            let user_pic_url = String(window.location.origin).replace("/ema/activity_user/", "").trim() + "/ema/editProject/activity_user/"
+                                            $.ajax({
+                                                url: user_pic_url,
+                                                timeout: 5000,
+                                                success: function () {
+                                                    $("#table_body_Dashboard").append("<tr class=\"animate_fade_in card_remove_on_select\"" + "id=" + data[i].email + ">\n" +
+                                                        "                                                <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
+                                                        "                                                         src=" + user_pic_url + "\n" +
+                                                        "                                                         alt=\"activity-user\"></td>\n" +
+                                                        "                                                <td>\n" +
+                                                        "                                                    <h6 class=\"mb-1\">" + username[0] + "</h6>\n" +
+                                                        "                                                    <p class=\"m-0\">" + data[i].email + "</p>\n" +
+                                                        "                                                </td>\n" +
+                                                        "                                                <td>\n" +
+                                                        "                                                    <h6 class=\"text-muted\"><i\n" +
+                                                        "                                                            class=\"fas fa-circle text-c-red f-10 m-r-15\"></i>" + "Streaks: " + data[i].streak +
+                                                        "                                                        </h6>\n" +
+                                                        "                                                </td>\n" +
+                                                        "                                                <td><a href=\"#!\" class=\"label theme-bg2 text-white f-12 disabled-link\">" + "Total Projects: " + totalProjects.length + "</a>\n" +
+                                                        "                                                </td>\n" +
+                                                        "                                                <td>" + "<a" +
+                                                        "                                                        href=\"#!\" class=\"label theme-bg text-white f-12 disabled-link\">" + "Date Created: " + dateCreated_clean[0] + "</a>\n" +
+                                                        "                                                </td>\n" +
+                                                        "                                            </tr>")
+                                                    cardCreated = true;
+                                                }
+                                            });
+                                        } else {
+                                            // getting the activity_user image. Clean string than add. Due to bad user behaviour
+                                            let user_pic_url = String(window.location.origin).replace("/ema/activity_user/", "").trim() + "/ema/editProject/activity_user/"
+                                            $.ajax({
+                                                url: user_pic_url,
+                                                timeout: 5000,
+                                                success: function () {
+                                                    $("#table_body_Dashboard").append("<tr class=\"animate_fade_in card_remove_on_select\"" + "id=" + data[i].email + ">\n" +
+                                                        "                                                <td><img class=\"rounded-circle\" style=\"width:40px;\"\n" +
+                                                        "                                                         src=" + user_pic_url + "\n" +
+                                                        "                                                         alt=\"activity-user\"></td>\n" +
+                                                        "                                                <td>\n" +
+                                                        "                                                    <h6 class=\"mb-1\">" + username[0] + "</h6>\n" +
+                                                        "                                                    <p class=\"m-0\">" + data[i].email + "</p>\n" +
+                                                        "                                                </td>\n" +
+                                                        "                                                <td>\n" +
+                                                        "                                                    <h6 class=\"text-muted\"><i\n" +
+                                                        "                                                            class=\"fas fa-circle text-c-green f-10 m-r-15\"></i>" + "Streaks: " + data[i].streak +
+                                                        "                                                        </h6>\n" +
+                                                        "                                                </td>\n" +
+                                                        "                                                <td><a href=\"#!\" class=\"label theme-bg2 text-white f-12 disabled-link\">" + "Total Projects: " + totalProjects.length + "</a>\n" +
+                                                        "                                                </td>\n" +
+                                                        "                                                <td>" + "<a" +
+                                                        "                                                        href=\"#!\" class=\"label theme-bg text-white f-12 disabled-link\">" + "Date Created: " + dateCreated_clean[0] + "</a>\n" +
+                                                        "                                                </td>\n" +
+                                                        "                                            </tr>")
+                                                }
+                                            });
+                                        }
                                     }
                                 }
                                 // send request to the server to clear the participant list dictionary
