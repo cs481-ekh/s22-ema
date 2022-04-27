@@ -38,7 +38,7 @@ $ cd webconsole
 
 > Edit manage.py file and Transfer credentials 
 
-- Uncomment line 33, 44, 53, 58 and 59 in manage.py
+- Uncomment line 33, 44, 48, 53, 57, 58 and 59 in manage.py
 - Copy and paste the 2 files needed for credentials: 
 - Ema-ramen-firebase-adminsdk-7lvc1-97d920871f.json
 - google_email_creds.txt
